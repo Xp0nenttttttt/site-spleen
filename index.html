@@ -761,8 +761,11 @@ function getDisplayLevels() {
   let levels = [...allLevels];
   if (currentFilter !== 'all') levels = levels.filter(l => l.status === currentFilter);
   if (searchQuery) levels = levels.filter(l => l.name.toLowerCase().includes(searchQuery));
-  if (currentSort === 'difficulty') {
-    levels.sort((a,b) => (DIFFICULTY_ORDER[a.difficulty]||0) - (DIFFICULTY_ORDER[b.difficulty]||0));
+ if (currentSort === 'difficulty') {
+    levels.sort((a,b) => {
+        const getTop = t => parseInt((t||'').replace(/[^0-9]/g,'')) || 9999;
+        return getTop(a.top_rank) - getTop(b.top_rank);
+    });
   } else if (currentSort === 'status') {
     levels.sort((a,b) => (STATUS_ORDER[a.status]||99) - (STATUS_ORDER[b.status]||99));
   }
