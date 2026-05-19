@@ -1225,6 +1225,7 @@ function renderInfoSection() {
 const AREDL_PLAYER = 'Spleen';
 
 async function fetchAredl() {
+
   const result = document.getElementById('aredlResult');
 
   result.innerHTML = `
@@ -1234,10 +1235,11 @@ async function fetchAredl() {
   `;
 
   try {
-    // API actuelle
-    const response = await fetch(
-      `https://api.aredl.net/api/players/ranking?name=${encodeURIComponent(AREDL_PLAYER)}`
-    );
+
+    const url =
+      `https://api.aredl.net/v2/players/search/${encodeURIComponent(AREDL_PLAYER)}`;
+
+    const response = await fetch(url);
 
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}`);
@@ -1245,23 +1247,20 @@ async function fetchAredl() {
 
     const data = await response.json();
 
-    console.log("AREDL DATA:", data);
+    console.log(data);
 
-    // Vérifie si joueur trouvé
-    if (!data || !data.data || !data.data.length) {
+    const player = Array.isArray(data)
+      ? data[0]
+      : data.data?.[0] || data;
+
+    if (!player) {
       result.innerHTML = `
         <div class="aredl-error">
-          Joueur introuvable sur AREDL.
+          Joueur introuvable.
         </div>
       `;
       return;
     }
-
-    const player = data.data[0];
-
-    const globalRank = player.rank ?? "–";
-    const points = player.points ?? "–";
-    const country = player.country ?? "??";
 
     result.innerHTML = `
       <div class="rank-grid">
@@ -1269,23 +1268,27 @@ async function fetchAredl() {
         <div class="rank-box">
           <div class="rank-flag">🌍</div>
           <div class="rank-label">Monde</div>
-          <div class="rank-value">#${globalRank}</div>
+          <div class="rank-value">
+            #${player.rank || "–"}
+          </div>
         </div>
 
         <div class="rank-box">
           <div class="rank-flag">🏆</div>
           <div class="rank-label">Points</div>
-          <div class="rank-value">${points}</div>
+          <div class="rank-value">
+            ${player.points || "–"}
+          </div>
         </div>
 
       </div>
 
       <div class="aredl-player-info">
-        <strong>${player.name}</strong> · ${country}
+        <strong>${player.name || AREDL_PLAYER}</strong>
       </div>
     `;
 
-  } catch (err) {
+  } catch(err) {
 
     console.error(err);
 
