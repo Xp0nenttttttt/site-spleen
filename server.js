@@ -10,13 +10,11 @@ app.use(cors());
 app.get('/api/players/search/:name', async (req, res) => {
   const { name } = req.params;
   const apiUrl = `https://api.aredl.net/v2/players/search/${encodeURIComponent(name)}`;
-  console.log('Requête reçue sur /api/players/search/:name avec paramètre name =', req.params.name);
   try {
     const response = await fetch(apiUrl);
     const data = await response.json();
     res.json(data);
   } catch (err) {
-    console.error('Erreur proxy /api/players/search:', err);
     res.status(500).json({ error: 'Erreur lors de la récupération des données.' });
   }
 });
@@ -24,13 +22,11 @@ app.get('/api/players/search/:name', async (req, res) => {
 app.get('/api/players/:id', async (req, res) => {
   const { id } = req.params;
   const apiUrl = `https://api.aredl.net/v2/players/${encodeURIComponent(id)}`;
-  console.log('Requête reçue sur /api/players/:id avec paramètre id =', req.params.id);
   try {
     const response = await fetch(apiUrl);
     const data = await response.json();
     res.json(data);
   } catch (err) {
-    console.error('Erreur proxy /api/players/:id:', err);
     res.status(500).json({ error: 'Erreur lors de la récupération des données.' });
   }
 });
