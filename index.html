@@ -1250,8 +1250,8 @@ async function fetchAredl() {
   let lastErr = '';
 
   const baseUrls = [
-    `https://api.aredl.net/api/aredl/leaderboard/${encodeURIComponent(AREDL_PLAYER)}`,
-    `https://api.aredl.net/api/aredl/leaderboard?name=${encodeURIComponent(AREDL_PLAYER)}&limit=1`,
+    `https://api.aredl.net/v2/api/aredl/leaderboard/${encodeURIComponent(AREDL_PLAYER)}`,
+    `https://api.aredl.net/v2/api/aredl/leaderboard?name=${encodeURIComponent(AREDL_PLAYER)}&limit=1`,
   ];
 
   for (const url of baseUrls) {
@@ -1280,17 +1280,25 @@ async function fetchAredl() {
     return;
   }
 
-  const globalRank   = playerData.rank ?? playerData.position ?? playerData.global_rank ?? null;
-  const playerPoints = playerData.points ?? playerData.total_score ?? playerData.score ?? null;
+  let globalRank = playerData.rank ?? playerData.position ?? playerData.global_rank ?? null;
+  let playerPoints = playerData.points ?? playerData.total_score ?? playerData.score ?? null;
   const rawCountry = playerData.country_code ?? playerData.nationality ?? playerData.country ?? '';
-const countryCode = typeof rawCountry === 'string' ? rawCountry.toUpperCase() : '';
-  const displayName  = playerData.name ?? playerData.global_name ?? AREDL_PLAYER;
+  const countryCode = typeof rawCountry === 'string' ? rawCountry.toUpperCase() : '';
+  const displayName = playerData.name ?? playerData.global_name ?? AREDL_PLAYER;
+
+  // Si pas de classement valide, afficher "Non classé"
+  if (!globalRank || isNaN(Number(globalRank)) || Number(globalRank) < 1) {
+    globalRank = 'Non classé';
+  }
+  if (!playerPoints || isNaN(Number(playerPoints))) {
+    playerPoints = '-';
+  }
 
   // ── Classement France ──
   let frRank = null, frTotal = null;
   try {
     const frData = await aredlFetch(
-      `https://api.aredl.net/api/aredl/leaderboard?country=FR&name=${encodeURIComponent(AREDL_PLAYER)}&limit=1`
+      `https://api.aredl.net/v2/api/aredl/leaderboard?country=FR&name=${encodeURIComponent(AREDL_PLAYER)}&limit=1`
     );
     const frList = Array.isArray(frData) ? frData : (frData.data ?? []);
     frTotal = frData.total ?? frList.length;
@@ -1299,9 +1307,12 @@ const countryCode = typeof rawCountry === 'string' ? rawCountry.toUpperCase() : 
     ) ?? frList[0] ?? null;
     if (frPlayer) frRank = frPlayer.rank ?? frPlayer.position ?? frPlayer.country_rank ?? null;
   } catch (_) {}
+  if (!frRank || isNaN(Number(frRank)) || Number(frRank) < 1) {
+    frRank = 'Non classé';
+  }
 
   // ── Rendu ──
-  const frSection = frRank
+  const frSection = frRank && frRank !== 'Non classé'
     ? `<div class="rank-box">
          <div class="rank-flag">🇫🇷</div>
          <div class="rank-label">France</div>
@@ -1311,7 +1322,7 @@ const countryCode = typeof rawCountry === 'string' ? rawCountry.toUpperCase() : 
     : `<div class="rank-box">
          <div class="rank-flag">🇫🇷</div>
          <div class="rank-label">France</div>
-         <div class="rank-value" style="font-size:18px;color:#bbb;">–</div>
+         <div class="rank-value" style="font-size:18px;color:#bbb;">Non classé</div>
          <div class="rank-sub" style="font-size:11px">${countryCode && countryCode !== 'FR' ? 'Pays : ' + countryCode : 'Non disponible'}</div>
        </div>`;
 
@@ -1320,7 +1331,7 @@ const countryCode = typeof rawCountry === 'string' ? rawCountry.toUpperCase() : 
       <div class="rank-box">
         <div class="rank-flag">🌍</div>
         <div class="rank-label">Monde</div>
-        <div class="rank-value">${globalRank != null ? '#' + globalRank : '–'}</div>
+        <div class="rank-value">${globalRank !== 'Non classé' ? '#' + globalRank : 'Non classé'}</div>
         ${globalTotal ? `<div class="rank-sub">sur ${Number(globalTotal).toLocaleString('fr-FR')} joueurs</div>` : ''}
       </div>
       ${frSection}
@@ -1328,7 +1339,7 @@ const countryCode = typeof rawCountry === 'string' ? rawCountry.toUpperCase() : 
     <div class="aredl-player-info">
       <strong>${escHtml(String(displayName))}</strong>
       ${countryCode ? ` · ${countryCode}` : ''}
-      ${playerPoints != null ? ` · <span style="color:#ff4da6;font-weight:800;">${Number(playerPoints).toLocaleString('fr-FR')} pts</span>` : ''}
+      ${playerPoints !== '-' ? ` · <span style=\"color:#ff4da6;font-weight:800;\">${Number(playerPoints).toLocaleString('fr-FR')} pts</span>` : ''}
     </div>`;
 }
 
