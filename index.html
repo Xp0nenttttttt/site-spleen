@@ -1270,7 +1270,7 @@ async function fetchAredl() {
     return;
   }
 
-  let globalRank = playerData.rank ?? playerData.position ?? playerData.global_rank ?? null;
+  let globalRank = playerData.raw_rank ?? playerData.global_rank ?? playerData.rank ?? playerData.position ?? null;
   let playerPoints = playerData.points ?? playerData.total_score ?? playerData.score ?? null;
   const rawCountry = playerData.country_code ?? playerData.nationality ?? playerData.country ?? '';
   const countryCode = typeof rawCountry === 'string' ? rawCountry.toUpperCase() : '';
