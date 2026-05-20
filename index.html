@@ -1223,83 +1223,116 @@ function renderInfoSection() {
 
 /* ── AREDL — hardcodé sur "Spleen" ── */
 const AREDL_PLAYER = 'Spleen';
+const AREDL_API_KEY = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ7XCJ1c2VyX2lkXCI6XCIzN2MwMGNmNi03ODMwLTQwMGMtOWRiNC01ODI3MGQ5ZmJiOTdcIixcImlzX2FwaV9rZXlcIjp0cnVlfSIsImlhdCI6MTc3OTIyNDAxMSwiZXhwIjoxODEwNzYwMDExLCJ0b2tlbl90eXBlIjoiYWNjZXNzIn0.tgjuZYUtMCE2ts-du_JROW4-srehFnyLcQKBwq2QtFI';
+const AREDL_HEADERS = {
+  'Accept': 'application/json',
+  'Authorization': `Bearer ${AREDL_API_KEY}`
+};
 
 async function fetchAredl() {
-
   const result = document.getElementById('aredlResult');
+  result.innerHTML = '<div class="aredl-loading">⏳ Chargement du classement AREDL...</div>';
 
-  result.innerHTML = `
-    <div class="aredl-loading">
-      ⏳ Chargement du classement AREDL...
-    </div>
-  `;
+  let playerData = null;
+  let globalTotal = null;
+  let lastErr = '';
 
-  try {
+  // Essai 1 : profil direct par nom
+  // Essai 2 : recherche paginée avec filtre name
+  const endpoints = [
+    `https://api.aredl.net/api/aredl/leaderboard/${encodeURIComponent(AREDL_PLAYER)}`,
+    `https://api.aredl.net/api/aredl/leaderboard?name=${encodeURIComponent(AREDL_PLAYER)}&limit=1`,
+    `https://api.aredl.net/api/aredl/leaderboard?search=${encodeURIComponent(AREDL_PLAYER)}&limit=1`,
+  ];
 
-    const url =
-      `http://localhost:3000/api/users/search/Spleen`;
+  for (const url of endpoints) {
+    try {
+      const resp = await fetch(url, { headers: AREDL_HEADERS });
+      if (!resp.ok) { lastErr = `HTTP ${resp.status} sur ${url}`; continue; }
+      const data = await resp.json();
 
-    const response = await fetch(url);
+      if (data && !Array.isArray(data) && (data.rank != null || data.name)) {
+        playerData = data;
+      } else {
+        const list = Array.isArray(data) ? data : (data.data ?? []);
+        globalTotal = data.total ?? null;
+        playerData = list.find(p =>
+          (p.name ?? p.global_name ?? p.user?.name ?? '').toLowerCase() === AREDL_PLAYER.toLowerCase()
+        ) ?? list[0] ?? null;
+      }
+      if (playerData) break;
+    } catch (e) { lastErr = e.message; }
+  }
 
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
-    }
-
-    const data = await response.json();
-
-    console.log(data);
-
-    const player = Array.isArray(data)
-      ? data[0]
-      : data.data?.[0] || data;
-
-    if (!player) {
-      result.innerHTML = `
-        <div class="aredl-error">
-          Joueur introuvable.
-        </div>
-      `;
-      return;
-    }
-
-    result.innerHTML = `
-      <div class="rank-grid">
-
-        <div class="rank-box">
-          <div class="rank-flag">🌍</div>
-          <div class="rank-label">Monde</div>
-          <div class="rank-value">
-            #${player.rank || "–"}
-          </div>
-        </div>
-
-        <div class="rank-box">
-          <div class="rank-flag">🏆</div>
-          <div class="rank-label">Points</div>
-          <div class="rank-value">
-            ${player.points || "–"}
-          </div>
-        </div>
-
-      </div>
-
-      <div class="aredl-player-info">
-        <strong>${player.name || AREDL_PLAYER}</strong>
-      </div>
-    `;
-
-  } catch(err) {
-
-    console.error(err);
-
+  if (!playerData) {
     result.innerHTML = `
       <div class="aredl-error">
-        Impossible de récupérer les données AREDL.<br>
-        <small>${err.message}</small>
-      </div>
-    `;
+        Impossible de récupérer les données AREDL pour <strong>${escHtml(AREDL_PLAYER)}</strong>.<br>
+        <small style="color:#999;font-size:12px;">${escHtml(lastErr || 'Erreur inconnue')}</small>
+      </div>`;
+    return;
   }
+
+  const globalRank   = playerData.rank ?? playerData.position ?? playerData.global_rank ?? null;
+  const playerPoints = playerData.points ?? playerData.total_score ?? playerData.score ?? null;
+  const countryCode  = (playerData.country_code ?? playerData.nationality ?? playerData.country ?? '').toUpperCase();
+  const displayName  = playerData.name ?? playerData.global_name ?? AREDL_PLAYER;
+
+  // ── Classement France ──
+  let frRank = null, frTotal = null;
+  try {
+    const frEndpoints = [
+      `https://api.aredl.net/api/aredl/leaderboard?country=FR&name=${encodeURIComponent(AREDL_PLAYER)}&limit=1`,
+      `https://api.aredl.net/api/aredl/leaderboard?country=fr&name=${encodeURIComponent(AREDL_PLAYER)}&limit=1`,
+    ];
+    for (const url of frEndpoints) {
+      const frResp = await fetch(url, { headers: AREDL_HEADERS });
+      if (!frResp.ok) continue;
+      const frData = await frResp.json();
+      const frList = Array.isArray(frData) ? frData : (frData.data ?? []);
+      frTotal = frData.total ?? frList.length;
+      const frPlayer = frList.find(p =>
+        (p.name ?? p.global_name ?? '').toLowerCase() === AREDL_PLAYER.toLowerCase()
+      ) ?? frList[0] ?? null;
+      if (frPlayer) {
+        frRank = frPlayer.rank ?? frPlayer.position ?? frPlayer.country_rank ?? null;
+        break;
+      }
+    }
+  } catch (_) {}
+
+  // ── Rendu ──
+  const frSection = frRank
+    ? `<div class="rank-box">
+         <div class="rank-flag">🇫🇷</div>
+         <div class="rank-label">France</div>
+         <div class="rank-value">#${frRank}</div>
+         ${frTotal ? `<div class="rank-sub">sur ${Number(frTotal).toLocaleString('fr-FR')} joueurs FR</div>` : ''}
+       </div>`
+    : `<div class="rank-box">
+         <div class="rank-flag">🇫🇷</div>
+         <div class="rank-label">France</div>
+         <div class="rank-value" style="font-size:18px;color:#bbb;">–</div>
+         <div class="rank-sub" style="font-size:11px">${countryCode && countryCode !== 'FR' ? 'Pays : ' + countryCode : 'Non disponible'}</div>
+       </div>`;
+
+  result.innerHTML = `
+    <div class="rank-grid">
+      <div class="rank-box">
+        <div class="rank-flag">🌍</div>
+        <div class="rank-label">Monde</div>
+        <div class="rank-value">${globalRank != null ? '#' + globalRank : '–'}</div>
+        ${globalTotal ? `<div class="rank-sub">sur ${Number(globalTotal).toLocaleString('fr-FR')} joueurs</div>` : ''}
+      </div>
+      ${frSection}
+    </div>
+    <div class="aredl-player-info">
+      <strong>${escHtml(String(displayName))}</strong>
+      ${countryCode ? ` · ${countryCode}` : ''}
+      ${playerPoints != null ? ` · <span style="color:#ff4da6;font-weight:800;">${Number(playerPoints).toLocaleString('fr-FR')} pts</span>` : ''}
+    </div>`;
 }
+
 /* ── Enjoyment Stats ── */
 function renderEnjoymentStats() {
   const container = document.getElementById('enjoymentStats');
