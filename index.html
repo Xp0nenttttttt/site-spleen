@@ -1249,27 +1249,17 @@ async function fetchAredl() {
   let globalTotal = null;
   let lastErr = '';
 
-  const baseUrls = [
-    `https://api.aredl.net/v2/api/aredl/leaderboard/${encodeURIComponent(AREDL_PLAYER)}`,
-    `https://api.aredl.net/v2/api/aredl/leaderboard?name=${encodeURIComponent(AREDL_PLAYER)}&limit=1`,
-  ];
 
-  for (const url of baseUrls) {
-    try {
-      const data = await aredlFetch(url);
-
-      if (data && !Array.isArray(data) && (data.rank != null || data.name)) {
-        playerData = data;
-      } else {
-        const list = Array.isArray(data) ? data : (data.data ?? []);
-        globalTotal = data.total ?? null;
-        playerData = list.find(p =>
-          (p.name ?? p.global_name ?? p.user?.name ?? '').toLowerCase() === AREDL_PLAYER.toLowerCase()
-        ) ?? list[0] ?? null;
-      }
-      if (playerData) break;
-    } catch (e) { lastErr = e.message; }
-  }
+  // Nouvelle URL de l'API avec paramètre username
+  const url = `https://api.aredl.net/api/aredl/leaderboard?username=${encodeURIComponent(AREDL_PLAYER)}`;
+  try {
+    const data = await aredlFetch(url);
+    const list = Array.isArray(data) ? data : (data.data ?? []);
+    globalTotal = data.total ?? null;
+    playerData = list.find(p =>
+      (p.user?.username ?? p.username ?? p.name ?? p.global_name ?? '').toLowerCase() === AREDL_PLAYER.toLowerCase()
+    ) ?? list[0] ?? null;
+  } catch (e) { lastErr = e.message; }
 
   if (!playerData) {
     result.innerHTML = `
