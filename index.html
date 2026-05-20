@@ -1224,10 +1224,22 @@ function renderInfoSection() {
 /* ── AREDL — hardcodé sur "Spleen" ── */
 const AREDL_PLAYER = 'Spleen';
 const AREDL_API_KEY = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ7XCJ1c2VyX2lkXCI6XCIzN2MwMGNmNi03ODMwLTQwMGMtOWRiNC01ODI3MGQ5ZmJiOTdcIixcImlzX2FwaV9rZXlcIjp0cnVlfSIsImlhdCI6MTc3OTIyNDAxMSwiZXhwIjoxODEwNzYwMDExLCJ0b2tlbl90eXBlIjoiYWNjZXNzIn0.tgjuZYUtMCE2ts-du_JROW4-srehFnyLcQKBwq2QtFI';
-const AREDL_HEADERS = {
-  'Accept': 'application/json',
-  'Authorization': `Bearer ${AREDL_API_KEY}`
-};
+// CORS proxy pour contourner le blocage navigateur de l'API AREDL
+const CORS_PROXY = 'https://corsproxy.io/?';
+
+async function aredlFetch(url) {
+  // corsproxy.io ne forwarde pas les headers custom,
+  // on encode donc l'Authorization dans l'URL via allorigins en fallback
+  const proxied = CORS_PROXY + encodeURIComponent(url);
+  const resp = await fetch(proxied, {
+    headers: {
+      'Accept': 'application/json',
+      'x-cors-headers': JSON.stringify({ 'Authorization': `Bearer ${AREDL_API_KEY}` })
+    }
+  });
+  if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+  return resp.json();
+}
 
 async function fetchAredl() {
   const result = document.getElementById('aredlResult');
@@ -1237,19 +1249,14 @@ async function fetchAredl() {
   let globalTotal = null;
   let lastErr = '';
 
-  // Essai 1 : profil direct par nom
-  // Essai 2 : recherche paginée avec filtre name
-  const endpoints = [
+  const baseUrls = [
     `https://api.aredl.net/api/aredl/leaderboard/${encodeURIComponent(AREDL_PLAYER)}`,
     `https://api.aredl.net/api/aredl/leaderboard?name=${encodeURIComponent(AREDL_PLAYER)}&limit=1`,
-    `https://api.aredl.net/api/aredl/leaderboard?search=${encodeURIComponent(AREDL_PLAYER)}&limit=1`,
   ];
 
-  for (const url of endpoints) {
+  for (const url of baseUrls) {
     try {
-      const resp = await fetch(url, { headers: AREDL_HEADERS });
-      if (!resp.ok) { lastErr = `HTTP ${resp.status} sur ${url}`; continue; }
-      const data = await resp.json();
+      const data = await aredlFetch(url);
 
       if (data && !Array.isArray(data) && (data.rank != null || data.name)) {
         playerData = data;
@@ -1281,24 +1288,15 @@ async function fetchAredl() {
   // ── Classement France ──
   let frRank = null, frTotal = null;
   try {
-    const frEndpoints = [
-      `https://api.aredl.net/api/aredl/leaderboard?country=FR&name=${encodeURIComponent(AREDL_PLAYER)}&limit=1`,
-      `https://api.aredl.net/api/aredl/leaderboard?country=fr&name=${encodeURIComponent(AREDL_PLAYER)}&limit=1`,
-    ];
-    for (const url of frEndpoints) {
-      const frResp = await fetch(url, { headers: AREDL_HEADERS });
-      if (!frResp.ok) continue;
-      const frData = await frResp.json();
-      const frList = Array.isArray(frData) ? frData : (frData.data ?? []);
-      frTotal = frData.total ?? frList.length;
-      const frPlayer = frList.find(p =>
-        (p.name ?? p.global_name ?? '').toLowerCase() === AREDL_PLAYER.toLowerCase()
-      ) ?? frList[0] ?? null;
-      if (frPlayer) {
-        frRank = frPlayer.rank ?? frPlayer.position ?? frPlayer.country_rank ?? null;
-        break;
-      }
-    }
+    const frData = await aredlFetch(
+      `https://api.aredl.net/api/aredl/leaderboard?country=FR&name=${encodeURIComponent(AREDL_PLAYER)}&limit=1`
+    );
+    const frList = Array.isArray(frData) ? frData : (frData.data ?? []);
+    frTotal = frData.total ?? frList.length;
+    const frPlayer = frList.find(p =>
+      (p.name ?? p.global_name ?? '').toLowerCase() === AREDL_PLAYER.toLowerCase()
+    ) ?? frList[0] ?? null;
+    if (frPlayer) frRank = frPlayer.rank ?? frPlayer.position ?? frPlayer.country_rank ?? null;
   } catch (_) {}
 
   // ── Rendu ──
