@@ -1282,7 +1282,8 @@ async function fetchAredl() {
 
   const globalRank   = playerData.rank ?? playerData.position ?? playerData.global_rank ?? null;
   const playerPoints = playerData.points ?? playerData.total_score ?? playerData.score ?? null;
-  const countryCode  = (playerData.country_code ?? playerData.nationality ?? playerData.country ?? '').toUpperCase();
+  const rawCountry = playerData.country_code ?? playerData.nationality ?? playerData.country ?? '';
+const countryCode = typeof rawCountry === 'string' ? rawCountry.toUpperCase() : '';
   const displayName  = playerData.name ?? playerData.global_name ?? AREDL_PLAYER;
 
   // ── Classement France ──
