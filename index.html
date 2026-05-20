@@ -1251,7 +1251,7 @@ async function fetchAredl() {
 
 
   // Nouvelle URL de l'API avec paramètre username
-  const url = `https://api.aredl.net/api/aredl/leaderboard?username=${encodeURIComponent(AREDL_PLAYER)}`;
+  const url = `https://api.aredl.net/api/aredl/leaderboard?search=${encodeURIComponent(AREDL_PLAYER)}`;
   try {
     const data = await aredlFetch(url);
     const list = Array.isArray(data) ? data : (data.data ?? []);
