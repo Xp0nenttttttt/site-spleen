@@ -1591,7 +1591,7 @@ function renderAttemptsStats() {
 function renderWorstFailsStats() {
   const container = document.getElementById('worstFailsStats');
   const parsePct  = p => parseInt(String(p).replace(/[^0-9]/g, '')) || 0;
-  const levs = allLevels.filter(l => l.worst_fail && l.worst_fail.trim() !== '');
+  const levs = allLevels.filter(l => l.worst_fail && String(l.worst_fail).trim() !== '');
 
   if (!levs.length) {
     container.innerHTML = '<p class="aredl-placeholder">Pas encore de worst fails renseignés sur tes niveaux.</p>';
