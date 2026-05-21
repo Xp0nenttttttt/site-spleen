@@ -810,6 +810,8 @@
 
     footer { text-align: center; margin-top: 60px; color: #888; font-size: 15px; }
 
+    canvas { max-height: 280px; }
+
     /* Responsive */
     @media (max-width: 900px) {
       .level-card { grid-template-columns: 1fr; }
@@ -889,54 +891,115 @@
   <!-- ═══════════════════════════════════ VIEW: INFOS ════════════════════════════════════ -->
   <div class="view" id="view-infos">
 
-    <!-- Row 1: AREDL + Enjoyment + Attempts -->
-    <div class="info-grid-layout">
+    <!-- Row 1: Stats rapides -->
+    <div class="info-grid-layout" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr));">
+      <div class="info-card" style="text-align:center;padding:22px 16px;">
+        <div class="info-card-icon" style="margin:0 auto 10px;">🎮</div>
+        <div class="stat-title">Niveaux suivis</div>
+        <div class="stat-value" id="iStatTotal">–</div>
+      </div>
+      <div class="info-card" style="text-align:center;padding:22px 16px;">
+        <div class="info-card-icon" style="margin:0 auto 10px;background:linear-gradient(135deg,#ff4da6,#c44dff);">⚡</div>
+        <div class="stat-title">En cours</div>
+        <div class="stat-value" style="color:#ff4da6" id="iStatCours">–</div>
+      </div>
+      <div class="info-card" style="text-align:center;padding:22px 16px;">
+        <div class="info-card-icon" style="margin:0 auto 10px;background:linear-gradient(135deg,#00c49f,#00b87d);">✅</div>
+        <div class="stat-title">Terminés</div>
+        <div class="stat-value" style="color:#00c49f" id="iStatDone">–</div>
+      </div>
+      <div class="info-card" style="text-align:center;padding:22px 16px;">
+        <div class="info-card-icon" style="margin:0 auto 10px;">🎯</div>
+        <div class="stat-title">Total Attempts</div>
+        <div class="stat-value" id="iStatAtt">–</div>
+      </div>
+      <div class="info-card" style="text-align:center;padding:22px 16px;">
+        <div class="info-card-icon" style="margin:0 auto 10px;">❤️</div>
+        <div class="stat-title">Enjoyment moyen</div>
+        <div class="stat-value" id="iStatEnj">–</div>
+      </div>
+    </div>
 
-      <!-- AREDL Card -->
+    <!-- Row 2: Charts distribution -->
+    <div class="info-grid-layout">
+      <div class="info-card">
+        <div class="info-card-title">
+          <div class="info-card-icon">🎮</div>
+          Distribution par difficulté
+        </div>
+        <div style="max-width:320px;margin:0 auto;"><canvas id="chartDifficulty"></canvas></div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-title">
+          <div class="info-card-icon">📊</div>
+          Répartition des statuts
+        </div>
+        <div style="max-width:280px;margin:0 auto;"><canvas id="chartStatus"></canvas></div>
+      </div>
+    </div>
+
+    <!-- Row 3: Progression en cours + Top Ranks -->
+    <div class="info-grid-layout">
+      <div class="info-card">
+        <div class="info-card-title">
+          <div class="info-card-icon">⚡</div>
+          Progression — Niveaux en cours
+        </div>
+        <canvas id="chartProgress"></canvas>
+      </div>
       <div class="info-card">
         <div class="info-card-title">
           <div class="info-card-icon">🏆</div>
-          Classement AREDL — <span style="color:#ff4da6">Spleen</span>
+          Top Ranks AREDL
         </div>
-        <div id="aredlResult">
-          <div class="aredl-loading">⏳ Chargement...</div>
-        </div>
+        <div id="topRanksStats"><p class="aredl-placeholder">Chargement...</p></div>
       </div>
+    </div>
 
-      <!-- Enjoyment Card -->
+    <!-- Row 4: Enjoyment -->
+    <div class="info-grid-layout">
       <div class="info-card">
         <div class="info-card-title">
           <div class="info-card-icon">❤️</div>
-          Enjoyment
+          Enjoyment — Stats
         </div>
-        <div id="enjoymentStats">
-          <p class="aredl-placeholder">Chargement...</p>
-        </div>
+        <div id="enjoymentStats"><p class="aredl-placeholder">Chargement...</p></div>
       </div>
+      <div class="info-card">
+        <div class="info-card-title">
+          <div class="info-card-icon">📈</div>
+          Enjoyment — Classement
+        </div>
+        <canvas id="chartEnjoyment"></canvas>
+      </div>
+    </div>
 
-      <!-- Attempts Card -->
+    <!-- Row 5: Attempts -->
+    <div class="info-grid-layout">
       <div class="info-card">
         <div class="info-card-title">
           <div class="info-card-icon">🎯</div>
-          Attempts
+          Attempts — Stats
         </div>
-        <div id="attemptsStats">
-          <p class="aredl-placeholder">Chargement...</p>
-        </div>
+        <div id="attemptsStats"><p class="aredl-placeholder">Chargement...</p></div>
       </div>
-
+      <div class="info-card">
+        <div class="info-card-title">
+          <div class="info-card-icon">📉</div>
+          Attempts — Graphique
+        </div>
+        <canvas id="chartAttempts"></canvas>
+      </div>
     </div>
 
-    <!-- Row 2: Worst Fails (full width) -->
+    <!-- Row 6: Worst Fails full width -->
     <div class="info-grid-layout">
       <div class="info-card info-card-full">
         <div class="info-card-title">
           <div class="info-card-icon">💀</div>
           Worst Fails
         </div>
-        <div id="worstFailsStats">
-          <p class="aredl-placeholder">Chargement...</p>
-        </div>
+        <div id="worstFailsStats"><p class="aredl-placeholder">Chargement...</p></div>
       </div>
     </div>
 
@@ -1071,6 +1134,8 @@ alter publication supabase_realtime add table levels;</code>
 
 <!-- ── SUPABASE ── -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<!-- ── CHART.JS ── -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 
 <script>
 /* =========================================================
@@ -1214,123 +1279,208 @@ function escHtml(str) {
 /* =========================================================
    INFO SECTION
 ========================================================= */
+// Chart instances (kept to destroy before re-render)
+let chartInstances = {};
+
+function destroyChart(id) {
+  if (chartInstances[id]) { chartInstances[id].destroy(); delete chartInstances[id]; }
+}
+
 function renderInfoSection() {
+  renderInfoStats();
+  renderTopRanks();
   renderEnjoymentStats();
   renderAttemptsStats();
   renderWorstFailsStats();
-  fetchAredl();
+  renderCharts();
 }
 
-/* ── AREDL — hardcodé sur "Spleen" ── */
-const AREDL_PLAYER = 'Spleen';
-const AREDL_API_KEY = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ7XCJ1c2VyX2lkXCI6XCIzN2MwMGNmNi03ODMwLTQwMGMtOWRiNC01ODI3MGQ5ZmJiOTdcIixcImlzX2FwaV9rZXlcIjp0cnVlfSIsImlhdCI6MTc3OTIyNDAxMSwiZXhwIjoxODEwNzYwMDExLCJ0b2tlbl90eXBlIjoiYWNjZXNzIn0.tgjuZYUtMCE2ts-du_JROW4-srehFnyLcQKBwq2QtFI';
-// CORS proxy pour contourner le blocage navigateur de l'API AREDL
-const CORS_PROXY = 'https://corsproxy.io/?';
+/* ── Stats rapides ── */
+function renderInfoStats() {
+  const parseAtt = a => parseInt(String(a).replace(/[^0-9]/g,'')) || 0;
+  const total    = allLevels.length;
+  const cours    = allLevels.filter(l => l.status === 'en_cours').length;
+  const done     = allLevels.filter(l => l.status === 'termine').length;
+  const totalAtt = allLevels.reduce((s,l) => s + parseAtt(l.attempts), 0);
+  const enjVals  = allLevels.map(l => parseFloat(l.enjoyment)).filter(v => !isNaN(v) && v > 0);
+  const avgEnj   = enjVals.length ? (enjVals.reduce((a,b)=>a+b,0)/enjVals.length).toFixed(1) : '–';
 
-async function aredlFetch(url) {
-  // corsproxy.io ne forwarde pas les headers custom,
-  // on encode donc l'Authorization dans l'URL via allorigins en fallback
-  const proxied = CORS_PROXY + encodeURIComponent(url);
-  const resp = await fetch(proxied, {
-    headers: {
-      'Accept': 'application/json',
-      'x-cors-headers': JSON.stringify({ 'Authorization': `Bearer ${AREDL_API_KEY}` })
-    }
-  });
-  if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-  return resp.json();
+  document.getElementById('iStatTotal').textContent = total;
+  document.getElementById('iStatCours').textContent = cours;
+  document.getElementById('iStatDone').textContent  = done;
+  document.getElementById('iStatAtt').textContent   = totalAtt > 0 ? totalAtt.toLocaleString('fr-FR') : '–';
+  document.getElementById('iStatEnj').textContent   = avgEnj !== '–' ? avgEnj + '/10' : '–';
 }
 
-async function fetchAredl() {
-  const result = document.getElementById('aredlResult');
-  result.innerHTML = '<div class="aredl-loading">⏳ Chargement du classement AREDL...</div>';
+/* ── Top Ranks ── */
+function renderTopRanks() {
+  const container = document.getElementById('topRanksStats');
+  const levs = allLevels.filter(l => l.top_rank && l.top_rank.trim() !== '');
 
-  let playerData = null;
-  let globalTotal = null;
-  let lastErr = '';
-
-
-  // Nouvelle URL de l'API avec paramètre username
-  const url = `http://localhost:3001/api/aredl/leaderboard?search=Spleen`;
-  try {
-    const data = await aredlFetch(url);
-    const list = Array.isArray(data) ? data : (data.data ?? []);
-    globalTotal = data.total ?? null;
-    playerData = list.find(p =>
-      (p.user?.username ?? p.username ?? p.name ?? p.global_name ?? '').toLowerCase() === AREDL_PLAYER.toLowerCase()
-    ) ?? list[0] ?? null;
-  } catch (e) { lastErr = e.message; }
-
-  if (!playerData) {
-    result.innerHTML = `
-      <div class="aredl-error">
-        Impossible de récupérer les données AREDL pour <strong>${escHtml(AREDL_PLAYER)}</strong>.<br>
-        <small style="color:#999;font-size:12px;">${escHtml(lastErr || 'Erreur inconnue')}</small>
-      </div>`;
+  if (!levs.length) {
+    container.innerHTML = '<p class="aredl-placeholder">Aucun top rank renseigné.<br>Ajoute un Top rank (ex: #9) dans le panneau admin.</p>';
     return;
   }
 
-  let globalRank = playerData.raw_rank ?? playerData.global_rank ?? playerData.rank ?? playerData.position ?? null;
-  let playerPoints = playerData.points ?? playerData.total_score ?? playerData.score ?? null;
-  const rawCountry = playerData.country_code ?? playerData.nationality ?? playerData.country ?? '';
-  const countryCode = typeof rawCountry === 'string' ? rawCountry.toUpperCase() : '';
-  const displayName = playerData.name ?? playerData.global_name ?? AREDL_PLAYER;
+  const parseRank = r => parseInt(String(r).replace(/[^0-9]/g,'')) || 9999;
+  const sorted = [...levs].sort((a,b) => parseRank(a.top_rank) - parseRank(b.top_rank));
+  const rankClass = i => i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : '';
 
-  // Si pas de classement valide, afficher "Non classé"
-  if (!globalRank || isNaN(Number(globalRank)) || Number(globalRank) < 1) {
-    globalRank = 'Non classé';
-  }
-  if (!playerPoints || isNaN(Number(playerPoints))) {
-    playerPoints = '-';
-  }
+  container.innerHTML = `
+    <table class="stat-table">
+      <thead><tr><th>#</th><th>Niveau</th><th>Rank AREDL</th><th>Statut</th></tr></thead>
+      <tbody>
+        ${sorted.map((l, i) => `
+          <tr>
+            <td><span class="rank-badge ${rankClass(i)}">${i+1}</span></td>
+            <td style="font-weight:700">${escHtml(l.name)}</td>
+            <td><span style="font-weight:800;color:#ff4da6">Top ${escHtml(l.top_rank)}</span></td>
+            <td><span class="status-mini ${l.status||'pas_commence'}" style="display:inline-block;">${STATUS_LABEL[l.status]||'Pas commencé'}</span></td>
+          </tr>`).join('')}
+      </tbody>
+    </table>`;
+}
 
-  // ── Classement France ──
-  let frRank = null, frTotal = null;
-  try {
-    const frData = await aredlFetch(
-      `https://api.aredl.net/v2/api/aredl/leaderboard?country=FR&name=${encodeURIComponent(AREDL_PLAYER)}&limit=1`
-    );
-    const frList = Array.isArray(frData) ? frData : (frData.data ?? []);
-    frTotal = frData.total ?? frList.length;
-    const frPlayer = frList.find(p =>
-      (p.name ?? p.global_name ?? '').toLowerCase() === AREDL_PLAYER.toLowerCase()
-    ) ?? frList[0] ?? null;
-    if (frPlayer) frRank = frPlayer.rank ?? frPlayer.position ?? frPlayer.country_rank ?? null;
-  } catch (_) {}
-  if (!frRank || isNaN(Number(frRank)) || Number(frRank) < 1) {
-    frRank = 'Non classé';
-  }
+/* ── Charts ── */
+function renderCharts() {
+  renderChartDifficulty();
+  renderChartStatus();
+  renderChartProgress();
+  renderChartEnjoyment();
+  renderChartAttempts();
+}
 
-  // ── Rendu ──
-  const frSection = frRank && frRank !== 'Non classé'
-    ? `<div class="rank-box">
-         <div class="rank-flag">🇫🇷</div>
-         <div class="rank-label">France</div>
-         <div class="rank-value">#${frRank}</div>
-         ${frTotal ? `<div class="rank-sub">sur ${Number(frTotal).toLocaleString('fr-FR')} joueurs FR</div>` : ''}
-       </div>`
-    : `<div class="rank-box">
-         <div class="rank-flag">🇫🇷</div>
-         <div class="rank-label">France</div>
-         <div class="rank-value" style="font-size:18px;color:#bbb;">Non classé</div>
-         <div class="rank-sub" style="font-size:11px">${countryCode && countryCode !== 'FR' ? 'Pays : ' + countryCode : 'Non disponible'}</div>
-       </div>`;
+function renderChartDifficulty() {
+  destroyChart('difficulty');
+  const counts = {};
+  allLevels.forEach(l => {
+    const d = l.difficulty || 'Inconnu';
+    counts[d] = (counts[d]||0) + 1;
+  });
+  if (!Object.keys(counts).length) return;
 
-  result.innerHTML = `
-    <div class="rank-grid">
-      <div class="rank-box">
-        <div class="rank-flag">🌍</div>
-        <div class="rank-label">Monde</div>
-        <div class="rank-value">${globalRank !== 'Non classé' ? '#' + globalRank : 'Non classé'}</div>
-        ${globalTotal ? `<div class="rank-sub">sur ${Number(globalTotal).toLocaleString('fr-FR')} joueurs</div>` : ''}
-      </div>
-      ${frSection}
-    </div>
-    <div class="aredl-player-info">
-      <strong>${escHtml(String(displayName))}</strong>
-      ${countryCode ? ` · ${countryCode}` : ''}
-      ${playerPoints !== '-' ? ` · <span style=\"color:#ff4da6;font-weight:800;\">${Number(playerPoints).toLocaleString('fr-FR')} pts</span>` : ''}
-    </div>`;
+  const colors = ['#ff4da6','#c44dff','#ff8cc8','#a855f7','#ec4899','#9333ea','#f472b6','#7c3aed','#fb7185','#6d28d9'];
+  chartInstances['difficulty'] = new Chart(document.getElementById('chartDifficulty'), {
+    type: 'doughnut',
+    data: {
+      labels: Object.keys(counts),
+      datasets: [{ data: Object.values(counts), backgroundColor: colors, borderWidth: 0, hoverOffset: 8 }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { position: 'bottom', labels: { font: { family: 'Poppins', size: 11 }, padding: 12, color: '#444' } }
+      }
+    }
+  });
+}
+
+function renderChartStatus() {
+  destroyChart('status');
+  const cours  = allLevels.filter(l => l.status === 'en_cours').length;
+  const done   = allLevels.filter(l => l.status === 'termine').length;
+  const paused = allLevels.filter(l => l.status === 'pas_commence').length;
+  chartInstances['status'] = new Chart(document.getElementById('chartStatus'), {
+    type: 'doughnut',
+    data: {
+      labels: ['⚡ En cours', '✅ Terminés', '💤 Pas commencé'],
+      datasets: [{ data: [cours, done, paused], backgroundColor: ['#ff4da6','#00c49f','#b5b5b5'], borderWidth: 0, hoverOffset: 8 }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { position: 'bottom', labels: { font: { family: 'Poppins', size: 11 }, padding: 12, color: '#444' } }
+      }
+    }
+  });
+}
+
+function renderChartProgress() {
+  destroyChart('progress');
+  const levs = allLevels.filter(l => l.status === 'en_cours' && (l.progress || 0) > 0);
+  if (!levs.length) return;
+  const sorted = [...levs].sort((a,b) => (b.progress||0) - (a.progress||0)).slice(0, 10);
+  chartInstances['progress'] = new Chart(document.getElementById('chartProgress'), {
+    type: 'bar',
+    data: {
+      labels: sorted.map(l => l.name.length > 14 ? l.name.slice(0,14)+'…' : l.name),
+      datasets: [{
+        label: 'Progression %',
+        data: sorted.map(l => l.progress || 0),
+        backgroundColor: sorted.map(l => {
+          const p = l.progress || 0;
+          return p >= 80 ? '#00c49f' : p >= 50 ? '#ff4da6' : '#c44dff';
+        }),
+        borderRadius: 8, borderSkipped: false
+      }]
+    },
+    options: {
+      responsive: true, indexAxis: 'y',
+      scales: {
+        x: { max: 100, ticks: { font: { family: 'Poppins', size: 11 }, callback: v => v+'%' }, grid: { color: '#ffedf5' } },
+        y: { ticks: { font: { family: 'Poppins', size: 11 } }, grid: { display: false } }
+      },
+      plugins: { legend: { display: false } }
+    }
+  });
+}
+
+function renderChartEnjoyment() {
+  destroyChart('enjoyment');
+  const levs = allLevels.filter(l => l.enjoyment != null && l.enjoyment !== '');
+  if (!levs.length) return;
+  const sorted = [...levs].sort((a,b) => parseFloat(b.enjoyment) - parseFloat(a.enjoyment)).slice(0, 10);
+  chartInstances['enjoyment'] = new Chart(document.getElementById('chartEnjoyment'), {
+    type: 'bar',
+    data: {
+      labels: sorted.map(l => l.name.length > 14 ? l.name.slice(0,14)+'…' : l.name),
+      datasets: [{
+        label: 'Enjoyment /10',
+        data: sorted.map(l => parseFloat(l.enjoyment)),
+        backgroundColor: sorted.map(l => {
+          const v = parseFloat(l.enjoyment);
+          return v >= 8 ? '#00c49f' : v >= 6 ? '#ff4da6' : '#c44dff';
+        }),
+        borderRadius: 8, borderSkipped: false
+      }]
+    },
+    options: {
+      responsive: true, indexAxis: 'y',
+      scales: {
+        x: { max: 10, ticks: { font: { family: 'Poppins', size: 11 } }, grid: { color: '#ffedf5' } },
+        y: { ticks: { font: { family: 'Poppins', size: 11 } }, grid: { display: false } }
+      },
+      plugins: { legend: { display: false } }
+    }
+  });
+}
+
+function renderChartAttempts() {
+  destroyChart('attempts');
+  const parseAtt = a => parseInt(String(a).replace(/[^0-9]/g,'')) || 0;
+  const levs = allLevels.filter(l => l.attempts && parseAtt(l.attempts) > 0);
+  if (!levs.length) return;
+  const sorted = [...levs].sort((a,b) => parseAtt(b.attempts) - parseAtt(a.attempts)).slice(0, 10);
+  chartInstances['attempts'] = new Chart(document.getElementById('chartAttempts'), {
+    type: 'bar',
+    data: {
+      labels: sorted.map(l => l.name.length > 14 ? l.name.slice(0,14)+'…' : l.name),
+      datasets: [{
+        label: 'Attempts',
+        data: sorted.map(l => parseAtt(l.attempts)),
+        backgroundColor: '#ff6b6b',
+        borderRadius: 8, borderSkipped: false
+      }]
+    },
+    options: {
+      responsive: true, indexAxis: 'y',
+      scales: {
+        x: { ticks: { font: { family: 'Poppins', size: 11 }, callback: v => v.toLocaleString('fr-FR') }, grid: { color: '#ffedf5' } },
+        y: { ticks: { font: { family: 'Poppins', size: 11 } }, grid: { display: false } }
+      },
+      plugins: { legend: { display: false } }
+    }
+  });
 }
 
 /* ── Enjoyment Stats ── */
