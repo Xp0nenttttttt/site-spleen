@@ -1070,7 +1070,6 @@
           <option>Medium Demon</option>
           <option>Hard Demon</option>
           <option>Insane Demon</option>
-          <option selected>Extreme Demon</option>
         </select>
       </div>
       <button id="addLevelBtn" class="btn-primary" style="margin-top:20px;">✨ Ajouter le niveau</button>
@@ -1109,6 +1108,7 @@
   image_url   text,
   status      text default 'pas_commence',
   difficulty  text default 'Extreme Demon',
+  difficulty  text,
   created_at  timestamptz default now()
 );
 
@@ -1371,7 +1371,7 @@ function renderCharts() {
 
 function renderChartDifficulty() {
   destroyChart('difficulty');
-  // Fourchettes de top pour remplacer Extreme Demon
+  // Fourchettes de top
   const topRanges = [
     { label: 'Top 1-75',        min: 1,    max: 75 },
     { label: 'Top 76-150',      min: 76,   max: 150 },
@@ -1382,7 +1382,7 @@ function renderChartDifficulty() {
     { label: 'Top 1000-1200',   min: 1000, max: 1200 },
     { label: 'Top 1201+',       min: 1201, max: Infinity }
   ];
-  // Difficultés classiques (hors Extreme Demon)
+  // Difficultés classiques
   const classicDiffs = ['Easy','Normal','Hard','Harder','Insane','Easy Demon','Medium Demon','Hard Demon','Insane Demon'];
   const counts = {};
   // Initialiser les catégories
@@ -1390,8 +1390,8 @@ function renderChartDifficulty() {
   topRanges.forEach(r => counts[r.label] = 0);
   // Répartition
   allLevels.forEach(l => {
-    if (l.difficulty === 'Extreme Demon' && l.top_rank) {
-      // Extraire le top (ex: "#123")
+    // Tous les niveaux sont des Extreme Demons, donc on utilise uniquement le top_rank pour la répartition
+    if (l.top_rank) {
       const top = parseInt(String(l.top_rank).replace(/[^0-9]/g, ''));
       let found = false;
       for (const r of topRanges) {
@@ -1402,10 +1402,6 @@ function renderChartDifficulty() {
         }
       }
       if (!found) counts['Top 1201+']++;
-    } else {
-      const d = l.difficulty || 'Inconnu';
-      if (classicDiffs.includes(d)) counts[d]++;
-      else counts['Inconnu'] = (counts['Inconnu']||0) + 1;
     }
   });
   // Nettoyer les catégories vides
@@ -1745,7 +1741,7 @@ async function loadAdminLevelList() {
 }
 
 function buildAdminItem(level) {
-  const diffOpts = ['Easy','Normal','Hard','Harder','Insane','Easy Demon','Medium Demon','Hard Demon','Insane Demon','Extreme Demon']
+  const diffOpts = ['Easy','Normal','Hard','Harder','Insane','Easy Demon','Medium Demon','Hard Demon','Insane Demon']
     .map(d => `<option${level.difficulty===d?' selected':''}>${d}</option>`).join('');
 
   return `
@@ -1873,7 +1869,6 @@ async function addLevel() {
       document.getElementById(id).value = '';
     });
     document.getElementById('fStatus').value = 'pas_commence';
-    document.getElementById('fDifficulty').value = 'Extreme Demon';
     setTimeout(() => { msg.textContent = ''; }, 3000);
   }
 }
