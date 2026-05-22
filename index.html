@@ -1352,14 +1352,48 @@ function renderCharts() {
 
 function renderChartDifficulty() {
   destroyChart('difficulty');
+  // Fourchettes de top pour remplacer Extreme Demon
+  const topRanges = [
+    { label: 'Top 1-75',        min: 1,    max: 75 },
+    { label: 'Top 76-150',      min: 76,   max: 150 },
+    { label: 'Top 151-300',     min: 151,  max: 300 },
+    { label: 'Top 301-500',     min: 301,  max: 500 },
+    { label: 'Top 501-700',     min: 501,  max: 700 },
+    { label: 'Top 701-900',     min: 701,  max: 900 },
+    { label: 'Top 1000-1200',   min: 1000, max: 1200 },
+    { label: 'Top 1201+',       min: 1201, max: Infinity }
+  ];
+  // Difficultés classiques (hors Extreme Demon)
+  const classicDiffs = ['Easy','Normal','Hard','Harder','Insane','Easy Demon','Medium Demon','Hard Demon','Insane Demon'];
   const counts = {};
+  // Initialiser les catégories
+  classicDiffs.forEach(d => counts[d] = 0);
+  topRanges.forEach(r => counts[r.label] = 0);
+  // Répartition
   allLevels.forEach(l => {
-    const d = l.difficulty || 'Inconnu';
-    counts[d] = (counts[d]||0) + 1;
+    if (l.difficulty === 'Extreme Demon' && l.top_rank) {
+      // Extraire le top (ex: "#123")
+      const top = parseInt(String(l.top_rank).replace(/[^0-9]/g, ''));
+      let found = false;
+      for (const r of topRanges) {
+        if (top >= r.min && top <= r.max) {
+          counts[r.label]++;
+          found = true;
+          break;
+        }
+      }
+      if (!found) counts['Top 1201+']++;
+    } else {
+      const d = l.difficulty || 'Inconnu';
+      if (classicDiffs.includes(d)) counts[d]++;
+      else counts['Inconnu'] = (counts['Inconnu']||0) + 1;
+    }
   });
+  // Nettoyer les catégories vides
+  Object.keys(counts).forEach(k => { if (counts[k] === 0) delete counts[k]; });
   if (!Object.keys(counts).length) return;
 
-  const colors = ['#ff4da6','#c44dff','#ff8cc8','#a855f7','#ec4899','#9333ea','#f472b6','#7c3aed','#fb7185','#6d28d9'];
+  const colors = ['#ff4da6','#c44dff','#ff8cc8','#a855f7','#ec4899','#9333ea','#f472b6','#7c3aed','#fb7185','#6d28d9','#fbbf24','#f87171','#34d399'];
   chartInstances['difficulty'] = new Chart(document.getElementById('chartDifficulty'), {
     type: 'doughnut',
     data: {
