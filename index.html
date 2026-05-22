@@ -1,15 +1,21 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Geometry Dash Progress ✨</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
 
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
     body {
       font-family: 'Poppins', sans-serif;
@@ -21,11 +27,13 @@
 
     .background-blur {
       position: fixed;
-      width: 500px; height: 500px;
+      width: 500px;
+      height: 500px;
       border-radius: 50%;
       background: rgba(255, 105, 180, 0.2);
       filter: blur(90px);
-      top: -150px; right: -120px;
+      top: -150px;
+      right: -120px;
       z-index: -1;
     }
 
@@ -38,12 +46,12 @@
 
     /* ── HERO ── */
     .hero {
-      background: rgba(255,255,255,0.75);
-      border: 1px solid rgba(255,255,255,0.7);
+      background: rgba(255, 255, 255, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.7);
       backdrop-filter: blur(12px);
       border-radius: 35px;
       padding: 50px;
-      box-shadow: 0 15px 50px rgba(255,105,180,0.15);
+      box-shadow: 0 15px 50px rgba(255, 105, 180, 0.15);
       margin-bottom: 30px;
       position: relative;
       overflow: hidden;
@@ -60,7 +68,7 @@
       font-weight: 600;
       font-size: 14px;
       margin-bottom: 20px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
     }
 
     h1 {
@@ -69,9 +77,12 @@
       font-weight: 800;
       margin-bottom: 20px;
     }
-    h1 span { color: #ff4da6; }
 
-    .hero > p {
+    h1 span {
+      color: #ff4da6;
+    }
+
+    .hero>p {
       font-size: 18px;
       color: #666;
       max-width: 800px;
@@ -89,7 +100,7 @@
       background: white;
       border-radius: 24px;
       padding: 22px;
-      box-shadow: 0 8px 25px rgba(255,105,180,0.08);
+      box-shadow: 0 8px 25px rgba(255, 105, 180, 0.08);
     }
 
     .stat-title {
@@ -117,7 +128,11 @@
       transition: 0.3s;
       background: white;
     }
-    .search-bar:focus { border-color: #ff4da6; box-shadow: 0 0 0 6px rgba(255,77,166,0.15); }
+
+    .search-bar:focus {
+      border-color: #ff4da6;
+      box-shadow: 0 0 0 6px rgba(255, 77, 166, 0.15);
+    }
 
     /* ── MAIN NAV ── */
     .main-nav {
@@ -125,6 +140,7 @@
       gap: 12px;
       margin-bottom: 30px;
     }
+
     .nav-btn {
       padding: 14px 28px;
       border-radius: 999px;
@@ -137,17 +153,27 @@
       color: #666;
       transition: 0.25s;
     }
-    .nav-btn:hover { border-color: #ff4da6; color: #ff4da6; }
+
+    .nav-btn:hover {
+      border-color: #ff4da6;
+      color: #ff4da6;
+    }
+
     .nav-btn.active {
       background: linear-gradient(135deg, #ff4da6, #c44dff);
       border-color: transparent;
       color: white;
-      box-shadow: 0 8px 22px rgba(255,77,166,0.25);
+      box-shadow: 0 8px 22px rgba(255, 77, 166, 0.25);
     }
 
     /* ── VIEWS ── */
-    .view { display: none; }
-    .view.active { display: block; }
+    .view {
+      display: none;
+    }
+
+    .view.active {
+      display: block;
+    }
 
     /* ── CONTROLS ── */
     .controls {
@@ -158,7 +184,8 @@
       align-items: center;
     }
 
-    .filter-group, .sort-group {
+    .filter-group,
+    .sort-group {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
@@ -171,7 +198,8 @@
       color: #666;
     }
 
-    .filter-btn, .sort-btn {
+    .filter-btn,
+    .sort-btn {
       padding: 10px 18px;
       border-radius: 999px;
       border: 2px solid #ffd0e7;
@@ -183,32 +211,53 @@
       color: #666;
       transition: 0.25s;
     }
-    .filter-btn:hover, .sort-btn:hover { border-color: #ff4da6; color: #ff4da6; }
-    .filter-btn.active, .sort-btn.active {
+
+    .filter-btn:hover,
+    .sort-btn:hover {
+      border-color: #ff4da6;
+      color: #ff4da6;
+    }
+
+    .filter-btn.active,
+    .sort-btn.active {
       background: linear-gradient(135deg, #ff4da6, #c44dff);
       border-color: transparent;
       color: white;
     }
 
     /* ── LEVELS ── */
-    .levels-grid { display: grid; gap: 30px; }
+    .levels-grid {
+      display: grid;
+      gap: 30px;
+      grid-template-columns: repeat(3, 1fr);
+    }
 
     .level-card {
-      background: rgba(255,255,255,0.82);
+      background: rgba(255, 255, 255, 0.82);
       border-radius: 32px;
       overflow: hidden;
-      box-shadow: 0 15px 45px rgba(255,105,180,0.12);
-      border: 1px solid rgba(255,255,255,0.8);
+      box-shadow: 0 15px 45px rgba(255, 105, 180, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.8);
       backdrop-filter: blur(10px);
       transition: 0.35s ease;
-      display: grid;
-      grid-template-columns: 320px 1fr;
+      display: flex;
+      flex-direction: column;
     }
-    .level-card:hover { transform: translateY(-5px); box-shadow: 0 20px 55px rgba(255,105,180,0.18); }
 
-    .level-image { width: 100%; height: 100%; object-fit: cover; }
+    .level-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 55px rgba(255, 105, 180, 0.18);
+    }
 
-    .level-content { padding: 30px; }
+    .level-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .level-content {
+      padding: 30px;
+    }
 
     .top-line {
       display: flex;
@@ -218,9 +267,17 @@
       flex-wrap: wrap;
     }
 
-    .level-name { font-size: 34px; font-weight: 800; margin-top: 8px; }
+    .level-name {
+      font-size: 34px;
+      font-weight: 800;
+      margin-top: 8px;
+    }
 
-    .level-description { margin-top: 10px; color: #666; font-size: 15px; }
+    .level-description {
+      margin-top: 10px;
+      color: #666;
+      font-size: 15px;
+    }
 
     .status {
       padding: 10px 18px;
@@ -230,9 +287,18 @@
       font-size: 14px;
       white-space: nowrap;
     }
-    .playing  { background: linear-gradient(135deg, #ff4da6, #c44dff); }
-    .paused   { background: #b5b5b5; }
-    .done     { background: linear-gradient(135deg, #00c49f, #00b87d); }
+
+    .playing {
+      background: linear-gradient(135deg, #ff4da6, #c44dff);
+    }
+
+    .paused {
+      background: #b5b5b5;
+    }
+
+    .done {
+      background: linear-gradient(135deg, #00c49f, #00b87d);
+    }
 
     .info-grid {
       display: grid;
@@ -241,15 +307,54 @@
       margin-top: 22px;
     }
 
-    .info-box { padding: 16px; border-radius: 20px; background: #fff3fa; }
-    .info-label { font-size: 12px; text-transform: uppercase; color: #ff4da6; font-weight: 700; margin-bottom: 6px; }
-    .info-value { font-weight: 700; font-size: 17px; }
+    .info-box {
+      padding: 16px;
+      border-radius: 20px;
+      background: #fff3fa;
+    }
 
-    .progress-container { margin-top: 24px; }
-    .progress-top { display: flex; justify-content: space-between; margin-bottom: 10px; font-weight: 600; }
-    .progress-bar { width: 100%; height: 16px; border-radius: 999px; background: #ffd7ea; overflow: hidden; }
-    .progress-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, #ff4da6, #c44dff); transition: width 0.6s ease; }
-    .progress-fill.done-fill { background: linear-gradient(90deg, #00c49f, #00b87d); }
+    .info-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      color: #ff4da6;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .info-value {
+      font-weight: 700;
+      font-size: 17px;
+    }
+
+    .progress-container {
+      margin-top: 24px;
+    }
+
+    .progress-top {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 16px;
+      border-radius: 999px;
+      background: #ffd7ea;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #ff4da6, #c44dff);
+      transition: width 0.6s ease;
+    }
+
+    .progress-fill.done-fill {
+      background: linear-gradient(90deg, #00c49f, #00b87d);
+    }
 
     /* Enjoyment & Fail display */
     .enjoy-display {
@@ -257,11 +362,16 @@
       align-items: center;
       gap: 6px;
     }
+
     .enjoy-num {
       font-size: 17px;
       font-weight: 800;
     }
-    .enjoy-heart { font-size: 14px; }
+
+    .enjoy-heart {
+      font-size: 14px;
+    }
+
     .enjoy-mini-bar {
       width: 100%;
       height: 5px;
@@ -270,6 +380,7 @@
       overflow: hidden;
       margin-top: 5px;
     }
+
     .enjoy-mini-fill {
       height: 100%;
       border-radius: 999px;
@@ -311,11 +422,11 @@
     }
 
     .info-card {
-      background: rgba(255,255,255,0.82);
+      background: rgba(255, 255, 255, 0.82);
       border-radius: 28px;
       padding: 30px;
-      box-shadow: 0 15px 45px rgba(255,105,180,0.12);
-      border: 1px solid rgba(255,255,255,0.8);
+      box-shadow: 0 15px 45px rgba(255, 105, 180, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.8);
       backdrop-filter: blur(10px);
     }
 
@@ -333,7 +444,8 @@
     }
 
     .info-card-icon {
-      width: 38px; height: 38px;
+      width: 38px;
+      height: 38px;
       border-radius: 12px;
       background: linear-gradient(135deg, #ff4da6, #c44dff);
       display: flex;
@@ -349,6 +461,7 @@
       gap: 10px;
       margin-bottom: 18px;
     }
+
     .aredl-username-input {
       flex: 1;
       padding: 12px 18px;
@@ -361,7 +474,12 @@
       background: #fff9fc;
       color: #2d2d2d;
     }
-    .aredl-username-input:focus { border-color: #ff4da6; box-shadow: 0 0 0 4px rgba(255,77,166,0.1); }
+
+    .aredl-username-input:focus {
+      border-color: #ff4da6;
+      box-shadow: 0 0 0 4px rgba(255, 77, 166, 0.1);
+    }
+
     .aredl-fetch-btn {
       padding: 12px 20px;
       border-radius: 999px;
@@ -374,9 +492,13 @@
       cursor: pointer;
       white-space: nowrap;
       transition: 0.25s;
-      box-shadow: 0 6px 18px rgba(255,77,166,0.25);
+      box-shadow: 0 6px 18px rgba(255, 77, 166, 0.25);
     }
-    .aredl-fetch-btn:hover { transform: translateY(-1px); box-shadow: 0 10px 24px rgba(255,77,166,0.35); }
+
+    .aredl-fetch-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 24px rgba(255, 77, 166, 0.35);
+    }
 
     .rank-grid {
       display: grid;
@@ -384,17 +506,44 @@
       gap: 14px;
       margin-bottom: 14px;
     }
+
     .rank-box {
       background: #fff3fa;
       border-radius: 20px;
       padding: 20px;
       text-align: center;
     }
-    .rank-flag { font-size: 26px; margin-bottom: 6px; }
-    .rank-label { font-size: 11px; font-weight: 700; color: #ff4da6; text-transform: uppercase; margin-bottom: 4px; }
-    .rank-value { font-size: 30px; font-weight: 800; }
-    .rank-sub { font-size: 12px; color: #999; margin-top: 4px; }
-    .rank-points { font-size: 13px; color: #666; margin-top: 3px; font-weight: 600; }
+
+    .rank-flag {
+      font-size: 26px;
+      margin-bottom: 6px;
+    }
+
+    .rank-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: #ff4da6;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .rank-value {
+      font-size: 30px;
+      font-weight: 800;
+    }
+
+    .rank-sub {
+      font-size: 12px;
+      color: #999;
+      margin-top: 4px;
+    }
+
+    .rank-points {
+      font-size: 13px;
+      color: #666;
+      margin-top: 3px;
+      font-weight: 600;
+    }
 
     .aredl-player-info {
       background: #fff3fa;
@@ -414,6 +563,7 @@
       align-items: center;
       gap: 8px;
     }
+
     .aredl-error {
       color: #e74c3c;
       font-size: 13px;
@@ -422,6 +572,7 @@
       border-radius: 12px;
       border: 1px solid #ffd0d0;
     }
+
     .aredl-placeholder {
       color: #999;
       font-size: 14px;
@@ -440,11 +591,32 @@
       gap: 12px;
       flex-wrap: wrap;
     }
-    .big-stat-label { font-size: 13px; color: #666; font-weight: 600; white-space: nowrap; }
-    .big-stat-value { font-size: 16px; font-weight: 800; color: #2d2d2d; text-align: right; }
-    .big-stat-value.green { color: #00c49f; }
-    .big-stat-value.pink { color: #ff4da6; }
-    .big-stat-value.red { color: #e74c3c; }
+
+    .big-stat-label {
+      font-size: 13px;
+      color: #666;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .big-stat-value {
+      font-size: 16px;
+      font-weight: 800;
+      color: #2d2d2d;
+      text-align: right;
+    }
+
+    .big-stat-value.green {
+      color: #00c49f;
+    }
+
+    .big-stat-value.pink {
+      color: #ff4da6;
+    }
+
+    .big-stat-value.red {
+      color: #e74c3c;
+    }
 
     /* Stats table */
     .stat-table {
@@ -453,9 +625,11 @@
       font-size: 14px;
       margin-top: 18px;
     }
+
     .stat-table thead tr {
       background: #fff3fa;
     }
+
     .stat-table th {
       text-align: left;
       padding: 10px 14px;
@@ -465,16 +639,29 @@
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
-    .stat-table th:first-child { border-radius: 12px 0 0 12px; }
-    .stat-table th:last-child  { border-radius: 0 12px 12px 0; }
+
+    .stat-table th:first-child {
+      border-radius: 12px 0 0 12px;
+    }
+
+    .stat-table th:last-child {
+      border-radius: 0 12px 12px 0;
+    }
+
     .stat-table td {
       padding: 11px 14px;
       border-bottom: 1px solid #ffedf5;
       font-weight: 600;
       vertical-align: middle;
     }
-    .stat-table tr:last-child td { border-bottom: none; }
-    .stat-table tr:hover td { background: #fffafc; }
+
+    .stat-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .stat-table tr:hover td {
+      background: #fffafc;
+    }
 
     /* Enjoy bar in table */
     .enjoy-bar {
@@ -485,6 +672,7 @@
       overflow: hidden;
       margin-top: 5px;
     }
+
     .enjoy-fill {
       height: 100%;
       border-radius: 999px;
@@ -493,7 +681,8 @@
 
     .rank-badge {
       display: inline-block;
-      width: 28px; height: 28px;
+      width: 28px;
+      height: 28px;
       border-radius: 8px;
       background: linear-gradient(135deg, #ff4da6, #c44dff);
       color: white;
@@ -502,9 +691,18 @@
       text-align: center;
       line-height: 28px;
     }
-    .rank-badge.gold   { background: linear-gradient(135deg, #f5c842, #e0a800); }
-    .rank-badge.silver { background: linear-gradient(135deg, #b0b0b0, #888); }
-    .rank-badge.bronze { background: linear-gradient(135deg, #cd7f32, #a0522d); }
+
+    .rank-badge.gold {
+      background: linear-gradient(135deg, #f5c842, #e0a800);
+    }
+
+    .rank-badge.silver {
+      background: linear-gradient(135deg, #b0b0b0, #888);
+    }
+
+    .rank-badge.bronze {
+      background: linear-gradient(135deg, #cd7f32, #a0522d);
+    }
 
     /* Divider */
     .table-divider {
@@ -526,17 +724,20 @@
       border: none;
       font-size: 24px;
       cursor: pointer;
-      box-shadow: 0 10px 30px rgba(255,77,166,0.4);
+      box-shadow: 0 10px 30px rgba(255, 77, 166, 0.4);
       z-index: 900;
       transition: 0.3s;
     }
-    .admin-fab:hover { transform: scale(1.1); }
+
+    .admin-fab:hover {
+      transform: scale(1.1);
+    }
 
     /* ── MODALS ── */
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.45);
+      background: rgba(0, 0, 0, 0.45);
       backdrop-filter: blur(6px);
       z-index: 1000;
       display: none;
@@ -544,7 +745,10 @@
       justify-content: center;
       padding: 20px;
     }
-    .modal-overlay.open { display: flex; }
+
+    .modal-overlay.open {
+      display: flex;
+    }
 
     .modal-box {
       background: white;
@@ -552,7 +756,7 @@
       padding: 40px;
       width: 100%;
       max-width: 480px;
-      box-shadow: 0 30px 80px rgba(255,77,166,0.2);
+      box-shadow: 0 30px 80px rgba(255, 77, 166, 0.2);
       position: relative;
     }
 
@@ -575,10 +779,26 @@
       transition: 0.3s;
       background: #fff9fc;
     }
-    .modal-input:focus { border-color: #ff4da6; box-shadow: 0 0 0 5px rgba(255,77,166,0.12); }
 
-    .error-msg { color: #ff4da6; font-size: 14px; margin-bottom: 14px; font-weight: 600; min-height: 20px; }
-    .success-msg { font-size: 14px; font-weight: 600; min-height: 20px; margin-top: 10px; }
+    .modal-input:focus {
+      border-color: #ff4da6;
+      box-shadow: 0 0 0 5px rgba(255, 77, 166, 0.12);
+    }
+
+    .error-msg {
+      color: #ff4da6;
+      font-size: 14px;
+      margin-bottom: 14px;
+      font-weight: 600;
+      min-height: 20px;
+    }
+
+    .success-msg {
+      font-size: 14px;
+      font-weight: 600;
+      min-height: 20px;
+      margin-top: 10px;
+    }
 
     /* Admin panel box */
     .admin-box {
@@ -594,9 +814,17 @@
       align-items: center;
       margin-bottom: 28px;
     }
-    .admin-header h2 { font-size: 1.8rem; font-weight: 800; }
 
-    .admin-header-btns { display: flex; gap: 12px; align-items: center; }
+    .admin-header h2 {
+      font-size: 1.8rem;
+      font-weight: 800;
+    }
+
+    .admin-header-btns {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
 
     /* Buttons */
     .btn-primary {
@@ -609,10 +837,14 @@
       font-weight: 700;
       font-size: 15px;
       cursor: pointer;
-      box-shadow: 0 8px 22px rgba(255,77,166,0.25);
+      box-shadow: 0 8px 22px rgba(255, 77, 166, 0.25);
       transition: 0.3s;
     }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(255,77,166,0.35); }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(255, 77, 166, 0.35);
+    }
 
     .btn-secondary {
       padding: 12px 22px;
@@ -626,7 +858,10 @@
       cursor: pointer;
       transition: 0.25s;
     }
-    .btn-secondary:hover { background: #fff3fa; }
+
+    .btn-secondary:hover {
+      background: #fff3fa;
+    }
 
     .btn-close {
       display: block;
@@ -642,10 +877,14 @@
       border-radius: 999px;
       transition: 0.25s;
     }
-    .btn-close:hover { background: #f5f5f5; }
+
+    .btn-close:hover {
+      background: #f5f5f5;
+    }
 
     .btn-close-x {
-      width: 38px; height: 38px;
+      width: 38px;
+      height: 38px;
       border-radius: 50%;
       border: 2px solid #ffd0e7;
       background: white;
@@ -654,7 +893,10 @@
       color: #666;
       transition: 0.25s;
     }
-    .btn-close-x:hover { background: #fff3fa; }
+
+    .btn-close-x:hover {
+      background: #fff3fa;
+    }
 
     /* Tabs */
     .tabs {
@@ -663,6 +905,7 @@
       margin-bottom: 28px;
       flex-wrap: wrap;
     }
+
     .tab {
       padding: 12px 22px;
       border-radius: 999px;
@@ -675,12 +918,31 @@
       color: #666;
       transition: 0.25s;
     }
-    .tab:hover { border-color: #ff4da6; color: #ff4da6; }
-    .tab.active { background: linear-gradient(135deg, #ff4da6, #c44dff); border-color: transparent; color: white; }
 
-    .tab-content { display: none; }
-    .tab-content.active { display: block; }
-    .tab-content h3 { font-size: 1.2rem; font-weight: 800; margin-bottom: 20px; }
+    .tab:hover {
+      border-color: #ff4da6;
+      color: #ff4da6;
+    }
+
+    .tab.active {
+      background: linear-gradient(135deg, #ff4da6, #c44dff);
+      border-color: transparent;
+      color: white;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .tab-content h3 {
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
 
     /* Form */
     .form-grid {
@@ -688,7 +950,10 @@
       grid-template-columns: 1fr 1fr;
       gap: 12px;
     }
-    .form-grid .form-input:first-child { grid-column: 1 / -1; }
+
+    .form-grid .form-input:first-child {
+      grid-column: 1 / -1;
+    }
 
     .form-input {
       width: 100%;
@@ -702,7 +967,11 @@
       background: #fff9fc;
       color: #2d2d2d;
     }
-    .form-input:focus { border-color: #ff4da6; box-shadow: 0 0 0 4px rgba(255,77,166,0.1); }
+
+    .form-input:focus {
+      border-color: #ff4da6;
+      box-shadow: 0 0 0 4px rgba(255, 77, 166, 0.1);
+    }
 
     /* Admin level list */
     .admin-level-item {
@@ -721,7 +990,10 @@
       margin-bottom: 12px;
     }
 
-    .admin-level-name { font-weight: 700; font-size: 15px; }
+    .admin-level-name {
+      font-weight: 700;
+      font-size: 15px;
+    }
 
     .status-mini {
       padding: 5px 12px;
@@ -730,9 +1002,19 @@
       font-weight: 700;
       color: white;
     }
-    .status-mini.en_cours  { background: linear-gradient(135deg, #ff4da6, #c44dff); }
-    .status-mini.paused, .status-mini.pas_commence { background: #b5b5b5; }
-    .status-mini.termine { background: linear-gradient(135deg, #00c49f, #00b87d); }
+
+    .status-mini.en_cours {
+      background: linear-gradient(135deg, #ff4da6, #c44dff);
+    }
+
+    .status-mini.paused,
+    .status-mini.pas_commence {
+      background: #b5b5b5;
+    }
+
+    .status-mini.termine {
+      background: linear-gradient(135deg, #00c49f, #00b87d);
+    }
 
     .diff-mini {
       padding: 5px 12px;
@@ -763,9 +1045,13 @@
       cursor: pointer;
       outline: none;
     }
-    .status-select:focus { border-color: #ff4da6; }
 
-    .btn-edit, .btn-delete {
+    .status-select:focus {
+      border-color: #ff4da6;
+    }
+
+    .btn-edit,
+    .btn-delete {
       padding: 9px 16px;
       border-radius: 999px;
       border: none;
@@ -775,10 +1061,26 @@
       cursor: pointer;
       transition: 0.25s;
     }
-    .btn-edit { background: #fff3fa; color: #ff4da6; border: 2px solid #ffd0e7; }
-    .btn-edit:hover { background: #ffd0e7; }
-    .btn-delete { background: #fff0f0; color: #e74c3c; border: 2px solid #ffd0d0; }
-    .btn-delete:hover { background: #ffd0d0; }
+
+    .btn-edit {
+      background: #fff3fa;
+      color: #ff4da6;
+      border: 2px solid #ffd0e7;
+    }
+
+    .btn-edit:hover {
+      background: #ffd0e7;
+    }
+
+    .btn-delete {
+      background: #fff0f0;
+      color: #e74c3c;
+      border: 2px solid #ffd0d0;
+    }
+
+    .btn-delete:hover {
+      background: #ffd0d0;
+    }
 
     .edit-form {
       margin-top: 16px;
@@ -793,8 +1095,20 @@
       padding: 24px;
       margin-top: 8px;
     }
-    .setup-block h4 { font-size: 1rem; font-weight: 700; margin-bottom: 14px; color: #ff4da6; }
-    .setup-block p { color: #555; line-height: 1.9; font-size: 14px; }
+
+    .setup-block h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+      color: #ff4da6;
+    }
+
+    .setup-block p {
+      color: #555;
+      line-height: 1.9;
+      font-size: 14px;
+    }
+
     .setup-block code {
       display: block;
       background: #2d2d2d;
@@ -808,293 +1122,335 @@
       overflow-x: auto;
     }
 
-    footer { text-align: center; margin-top: 60px; color: #888; font-size: 15px; }
+    footer {
+      text-align: center;
+      margin-top: 60px;
+      color: #888;
+      font-size: 15px;
+    }
 
-    canvas { max-height: 280px; }
+    canvas {
+      max-height: 280px;
+    }
 
     /* Responsive */
     @media (max-width: 900px) {
-      .level-card { grid-template-columns: 1fr; }
-      h1 { font-size: 2.7rem; }
-      .hero { padding: 35px; }
-      .form-grid { grid-template-columns: 1fr; }
-      .form-grid .form-input:first-child { grid-column: 1; }
-      .admin-box { padding: 24px; }
-      .info-grid-layout { grid-template-columns: 1fr; }
+      .levels-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      h1 {
+        font-size: 2.7rem;
+      }
+
+      .hero {
+        padding: 35px;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-grid .form-input:first-child {
+        grid-column: 1;
+      }
+
+      .admin-box {
+        padding: 24px;
+      }
+
+      .info-grid-layout {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
+
 <body>
 
-<div class="background-blur"></div>
+  <div class="background-blur"></div>
 
-<div class="container">
+  <div class="container">
 
-  <!-- Hero -->
-  <section class="hero">
-    <div class="badge">✨ Viewer Progress Hub</div>
-    <h1>Mon suivi <span>Geometry Dash</span></h1>
-    <input type="text" class="search-bar" id="searchInput" placeholder="Chercher un niveau...">
-    <div class="stats">
-      <div class="stat-box">
-        <div class="stat-title">Niveaux suivis</div>
-        <div class="stat-value" id="statTotal">–</div>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="badge">✨ Viewer Progress Hub</div>
+      <h1>Mon suivi <span>Geometry Dash</span></h1>
+      <input type="text" class="search-bar" id="searchInput" placeholder="Chercher un niveau...">
+      <div class="stats">
+        <div class="stat-box">
+          <div class="stat-title">Niveaux suivis</div>
+          <div class="stat-value" id="statTotal">–</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-title">En cours</div>
+          <div class="stat-value" id="statEnCours">–</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-title">Terminés</div>
+          <div class="stat-value" id="statTermine">–</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-title">Meilleur PB</div>
+          <div class="stat-value" id="statBestPb">–</div>
+        </div>
       </div>
-      <div class="stat-box">
-        <div class="stat-title">En cours</div>
-        <div class="stat-value" id="statEnCours">–</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-title">Terminés</div>
-        <div class="stat-value" id="statTermine">–</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-title">Meilleur PB</div>
-        <div class="stat-value" id="statBestPb">–</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Main navigation -->
-  <div class="main-nav">
-    <button class="nav-btn active" data-view="levels">🎮 Niveaux</button>
-    <button class="nav-btn"        data-view="infos">📊 Infos</button>
-  </div>
-
-  <!-- ═══════════════════════════════════ VIEW: LEVELS ═══════════════════════════════════ -->
-  <div class="view active" id="view-levels">
-
-    <!-- Filters & Sort -->
-    <div class="controls">
-      <div class="filter-group">
-        <span class="filter-label">Filtrer :</span>
-        <button class="filter-btn active" data-filter="all">Tous</button>
-        <button class="filter-btn" data-filter="en_cours">⚡ En cours</button>
-        <button class="filter-btn" data-filter="termine">✅ Terminé</button>
-        <button class="filter-btn" data-filter="pas_commence">💤 Pas commencé</button>
-      </div>
-      <div class="sort-group">
-        <span class="filter-label">Trier :</span>
-        <button class="sort-btn active" data-sort="default">Par défaut</button>
-        <button class="sort-btn" data-sort="difficulty">Difficulté ↑</button>
-        <button class="sort-btn" data-sort="status">Statut</button>
-      </div>
-    </div>
-
-    <!-- Levels -->
-    <section class="levels-grid" id="levelsContainer">
-      <div class="loading-state">Chargement des niveaux... 💖</div>
     </section>
 
+    <!-- Main navigation -->
+    <div class="main-nav">
+      <button class="nav-btn active" data-view="levels">🎮 Niveaux</button>
+      <button class="nav-btn" data-view="infos">📊 Infos</button>
+    </div>
+
+    <!-- ═══════════════════════════════════ VIEW: LEVELS ═══════════════════════════════════ -->
+    <div class="view active" id="view-levels">
+
+      <!-- Filters & Sort -->
+      <div class="controls">
+        <div class="filter-group">
+          <span class="filter-label">Filtrer :</span>
+          <button class="filter-btn active" data-filter="all">Tous</button>
+          <button class="filter-btn" data-filter="en_cours">⚡ En cours</button>
+          <button class="filter-btn" data-filter="termine">✅ Terminé</button>
+          <button class="filter-btn" data-filter="pas_commence">💤 Pas commencé</button>
+        </div>
+        <div class="sort-group">
+          <span class="filter-label">Trier :</span>
+          <button class="sort-btn active" data-sort="default">Par défaut</button>
+          <button class="sort-btn" data-sort="difficulty">Difficulté ↑</button>
+          <button class="sort-btn" data-sort="status">Statut</button>
+        </div>
+      </div>
+
+      <!-- Levels -->
+      <section class="levels-grid" id="levelsContainer">
+        <div class="loading-state">Chargement des niveaux... 💖</div>
+      </section>
+
+    </div>
+
+    <!-- ═══════════════════════════════════ VIEW: INFOS ════════════════════════════════════ -->
+    <div class="view" id="view-infos">
+
+      <!-- Row 1: Stats rapides -->
+      <div class="info-grid-layout" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr));">
+        <div class="info-card" style="text-align:center;padding:22px 16px;">
+          <div class="info-card-icon" style="margin:0 auto 10px;">🎮</div>
+          <div class="stat-title">Niveaux suivis</div>
+          <div class="stat-value" id="iStatTotal">–</div>
+        </div>
+        <div class="info-card" style="text-align:center;padding:22px 16px;">
+          <div class="info-card-icon" style="margin:0 auto 10px;background:linear-gradient(135deg,#ff4da6,#c44dff);">⚡
+          </div>
+          <div class="stat-title">En cours</div>
+          <div class="stat-value" style="color:#ff4da6" id="iStatCours">–</div>
+        </div>
+        <div class="info-card" style="text-align:center;padding:22px 16px;">
+          <div class="info-card-icon" style="margin:0 auto 10px;background:linear-gradient(135deg,#00c49f,#00b87d);">✅
+          </div>
+          <div class="stat-title">Terminés</div>
+          <div class="stat-value" style="color:#00c49f" id="iStatDone">–</div>
+        </div>
+        <div class="info-card" style="text-align:center;padding:22px 16px;">
+          <div class="info-card-icon" style="margin:0 auto 10px;">🎯</div>
+          <div class="stat-title">Total Attempts</div>
+          <div class="stat-value" id="iStatAtt">–</div>
+        </div>
+        <div class="info-card" style="text-align:center;padding:22px 16px;">
+          <div class="info-card-icon" style="margin:0 auto 10px;">❤️</div>
+          <div class="stat-title">Enjoyment moyen</div>
+          <div class="stat-value" id="iStatEnj">–</div>
+        </div>
+      </div>
+
+      <!-- Row 2: Charts distribution -->
+      <div class="info-grid-layout">
+        <div class="info-card">
+          <div class="info-card-title">
+            <div class="info-card-icon">🎮</div>
+            Distribution par difficulté
+          </div>
+          <div style="max-width:320px;margin:0 auto;"><canvas id="chartDifficulty"></canvas></div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-title">
+            <div class="info-card-icon">📊</div>
+            Répartition des statuts
+          </div>
+          <div style="max-width:280px;margin:0 auto;"><canvas id="chartStatus"></canvas></div>
+        </div>
+      </div>
+
+      <!-- Row 3: Progression en cours + Top Ranks -->
+      <div class="info-grid-layout">
+        <div class="info-card" id="hardestCard">
+          <div class="info-card-title">
+            <div class="info-card-icon">💀</div>
+            Hardest — Niveau terminé
+          </div>
+          <div id="hardestStats">
+            <p class="aredl-placeholder">Chargement...</p>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-title">
+            <div class="info-card-icon">🏆</div>
+            Top Ranks AREDL
+          </div>
+          <div id="topRanksStats">
+            <p class="aredl-placeholder">Chargement...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 4: Enjoyment -->
+      <div class="info-grid-layout">
+        <div class="info-card">
+          <div class="info-card-title">
+            <div class="info-card-icon">❤️</div>
+            Enjoyment — Stats
+          </div>
+          <div id="enjoymentStats">
+            <p class="aredl-placeholder">Chargement...</p>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-title">
+            <div class="info-card-icon">📈</div>
+            Enjoyment — Classement
+          </div>
+          <canvas id="chartEnjoyment"></canvas>
+        </div>
+      </div>
+
+      <!-- Row 5: Attempts -->
+      <div class="info-grid-layout">
+        <div class="info-card">
+          <div class="info-card-title">
+            <div class="info-card-icon">🎯</div>
+            Attempts — Stats
+          </div>
+          <div id="attemptsStats">
+            <p class="aredl-placeholder">Chargement...</p>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-title">
+            <div class="info-card-icon">📉</div>
+            Attempts — Graphique
+          </div>
+          <canvas id="chartAttempts"></canvas>
+        </div>
+      </div>
+
+      <!-- Row 6: Worst Fails full width -->
+      <div class="info-grid-layout">
+        <div class="info-card info-card-full">
+          <div class="info-card-title">
+            <div class="info-card-icon">💀</div>
+            Worst Fails
+          </div>
+          <div id="worstFailsStats">
+            <p class="aredl-placeholder">Chargement...</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
   </div>
 
-  <!-- ═══════════════════════════════════ VIEW: INFOS ════════════════════════════════════ -->
-  <div class="view" id="view-infos">
+  <!-- Admin FAB -->
+  <button class="admin-fab" id="adminFab" title="Admin">🔐</button>
 
-    <!-- Row 1: Stats rapides -->
-    <div class="info-grid-layout" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr));">
-      <div class="info-card" style="text-align:center;padding:22px 16px;">
-        <div class="info-card-icon" style="margin:0 auto 10px;">🎮</div>
-        <div class="stat-title">Niveaux suivis</div>
-        <div class="stat-value" id="iStatTotal">–</div>
-      </div>
-      <div class="info-card" style="text-align:center;padding:22px 16px;">
-        <div class="info-card-icon" style="margin:0 auto 10px;background:linear-gradient(135deg,#ff4da6,#c44dff);">⚡</div>
-        <div class="stat-title">En cours</div>
-        <div class="stat-value" style="color:#ff4da6" id="iStatCours">–</div>
-      </div>
-      <div class="info-card" style="text-align:center;padding:22px 16px;">
-        <div class="info-card-icon" style="margin:0 auto 10px;background:linear-gradient(135deg,#00c49f,#00b87d);">✅</div>
-        <div class="stat-title">Terminés</div>
-        <div class="stat-value" style="color:#00c49f" id="iStatDone">–</div>
-      </div>
-      <div class="info-card" style="text-align:center;padding:22px 16px;">
-        <div class="info-card-icon" style="margin:0 auto 10px;">🎯</div>
-        <div class="stat-title">Total Attempts</div>
-        <div class="stat-value" id="iStatAtt">–</div>
-      </div>
-      <div class="info-card" style="text-align:center;padding:22px 16px;">
-        <div class="info-card-icon" style="margin:0 auto 10px;">❤️</div>
-        <div class="stat-title">Enjoyment moyen</div>
-        <div class="stat-value" id="iStatEnj">–</div>
-      </div>
+  <!-- ── LOGIN MODAL ── -->
+  <div class="modal-overlay" id="loginModal">
+    <div class="modal-box">
+      <h2>🔐 Connexion Admin</h2>
+      <input type="email" id="adminEmail" class="modal-input" placeholder="Email admin">
+      <input type="password" id="adminPassword" class="modal-input" placeholder="Mot de passe">
+      <div id="loginError" class="error-msg"></div>
+      <button id="loginBtn" class="btn-primary" style="width:100%">Se connecter ✨</button>
+      <button class="btn-close" id="closeLogin">✕ Annuler</button>
     </div>
-
-    <!-- Row 2: Charts distribution -->
-    <div class="info-grid-layout">
-      <div class="info-card">
-        <div class="info-card-title">
-          <div class="info-card-icon">🎮</div>
-          Distribution par difficulté
-        </div>
-        <div style="max-width:320px;margin:0 auto;"><canvas id="chartDifficulty"></canvas></div>
-      </div>
-      <div class="info-card">
-        <div class="info-card-title">
-          <div class="info-card-icon">📊</div>
-          Répartition des statuts
-        </div>
-        <div style="max-width:280px;margin:0 auto;"><canvas id="chartStatus"></canvas></div>
-      </div>
-    </div>
-
-    <!-- Row 3: Progression en cours + Top Ranks -->
-    <div class="info-grid-layout">
-      <div class="info-card" id="hardestCard">
-        <div class="info-card-title">
-          <div class="info-card-icon">💀</div>
-          Hardest — Niveau terminé
-        </div>
-        <div id="hardestStats"><p class="aredl-placeholder">Chargement...</p></div>
-      </div>
-      <div class="info-card">
-        <div class="info-card-title">
-          <div class="info-card-icon">🏆</div>
-          Top Ranks AREDL
-        </div>
-        <div id="topRanksStats"><p class="aredl-placeholder">Chargement...</p></div>
-      </div>
-    </div>
-
-    <!-- Row 4: Enjoyment -->
-    <div class="info-grid-layout">
-      <div class="info-card">
-        <div class="info-card-title">
-          <div class="info-card-icon">❤️</div>
-          Enjoyment — Stats
-        </div>
-        <div id="enjoymentStats"><p class="aredl-placeholder">Chargement...</p></div>
-      </div>
-      <div class="info-card">
-        <div class="info-card-title">
-          <div class="info-card-icon">📈</div>
-          Enjoyment — Classement
-        </div>
-        <canvas id="chartEnjoyment"></canvas>
-      </div>
-    </div>
-
-    <!-- Row 5: Attempts -->
-    <div class="info-grid-layout">
-      <div class="info-card">
-        <div class="info-card-title">
-          <div class="info-card-icon">🎯</div>
-          Attempts — Stats
-        </div>
-        <div id="attemptsStats"><p class="aredl-placeholder">Chargement...</p></div>
-      </div>
-      <div class="info-card">
-        <div class="info-card-title">
-          <div class="info-card-icon">📉</div>
-          Attempts — Graphique
-        </div>
-        <canvas id="chartAttempts"></canvas>
-      </div>
-    </div>
-
-    <!-- Row 6: Worst Fails full width -->
-    <div class="info-grid-layout">
-      <div class="info-card info-card-full">
-        <div class="info-card-title">
-          <div class="info-card-icon">💀</div>
-          Worst Fails
-        </div>
-        <div id="worstFailsStats"><p class="aredl-placeholder">Chargement...</p></div>
-      </div>
-    </div>
-
   </div>
 
-</div>
+  <!-- ── ADMIN PANEL MODAL ── -->
+  <div class="modal-overlay" id="adminPanel">
+    <div class="modal-box admin-box">
 
-<!-- Admin FAB -->
-<button class="admin-fab" id="adminFab" title="Admin">🔐</button>
-
-<!-- ── LOGIN MODAL ── -->
-<div class="modal-overlay" id="loginModal">
-  <div class="modal-box">
-    <h2>🔐 Connexion Admin</h2>
-    <input type="email"    id="adminEmail"    class="modal-input" placeholder="Email admin">
-    <input type="password" id="adminPassword" class="modal-input" placeholder="Mot de passe">
-    <div id="loginError" class="error-msg"></div>
-    <button id="loginBtn" class="btn-primary" style="width:100%">Se connecter ✨</button>
-    <button class="btn-close" id="closeLogin">✕ Annuler</button>
-  </div>
-</div>
-
-<!-- ── ADMIN PANEL MODAL ── -->
-<div class="modal-overlay" id="adminPanel">
-  <div class="modal-box admin-box">
-
-    <div class="admin-header">
-      <h2>⚙️ Administration</h2>
-      <div class="admin-header-btns">
-        <button id="logoutBtn" class="btn-secondary">Déconnexion</button>
-        <button class="btn-close-x" id="closeAdmin">✕</button>
+      <div class="admin-header">
+        <h2>⚙️ Administration</h2>
+        <div class="admin-header-btns">
+          <button id="logoutBtn" class="btn-secondary">Déconnexion</button>
+          <button class="btn-close-x" id="closeAdmin">✕</button>
+        </div>
       </div>
-    </div>
 
-    <!-- Tabs -->
-    <div class="tabs">
-      <button class="tab active" data-tab="add">➕ Ajouter</button>
-      <button class="tab" data-tab="manage">📋 Gérer</button>
-      <button class="tab" data-tab="setup">🔧 Setup</button>
-    </div>
-
-    <!-- TAB: ADD -->
-    <div class="tab-content active" id="tab-add">
-      <h3>Ajouter un niveau</h3>
-      <div class="form-grid">
-        <input  id="fName"       class="form-input" placeholder="Nom du niveau *">
-        <input  id="fTop"        class="form-input" placeholder="Top rank  (ex: #9)">
-        <input  id="fDesc"       class="form-input" placeholder="Description courte">
-        <input  id="fBestRun"    class="form-input" placeholder="Meilleur run  (ex: 67%)">
-        <input  id="fProgress"   class="form-input" type="number" min="0" max="100" placeholder="Progression % (0-100)">
-        <input  id="fRuns"       class="form-input" placeholder="Runs from 0  (ex: 0 → 67%)">
-        <input  id="fAttempts"   class="form-input" placeholder="Attempts  (ex: 1566)">
-        <input  id="fWorstFail"  class="form-input" placeholder="Worst Fail  (ex: 94%)">
-        <input  id="fEnjoyment"  class="form-input" type="number" min="0" max="10" step="0.5" placeholder="Enjoyment /10  (ex: 8.5)">
-        <input  id="fImage"      class="form-input" placeholder="URL image">
-        <select id="fStatus"     class="form-input">
-          <option value="pas_commence">💤 Pas commencé</option>
-          <option value="en_cours">⚡ En cours</option>
-          <option value="termine">✅ Terminé</option>
-        </select>
-        <select id="fDifficulty" class="form-input">
-          <option>Easy</option>
-          <option>Normal</option>
-          <option>Hard</option>
-          <option>Harder</option>
-          <option>Insane</option>
-          <option>Easy Demon</option>
-          <option>Medium Demon</option>
-          <option>Hard Demon</option>
-          <option>Insane Demon</option>
-        </select>
+      <!-- Tabs -->
+      <div class="tabs">
+        <button class="tab active" data-tab="add">➕ Ajouter</button>
+        <button class="tab" data-tab="manage">📋 Gérer</button>
+        <button class="tab" data-tab="setup">🔧 Setup</button>
       </div>
-      <button id="addLevelBtn" class="btn-primary" style="margin-top:20px;">✨ Ajouter le niveau</button>
-      <div id="addMsg" class="success-msg"></div>
-    </div>
 
-    <!-- TAB: MANAGE -->
-    <div class="tab-content" id="tab-manage">
-      <h3>Gérer les niveaux</h3>
-      <div id="adminLevelList">
-        <div class="loading-state" style="padding:30px 0;">Chargement... 💖</div>
+      <!-- TAB: ADD -->
+      <div class="tab-content active" id="tab-add">
+        <h3>Ajouter un niveau</h3>
+        <div class="form-grid">
+          <input id="fName" class="form-input" placeholder="Nom du niveau *">
+          <input id="fTop" class="form-input" placeholder="Top rank  (ex: #9)">
+          <input id="fDesc" class="form-input" placeholder="Description courte">
+          <input id="fBestRun" class="form-input" placeholder="Meilleur run  (ex: 67%)">
+          <input id="fProgress" class="form-input" type="number" min="0" max="100" placeholder="Progression % (0-100)">
+          <input id="fRuns" class="form-input" placeholder="Runs from 0  (ex: 0 → 67%)">
+          <input id="fAttempts" class="form-input" placeholder="Attempts  (ex: 1566)">
+          <input id="fWorstFail" class="form-input" placeholder="Worst Fail  (ex: 94%)">
+          <input id="fEnjoyment" class="form-input" type="number" min="0" max="10" step="0.5"
+            placeholder="Enjoyment /10  (ex: 8.5)">
+          <input id="fImage" class="form-input" placeholder="URL image">
+          <select id="fStatus" class="form-input">
+            <option value="pas_commence">💤 Pas commencé</option>
+            <option value="en_cours">⚡ En cours</option>
+            <option value="termine">✅ Terminé</option>
+          </select>
+          <select id="fDifficulty" class="form-input">
+            <option>Easy</option>
+            <option>Normal</option>
+            <option>Hard</option>
+            <option>Harder</option>
+            <option>Insane</option>
+            <option>Easy Demon</option>
+            <option>Medium Demon</option>
+            <option>Hard Demon</option>
+            <option>Insane Demon</option>
+          </select>
+        </div>
+        <button id="addLevelBtn" class="btn-primary" style="margin-top:20px;">✨ Ajouter le niveau</button>
+        <div id="addMsg" class="success-msg"></div>
       </div>
-    </div>
 
-    <!-- TAB: SETUP -->
-    <div class="tab-content" id="tab-setup">
-      <h3>Configuration Supabase</h3>
-      <div class="setup-block">
-        <h4>1. Crée le projet Supabase</h4>
-        <p>Va sur <strong>supabase.com</strong>, crée un projet, puis renseigne tes clés en haut du script (<code>SUPABASE_URL</code> et <code>SUPABASE_ANON_KEY</code>).</p>
+      <!-- TAB: MANAGE -->
+      <div class="tab-content" id="tab-manage">
+        <h3>Gérer les niveaux</h3>
+        <div id="adminLevelList">
+          <div class="loading-state" style="padding:30px 0;">Chargement... 💖</div>
+        </div>
       </div>
-      <div class="setup-block" style="margin-top:16px;">
-        <h4>2. Crée la table <code>levels</code></h4>
-        <p>Dans l'éditeur SQL de Supabase, exécute :</p>
-        <code>create table levels (
+
+      <!-- TAB: SETUP -->
+      <div class="tab-content" id="tab-setup">
+        <h3>Configuration Supabase</h3>
+        <div class="setup-block">
+          <h4>1. Crée le projet Supabase</h4>
+          <p>Va sur <strong>supabase.com</strong>, crée un projet, puis renseigne tes clés en haut du script
+            (<code>SUPABASE_URL</code> et <code>SUPABASE_ANON_KEY</code>).</p>
+        </div>
+        <div class="setup-block" style="margin-top:16px;">
+          <h4>2. Crée la table <code>levels</code></h4>
+          <p>Dans l'éditeur SQL de Supabase, exécute :</p>
+          <code>create table levels (
   id          bigint generated always as identity primary key,
   name        text not null,
   top_rank    text,
@@ -1118,131 +1474,133 @@
 
 -- Active le temps réel
 alter publication supabase_realtime add table levels;</code>
+        </div>
+        <div class="setup-block" style="margin-top:16px;">
+          <h4>3. Crée ton compte admin</h4>
+          <p>Dans Supabase → Authentication → Users → <strong>Invite user</strong>, crée ton compte email/mot de passe.
+            C'est celui que tu utiliseras pour te connecter ici.</p>
+        </div>
+        <div class="setup-block" style="margin-top:16px;">
+          <h4>4. Active le Realtime</h4>
+          <p>Supabase → Database → Replication → active la table <strong>levels</strong>. Les cartes se mettront à jour
+            automatiquement pour tous les viewers !</p>
+        </div>
       </div>
-      <div class="setup-block" style="margin-top:16px;">
-        <h4>3. Crée ton compte admin</h4>
-        <p>Dans Supabase → Authentication → Users → <strong>Invite user</strong>, crée ton compte email/mot de passe. C'est celui que tu utiliseras pour te connecter ici.</p>
-      </div>
-      <div class="setup-block" style="margin-top:16px;">
-        <h4>4. Active le Realtime</h4>
-        <p>Supabase → Database → Replication → active la table <strong>levels</strong>. Les cartes se mettront à jour automatiquement pour tous les viewers !</p>
-      </div>
+
     </div>
-
   </div>
-</div>
 
-<!-- ── SUPABASE ── -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<!-- ── CHART.JS ── -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <!-- ── SUPABASE ── -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- ── CHART.JS ── -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 
-<script>
-/* =========================================================
-   ⚙️  CONFIGURATION — Remplace ces deux valeurs !
-========================================================= */
-const SUPABASE_URL      = 'https://ernqzgvnjsewkjvsfqnv.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVybnF6Z3ZuanNld2tqdnNmcW52Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg5MzUyMTksImV4cCI6MjA5NDUxMTIxOX0.p4v-n7X-DXQe7iGAU7tlEC50n20FKk5TdPl5zqv7K50';
+  <script>
+    /* =========================================================
+       ⚙️  CONFIGURATION — Remplace ces deux valeurs !
+    ========================================================= */
+    const SUPABASE_URL = 'https://ernqzgvnjsewkjvsfqnv.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVybnF6Z3ZuanNld2tqdnNmcW52Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg5MzUyMTksImV4cCI6MjA5NDUxMTIxOX0.p4v-n7X-DXQe7iGAU7tlEC50n20FKk5TdPl5zqv7K50';
 
-/* =========================================================
-   Init
-========================================================= */
-const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    /* =========================================================
+       Init
+    ========================================================= */
+    const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-let allLevels     = [];
-let currentFilter = 'all';
-let currentSort   = 'default';
-let searchQuery   = '';
-let isAdmin       = false;
+    let allLevels = [];
+    let currentFilter = 'all';
+    let currentSort = 'default';
+    let searchQuery = '';
+    let isAdmin = false;
 
-const DIFFICULTY_ORDER = {
-  'Easy':1,'Normal':2,'Hard':3,'Harder':4,'Insane':5,
-  'Easy Demon':6,'Medium Demon':7,'Hard Demon':8,'Insane Demon':9,'Extreme Demon':10
-};
-const STATUS_ORDER = { 'en_cours':1,'termine':2,'pas_commence':3 };
-const STATUS_LABEL = { 'pas_commence':'Pas commencé','en_cours':'En cours','termine':'Terminé ✅' };
-const STATUS_CLASS = { 'pas_commence':'paused','en_cours':'playing','termine':'done' };
+    const DIFFICULTY_ORDER = {
+      'Easy': 1, 'Normal': 2, 'Hard': 3, 'Harder': 4, 'Insane': 5,
+      'Easy Demon': 6, 'Medium Demon': 7, 'Hard Demon': 8, 'Insane Demon': 9, 'Extreme Demon': 10
+    };
+    const STATUS_ORDER = { 'en_cours': 1, 'termine': 2, 'pas_commence': 3 };
+    const STATUS_LABEL = { 'pas_commence': 'Pas commencé', 'en_cours': 'En cours', 'termine': 'Terminé ✅' };
+    const STATUS_CLASS = { 'pas_commence': 'paused', 'en_cours': 'playing', 'termine': 'done' };
 
-/* =========================================================
-   Navigation entre vues
-========================================================= */
-function switchView(viewName) {
-  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById(`view-${viewName}`).classList.add('active');
-  document.querySelector(`.nav-btn[data-view="${viewName}"]`).classList.add('active');
-  if (viewName === 'infos') renderInfoSection();
-}
+    /* =========================================================
+       Navigation entre vues
+    ========================================================= */
+    function switchView(viewName) {
+      document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById(`view-${viewName}`).classList.add('active');
+      document.querySelector(`.nav-btn[data-view="${viewName}"]`).classList.add('active');
+      if (viewName === 'infos') renderInfoSection();
+    }
 
-/* =========================================================
-   Levels — Load, Filter, Sort, Render
-========================================================= */
-async function loadLevels() {
-  const { data, error } = await sb.from('levels').select('*').order('id');
-  if (error) { console.error(error); return; }
-  allLevels = data || [];
-  renderLevels();
-  updateStats();
-}
+    /* =========================================================
+       Levels — Load, Filter, Sort, Render
+    ========================================================= */
+    async function loadLevels() {
+      const { data, error } = await sb.from('levels').select('*').order('id');
+      if (error) { console.error(error); return; }
+      allLevels = data || [];
+      renderLevels();
+      updateStats();
+    }
 
-function getDisplayLevels() {
-  let levels = [...allLevels];
-  if (currentFilter !== 'all') levels = levels.filter(l => l.status === currentFilter);
-  if (searchQuery) levels = levels.filter(l => l.name.toLowerCase().includes(searchQuery));
-  if (currentSort === 'difficulty') {
-    levels.sort((a,b) => {
-      const getTop = t => parseInt((t||'').replace(/[^0-9]/g,'')) || 9999;
-      return getTop(a.top_rank) - getTop(b.top_rank);
-    });
-  } else if (currentSort === 'status') {
-    levels.sort((a,b) => (STATUS_ORDER[a.status]||99) - (STATUS_ORDER[b.status]||99));
-  }
-  return levels;
-}
+    function getDisplayLevels() {
+      let levels = [...allLevels];
+      if (currentFilter !== 'all') levels = levels.filter(l => l.status === currentFilter);
+      if (searchQuery) levels = levels.filter(l => l.name.toLowerCase().includes(searchQuery));
+      if (currentSort === 'difficulty') {
+        levels.sort((a, b) => {
+          const getTop = t => parseInt((t || '').replace(/[^0-9]/g, '')) || 9999;
+          return getTop(a.top_rank) - getTop(b.top_rank);
+        });
+      } else if (currentSort === 'status') {
+        levels.sort((a, b) => (STATUS_ORDER[a.status] || 99) - (STATUS_ORDER[b.status] || 99));
+      }
+      return levels;
+    }
 
-function renderLevels() {
-  const levels = getDisplayLevels();
-  const c = document.getElementById('levelsContainer');
-  if (!levels.length) {
-    c.innerHTML = '<div class="empty-state">Aucun niveau trouvé 💭</div>';
-    return;
-  }
-  c.innerHTML = levels.map(createLevelCard).join('');
-}
+    function renderLevels() {
+      const levels = getDisplayLevels();
+      const c = document.getElementById('levelsContainer');
+      if (!levels.length) {
+        c.innerHTML = '<div class="empty-state">Aucun niveau trouvé 💭</div>';
+        return;
+      }
+      c.innerHTML = levels.map(createLevelCard).join('');
+    }
 
-function updateStats() {
-  document.getElementById('statTotal').textContent   = allLevels.length;
-  document.getElementById('statEnCours').textContent = allLevels.filter(l => l.status === 'en_cours').length;
-  document.getElementById('statTermine').textContent = allLevels.filter(l => l.status === 'termine').length;
-  const best = Math.max(...allLevels.map(l => l.progress || 0), 0);
-  document.getElementById('statBestPb').textContent  = best + '%';
-}
+    function updateStats() {
+      document.getElementById('statTotal').textContent = allLevels.length;
+      document.getElementById('statEnCours').textContent = allLevels.filter(l => l.status === 'en_cours').length;
+      document.getElementById('statTermine').textContent = allLevels.filter(l => l.status === 'termine').length;
+      const best = Math.max(...allLevels.map(l => l.progress || 0), 0);
+      document.getElementById('statBestPb').textContent = best + '%';
+    }
 
-function createLevelCard(level) {
-  const sClass    = STATUS_CLASS[level.status] || 'paused';
-  const sLabel    = STATUS_LABEL[level.status] || 'Pas commencé';
-  const fillClass = level.status === 'termine' ? 'done-fill' : '';
-  const prog      = level.progress || 0;
-  const img       = level.image_url
-    ? level.image_url
-    : 'https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=800&q=60';
+    function createLevelCard(level) {
+      const sClass = STATUS_CLASS[level.status] || 'paused';
+      const sLabel = STATUS_LABEL[level.status] || 'Pas commencé';
+      const fillClass = level.status === 'termine' ? 'done-fill' : '';
+      const prog = level.progress || 0;
+      const img = level.image_url
+        ? level.image_url
+        : 'https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=800&q=60';
 
-  // Enjoyment display
-  const enjoVal = level.enjoyment != null && level.enjoyment !== '' ? parseFloat(level.enjoyment) : null;
-  const enjoyHTML = enjoVal !== null
-    ? `<div class="enjoy-display">
+      // Enjoyment display
+      const enjoVal = level.enjoyment != null && level.enjoyment !== '' ? parseFloat(level.enjoyment) : null;
+      const enjoyHTML = enjoVal !== null
+        ? `<div class="enjoy-display">
          <span class="enjoy-num">${enjoVal}/10</span>
          <span class="enjoy-heart">${enjoVal >= 8 ? '❤️' : enjoVal >= 5 ? '🧡' : '💔'}</span>
        </div>
-       <div class="enjoy-mini-bar"><div class="enjoy-mini-fill" style="width:${enjoVal*10}%"></div></div>`
-    : '<span style="color:#ccc">–</span>';
+       <div class="enjoy-mini-bar"><div class="enjoy-mini-fill" style="width:${enjoVal * 10}%"></div></div>`
+        : '<span style="color:#ccc">–</span>';
 
-  // Worst fail display
-  const failHTML = level.worst_fail
-    ? `<span class="fail-badge">💀 ${escHtml(level.worst_fail)}</span>`
-    : '<span style="color:#ccc">–</span>';
+      // Worst fail display
+      const failHTML = level.worst_fail
+        ? `<span class="fail-badge">💀 ${escHtml(level.worst_fail)}</span>`
+        : '<span style="color:#ccc">–</span>';
 
-  return `
+      return `
     <div class="level-card" data-id="${level.id}" data-name="${escHtml(level.name)}">
       <img class="level-image" src="${escHtml(img)}" alt="${escHtml(level.name)}" loading="lazy">
       <div class="level-content">
@@ -1250,15 +1608,14 @@ function createLevelCard(level) {
           <div>
             ${level.top_rank ? `<div class="badge">🏆 Top ${escHtml(level.top_rank)}</div>` : ''}
             <div class="level-name">${escHtml(level.name)}</div>
-            <div class="level-description">${escHtml(level.description||'')}</div>
+            <div class="level-description">${escHtml(level.description || '')}</div>
           </div>
           <div class="status ${sClass}">${sLabel}</div>
         </div>
         <div class="info-grid">
-          <div class="info-box"><div class="info-label">Runs from 0</div><div class="info-value">${escHtml(level.runs_from_0||'–')}</div></div>
-          <div class="info-box"><div class="info-label">Meilleur Run</div><div class="info-value">${escHtml(level.best_run||'–')}</div></div>
-          <div class="info-box"><div class="info-label">Attempts</div><div class="info-value">${escHtml(level.attempts||'–')}</div></div>
-          <div class="info-box"><div class="info-label">Difficulté</div><div class="info-value">${escHtml(level.difficulty||'–')}</div></div>
+          <div class="info-box"><div class="info-label">Runs from 0</div><div class="info-value">${escHtml(level.runs_from_0 || '–')}</div></div>
+          <div class="info-box"><div class="info-label">Meilleur Run</div><div class="info-value">${escHtml(level.best_run || '–')}</div></div>
+          <div class="info-box"><div class="info-label">Attempts</div><div class="info-value">${escHtml(level.attempts || '–')}</div></div>
           <div class="info-box"><div class="info-label">Enjoyment</div><div class="info-value">${enjoyHTML}</div></div>
           <div class="info-box"><div class="info-label">Worst Fail</div><div class="info-value">${failHTML}</div></div>
         </div>
@@ -1270,309 +1627,309 @@ function createLevelCard(level) {
         </div>
       </div>
     </div>`;
-}
+    }
 
-function escHtml(str) {
-  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
+    function escHtml(str) {
+      return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
 
-/* =========================================================
-   INFO SECTION
-========================================================= */
-// Chart instances (kept to destroy before re-render)
-let chartInstances = {};
+    /* =========================================================
+       INFO SECTION
+    ========================================================= */
+    // Chart instances (kept to destroy before re-render)
+    let chartInstances = {};
 
-function destroyChart(id) {
-  if (chartInstances[id]) { chartInstances[id].destroy(); delete chartInstances[id]; }
-}
+    function destroyChart(id) {
+      if (chartInstances[id]) { chartInstances[id].destroy(); delete chartInstances[id]; }
+    }
 
-function renderInfoSection() {
-  renderInfoStats();
-  renderTopRanks();
-  renderEnjoymentStats();
-  renderAttemptsStats();
-  renderWorstFailsStats();
-  renderHardestStats();
-  renderCharts();
-// Affiche le niveau terminé avec le plus haut top
-function renderHardestStats() {
-  const container = document.getElementById('hardestStats');
-  const finished = allLevels.filter(l => l.status === 'termine' && l.top_rank && l.top_rank.trim() !== '');
-  if (!finished.length) {
-    container.innerHTML = '<p class="aredl-placeholder">Aucun niveau terminé avec top renseigné.</p>';
-    return;
-  }
-  // Plus petit top = hardest
-  const parseRank = r => parseInt(String(r).replace(/[^0-9]/g, '')) || 9999;
-  const hardest = finished.reduce((best, l) => parseRank(l.top_rank) < parseRank(best.top_rank) ? l : best, finished[0]);
-  container.innerHTML = `
+    function renderInfoSection() {
+      renderInfoStats();
+      renderTopRanks();
+      renderEnjoymentStats();
+      renderAttemptsStats();
+      renderWorstFailsStats();
+      renderHardestStats();
+      renderCharts();
+      // Affiche le niveau terminé avec le plus haut top
+      function renderHardestStats() {
+        const container = document.getElementById('hardestStats');
+        const finished = allLevels.filter(l => l.status === 'termine' && l.top_rank && l.top_rank.trim() !== '');
+        if (!finished.length) {
+          container.innerHTML = '<p class="aredl-placeholder">Aucun niveau terminé avec top renseigné.</p>';
+          return;
+        }
+        // Plus petit top = hardest
+        const parseRank = r => parseInt(String(r).replace(/[^0-9]/g, '')) || 9999;
+        const hardest = finished.reduce((best, l) => parseRank(l.top_rank) < parseRank(best.top_rank) ? l : best, finished[0]);
+        container.innerHTML = `
     <div style="font-weight:700;font-size:1.1em;margin-bottom:6px;">${escHtml(hardest.name)}</div>
     <div><span style="font-weight:800;color:#e6194b">Top ${escHtml(hardest.top_rank)}</span></div>
-    <div style="margin-top:6px;">${escHtml(hardest.description||'')}</div>
+    <div style="margin-top:6px;">${escHtml(hardest.description || '')}</div>
     <div style="margin-top:6px;">${hardest.image_url ? `<img src="${escHtml(hardest.image_url)}" alt="${escHtml(hardest.name)}" style="max-width:120px;border-radius:8px;">` : ''}</div>
   `;
-}
-}
+      }
+    }
 
-/* ── Stats rapides ── */
-function renderInfoStats() {
-  const parseAtt = a => parseInt(String(a).replace(/[^0-9]/g,'')) || 0;
-  const total    = allLevels.length;
-  const cours    = allLevels.filter(l => l.status === 'en_cours').length;
-  const done     = allLevels.filter(l => l.status === 'termine').length;
-  const totalAtt = allLevels.reduce((s,l) => s + parseAtt(l.attempts), 0);
-  const enjVals  = allLevels.map(l => parseFloat(l.enjoyment)).filter(v => !isNaN(v) && v > 0);
-  const avgEnj   = enjVals.length ? (enjVals.reduce((a,b)=>a+b,0)/enjVals.length).toFixed(1) : '–';
+    /* ── Stats rapides ── */
+    function renderInfoStats() {
+      const parseAtt = a => parseInt(String(a).replace(/[^0-9]/g, '')) || 0;
+      const total = allLevels.length;
+      const cours = allLevels.filter(l => l.status === 'en_cours').length;
+      const done = allLevels.filter(l => l.status === 'termine').length;
+      const totalAtt = allLevels.reduce((s, l) => s + parseAtt(l.attempts), 0);
+      const enjVals = allLevels.map(l => parseFloat(l.enjoyment)).filter(v => !isNaN(v) && v > 0);
+      const avgEnj = enjVals.length ? (enjVals.reduce((a, b) => a + b, 0) / enjVals.length).toFixed(1) : '–';
 
-  document.getElementById('iStatTotal').textContent = total;
-  document.getElementById('iStatCours').textContent = cours;
-  document.getElementById('iStatDone').textContent  = done;
-  document.getElementById('iStatAtt').textContent   = totalAtt > 0 ? totalAtt.toLocaleString('fr-FR') : '–';
-  document.getElementById('iStatEnj').textContent   = avgEnj !== '–' ? avgEnj + '/10' : '–';
-}
+      document.getElementById('iStatTotal').textContent = total;
+      document.getElementById('iStatCours').textContent = cours;
+      document.getElementById('iStatDone').textContent = done;
+      document.getElementById('iStatAtt').textContent = totalAtt > 0 ? totalAtt.toLocaleString('fr-FR') : '–';
+      document.getElementById('iStatEnj').textContent = avgEnj !== '–' ? avgEnj + '/10' : '–';
+    }
 
-/* ── Top Ranks ── */
-function renderTopRanks() {
-  const container = document.getElementById('topRanksStats');
-  const levs = allLevels.filter(l => l.top_rank && l.top_rank.trim() !== '');
+    /* ── Top Ranks ── */
+    function renderTopRanks() {
+      const container = document.getElementById('topRanksStats');
+      const levs = allLevels.filter(l => l.top_rank && l.top_rank.trim() !== '');
 
-  if (!levs.length) {
-    container.innerHTML = '<p class="aredl-placeholder">Aucun top rank renseigné.<br>Ajoute un Top rank (ex: #9) dans le panneau admin.</p>';
-    return;
-  }
+      if (!levs.length) {
+        container.innerHTML = '<p class="aredl-placeholder">Aucun top rank renseigné.<br>Ajoute un Top rank (ex: #9) dans le panneau admin.</p>';
+        return;
+      }
 
-  const parseRank = r => parseInt(String(r).replace(/[^0-9]/g,'')) || 9999;
-  const sorted = [...levs].sort((a,b) => parseRank(a.top_rank) - parseRank(b.top_rank));
-  const rankClass = i => i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : '';
+      const parseRank = r => parseInt(String(r).replace(/[^0-9]/g, '')) || 9999;
+      const sorted = [...levs].sort((a, b) => parseRank(a.top_rank) - parseRank(b.top_rank));
+      const rankClass = i => i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : '';
 
-  container.innerHTML = `
+      container.innerHTML = `
     <table class="stat-table">
       <thead><tr><th>#</th><th>Niveau</th><th>Rank AREDL</th><th>Statut</th></tr></thead>
       <tbody>
         ${sorted.map((l, i) => `
           <tr>
-            <td><span class="rank-badge ${rankClass(i)}">${i+1}</span></td>
+            <td><span class="rank-badge ${rankClass(i)}">${i + 1}</span></td>
             <td style="font-weight:700">${escHtml(l.name)}</td>
             <td><span style="font-weight:800;color:#ff4da6">Top ${escHtml(l.top_rank)}</span></td>
-            <td><span class="status-mini ${l.status||'pas_commence'}" style="display:inline-block;">${STATUS_LABEL[l.status]||'Pas commencé'}</span></td>
+            <td><span class="status-mini ${l.status || 'pas_commence'}" style="display:inline-block;">${STATUS_LABEL[l.status] || 'Pas commencé'}</span></td>
           </tr>`).join('')}
       </tbody>
     </table>`;
-}
+    }
 
-/* ── Charts ── */
-function renderCharts() {
-  renderChartDifficulty();
-  renderChartStatus();
-  renderChartProgress();
-  renderChartEnjoyment();
-  renderChartAttempts();
-}
+    /* ── Charts ── */
+    function renderCharts() {
+      renderChartDifficulty();
+      renderChartStatus();
+      renderChartProgress();
+      renderChartEnjoyment();
+      renderChartAttempts();
+    }
 
-function renderChartDifficulty() {
-  destroyChart('difficulty');
-  // Fourchettes de top
-  const topRanges = [
-    { label: 'Top 1-75',        min: 1,    max: 75 },
-    { label: 'Top 76-150',      min: 76,   max: 150 },
-    { label: 'Top 151-300',     min: 151,  max: 300 },
-    { label: 'Top 301-500',     min: 301,  max: 500 },
-    { label: 'Top 501-700',     min: 501,  max: 700 },
-    { label: 'Top 701-900',     min: 701,  max: 900 },
-    { label: 'Top 1000-1200',   min: 1000, max: 1200 },
-    { label: 'Top 1201+',       min: 1201, max: Infinity }
-  ];
-  // Difficultés classiques
-  const classicDiffs = ['Easy','Normal','Hard','Harder','Insane','Easy Demon','Medium Demon','Hard Demon','Insane Demon'];
-  const counts = {};
-  // Initialiser les catégories
-  classicDiffs.forEach(d => counts[d] = 0);
-  topRanges.forEach(r => counts[r.label] = 0);
-  // Répartition
-  allLevels.forEach(l => {
-    // Tous les niveaux sont des Extreme Demons, donc on utilise uniquement le top_rank pour la répartition
-    if (l.top_rank) {
-      const top = parseInt(String(l.top_rank).replace(/[^0-9]/g, ''));
-      let found = false;
-      for (const r of topRanges) {
-        if (top >= r.min && top <= r.max) {
-          counts[r.label]++;
-          found = true;
-          break;
+    function renderChartDifficulty() {
+      destroyChart('difficulty');
+      // Fourchettes de top
+      const topRanges = [
+        { label: 'Top 1-75', min: 1, max: 75 },
+        { label: 'Top 76-150', min: 76, max: 150 },
+        { label: 'Top 151-300', min: 151, max: 300 },
+        { label: 'Top 301-500', min: 301, max: 500 },
+        { label: 'Top 501-700', min: 501, max: 700 },
+        { label: 'Top 701-900', min: 701, max: 900 },
+        { label: 'Top 1000-1200', min: 1000, max: 1200 },
+        { label: 'Top 1201+', min: 1201, max: Infinity }
+      ];
+      // Difficultés classiques
+      const classicDiffs = ['Easy', 'Normal', 'Hard', 'Harder', 'Insane', 'Easy Demon', 'Medium Demon', 'Hard Demon', 'Insane Demon'];
+      const counts = {};
+      // Initialiser les catégories
+      classicDiffs.forEach(d => counts[d] = 0);
+      topRanges.forEach(r => counts[r.label] = 0);
+      // Répartition
+      allLevels.forEach(l => {
+        // Tous les niveaux sont des Extreme Demons, donc on utilise uniquement le top_rank pour la répartition
+        if (l.top_rank) {
+          const top = parseInt(String(l.top_rank).replace(/[^0-9]/g, ''));
+          let found = false;
+          for (const r of topRanges) {
+            if (top >= r.min && top <= r.max) {
+              counts[r.label]++;
+              found = true;
+              break;
+            }
+          }
+          if (!found) counts['Top 1201+']++;
         }
+      });
+      // Nettoyer les catégories vides
+      Object.keys(counts).forEach(k => { if (counts[k] === 0) delete counts[k]; });
+      if (!Object.keys(counts).length) return;
+
+      // Palette de couleurs très distinctes
+      const colors = [
+        '#e6194b', // rouge
+        '#3cb44b', // vert
+        '#ffe119', // jaune
+        '#4363d8', // bleu
+        '#f58231', // orange
+        '#911eb4', // violet
+        '#46f0f0', // cyan
+        '#f032e6', // rose
+        '#bcf60c', // vert clair
+        '#fabebe', // rose pâle
+        '#008080', // teal
+        '#e6beff', // lavande
+        '#9a6324', // marron
+        '#fffac8', // jaune pâle
+        '#800000', // bordeaux
+        '#aaffc3', // vert menthe
+        '#808000', // olive
+        '#ffd8b1', // pêche
+        '#000075', // bleu foncé
+        '#808080'  // gris
+      ];
+      chartInstances['difficulty'] = new Chart(document.getElementById('chartDifficulty'), {
+        type: 'doughnut',
+        data: {
+          labels: Object.keys(counts),
+          datasets: [{ data: Object.values(counts), backgroundColor: colors, borderWidth: 0, hoverOffset: 8 }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { position: 'bottom', labels: { font: { family: 'Poppins', size: 11 }, padding: 12, color: '#444' } }
+          }
+        }
+      });
+    }
+
+    function renderChartStatus() {
+      destroyChart('status');
+      const cours = allLevels.filter(l => l.status === 'en_cours').length;
+      const done = allLevels.filter(l => l.status === 'termine').length;
+      const paused = allLevels.filter(l => l.status === 'pas_commence').length;
+      chartInstances['status'] = new Chart(document.getElementById('chartStatus'), {
+        type: 'doughnut',
+        data: {
+          labels: ['⚡ En cours', '✅ Terminés', '💤 Pas commencé'],
+          datasets: [{ data: [cours, done, paused], backgroundColor: ['#ff4da6', '#00c49f', '#b5b5b5'], borderWidth: 0, hoverOffset: 8 }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { position: 'bottom', labels: { font: { family: 'Poppins', size: 11 }, padding: 12, color: '#444' } }
+          }
+        }
+      });
+    }
+
+    function renderChartProgress() {
+      destroyChart('progress');
+      const levs = allLevels.filter(l => l.status === 'en_cours' && (l.progress || 0) > 0);
+      if (!levs.length) return;
+      const sorted = [...levs].sort((a, b) => (b.progress || 0) - (a.progress || 0)).slice(0, 10);
+      chartInstances['progress'] = new Chart(document.getElementById('chartProgress'), {
+        type: 'bar',
+        data: {
+          labels: sorted.map(l => l.name.length > 14 ? l.name.slice(0, 14) + '…' : l.name),
+          datasets: [{
+            label: 'Progression %',
+            data: sorted.map(l => l.progress || 0),
+            backgroundColor: sorted.map(l => {
+              const p = l.progress || 0;
+              return p >= 80 ? '#00c49f' : p >= 50 ? '#ff4da6' : '#c44dff';
+            }),
+            borderRadius: 8, borderSkipped: false
+          }]
+        },
+        options: {
+          responsive: true, indexAxis: 'y',
+          scales: {
+            x: { max: 100, ticks: { font: { family: 'Poppins', size: 11 }, callback: v => v + '%' }, grid: { color: '#ffedf5' } },
+            y: { ticks: { font: { family: 'Poppins', size: 11 } }, grid: { display: false } }
+          },
+          plugins: { legend: { display: false } }
+        }
+      });
+    }
+
+    function renderChartEnjoyment() {
+      destroyChart('enjoyment');
+      const levs = allLevels.filter(l => l.enjoyment != null && l.enjoyment !== '');
+      if (!levs.length) return;
+      const sorted = [...levs].sort((a, b) => parseFloat(b.enjoyment) - parseFloat(a.enjoyment)).slice(0, 10);
+      chartInstances['enjoyment'] = new Chart(document.getElementById('chartEnjoyment'), {
+        type: 'bar',
+        data: {
+          labels: sorted.map(l => l.name.length > 14 ? l.name.slice(0, 14) + '…' : l.name),
+          datasets: [{
+            label: 'Enjoyment /10',
+            data: sorted.map(l => parseFloat(l.enjoyment)),
+            backgroundColor: sorted.map(l => {
+              const v = parseFloat(l.enjoyment);
+              return v >= 8 ? '#00c49f' : v >= 6 ? '#ff4da6' : '#c44dff';
+            }),
+            borderRadius: 8, borderSkipped: false
+          }]
+        },
+        options: {
+          responsive: true, indexAxis: 'y',
+          scales: {
+            x: { max: 10, ticks: { font: { family: 'Poppins', size: 11 } }, grid: { color: '#ffedf5' } },
+            y: { ticks: { font: { family: 'Poppins', size: 11 } }, grid: { display: false } }
+          },
+          plugins: { legend: { display: false } }
+        }
+      });
+    }
+
+    function renderChartAttempts() {
+      destroyChart('attempts');
+      const parseAtt = a => parseInt(String(a).replace(/[^0-9]/g, '')) || 0;
+      const levs = allLevels.filter(l => l.attempts && parseAtt(l.attempts) > 0);
+      if (!levs.length) return;
+      const sorted = [...levs].sort((a, b) => parseAtt(b.attempts) - parseAtt(a.attempts)).slice(0, 10);
+      chartInstances['attempts'] = new Chart(document.getElementById('chartAttempts'), {
+        type: 'bar',
+        data: {
+          labels: sorted.map(l => l.name.length > 14 ? l.name.slice(0, 14) + '…' : l.name),
+          datasets: [{
+            label: 'Attempts',
+            data: sorted.map(l => parseAtt(l.attempts)),
+            backgroundColor: '#ff6b6b',
+            borderRadius: 8, borderSkipped: false
+          }]
+        },
+        options: {
+          responsive: true, indexAxis: 'y',
+          scales: {
+            x: { ticks: { font: { family: 'Poppins', size: 11 }, callback: v => v.toLocaleString('fr-FR') }, grid: { color: '#ffedf5' } },
+            y: { ticks: { font: { family: 'Poppins', size: 11 } }, grid: { display: false } }
+          },
+          plugins: { legend: { display: false } }
+        }
+      });
+    }
+
+    /* ── Enjoyment Stats ── */
+    function renderEnjoymentStats() {
+      const container = document.getElementById('enjoymentStats');
+      const levs = allLevels.filter(l => l.enjoyment != null && l.enjoyment !== '');
+
+      if (!levs.length) {
+        container.innerHTML = '<p class="aredl-placeholder">Pas encore d\'enjoyment renseigné sur tes niveaux.</p>';
+        return;
       }
-      if (!found) counts['Top 1201+']++;
-    }
-  });
-  // Nettoyer les catégories vides
-  Object.keys(counts).forEach(k => { if (counts[k] === 0) delete counts[k]; });
-  if (!Object.keys(counts).length) return;
 
-  // Palette de couleurs très distinctes
-  const colors = [
-    '#e6194b', // rouge
-    '#3cb44b', // vert
-    '#ffe119', // jaune
-    '#4363d8', // bleu
-    '#f58231', // orange
-    '#911eb4', // violet
-    '#46f0f0', // cyan
-    '#f032e6', // rose
-    '#bcf60c', // vert clair
-    '#fabebe', // rose pâle
-    '#008080', // teal
-    '#e6beff', // lavande
-    '#9a6324', // marron
-    '#fffac8', // jaune pâle
-    '#800000', // bordeaux
-    '#aaffc3', // vert menthe
-    '#808000', // olive
-    '#ffd8b1', // pêche
-    '#000075', // bleu foncé
-    '#808080'  // gris
-  ];
-  chartInstances['difficulty'] = new Chart(document.getElementById('chartDifficulty'), {
-    type: 'doughnut',
-    data: {
-      labels: Object.keys(counts),
-      datasets: [{ data: Object.values(counts), backgroundColor: colors, borderWidth: 0, hoverOffset: 8 }]
-    },
-    options: {
-      responsive: true,
-      plugins: {
-        legend: { position: 'bottom', labels: { font: { family: 'Poppins', size: 11 }, padding: 12, color: '#444' } }
-      }
-    }
-  });
-}
+      const vals = levs.map(l => parseFloat(l.enjoyment)).filter(v => !isNaN(v));
+      const avg = vals.reduce((a, b) => a + b, 0) / vals.length;
+      const maxL = levs.reduce((a, b) => parseFloat(b.enjoyment) > parseFloat(a.enjoyment) ? b : a);
+      const minL = levs.reduce((a, b) => parseFloat(b.enjoyment) < parseFloat(a.enjoyment) ? b : a);
+      const sorted = [...levs].sort((a, b) => parseFloat(b.enjoyment) - parseFloat(a.enjoyment));
 
-function renderChartStatus() {
-  destroyChart('status');
-  const cours  = allLevels.filter(l => l.status === 'en_cours').length;
-  const done   = allLevels.filter(l => l.status === 'termine').length;
-  const paused = allLevels.filter(l => l.status === 'pas_commence').length;
-  chartInstances['status'] = new Chart(document.getElementById('chartStatus'), {
-    type: 'doughnut',
-    data: {
-      labels: ['⚡ En cours', '✅ Terminés', '💤 Pas commencé'],
-      datasets: [{ data: [cours, done, paused], backgroundColor: ['#ff4da6','#00c49f','#b5b5b5'], borderWidth: 0, hoverOffset: 8 }]
-    },
-    options: {
-      responsive: true,
-      plugins: {
-        legend: { position: 'bottom', labels: { font: { family: 'Poppins', size: 11 }, padding: 12, color: '#444' } }
-      }
-    }
-  });
-}
+      const rankClass = i => i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : 'rank-badge';
 
-function renderChartProgress() {
-  destroyChart('progress');
-  const levs = allLevels.filter(l => l.status === 'en_cours' && (l.progress || 0) > 0);
-  if (!levs.length) return;
-  const sorted = [...levs].sort((a,b) => (b.progress||0) - (a.progress||0)).slice(0, 10);
-  chartInstances['progress'] = new Chart(document.getElementById('chartProgress'), {
-    type: 'bar',
-    data: {
-      labels: sorted.map(l => l.name.length > 14 ? l.name.slice(0,14)+'…' : l.name),
-      datasets: [{
-        label: 'Progression %',
-        data: sorted.map(l => l.progress || 0),
-        backgroundColor: sorted.map(l => {
-          const p = l.progress || 0;
-          return p >= 80 ? '#00c49f' : p >= 50 ? '#ff4da6' : '#c44dff';
-        }),
-        borderRadius: 8, borderSkipped: false
-      }]
-    },
-    options: {
-      responsive: true, indexAxis: 'y',
-      scales: {
-        x: { max: 100, ticks: { font: { family: 'Poppins', size: 11 }, callback: v => v+'%' }, grid: { color: '#ffedf5' } },
-        y: { ticks: { font: { family: 'Poppins', size: 11 } }, grid: { display: false } }
-      },
-      plugins: { legend: { display: false } }
-    }
-  });
-}
-
-function renderChartEnjoyment() {
-  destroyChart('enjoyment');
-  const levs = allLevels.filter(l => l.enjoyment != null && l.enjoyment !== '');
-  if (!levs.length) return;
-  const sorted = [...levs].sort((a,b) => parseFloat(b.enjoyment) - parseFloat(a.enjoyment)).slice(0, 10);
-  chartInstances['enjoyment'] = new Chart(document.getElementById('chartEnjoyment'), {
-    type: 'bar',
-    data: {
-      labels: sorted.map(l => l.name.length > 14 ? l.name.slice(0,14)+'…' : l.name),
-      datasets: [{
-        label: 'Enjoyment /10',
-        data: sorted.map(l => parseFloat(l.enjoyment)),
-        backgroundColor: sorted.map(l => {
-          const v = parseFloat(l.enjoyment);
-          return v >= 8 ? '#00c49f' : v >= 6 ? '#ff4da6' : '#c44dff';
-        }),
-        borderRadius: 8, borderSkipped: false
-      }]
-    },
-    options: {
-      responsive: true, indexAxis: 'y',
-      scales: {
-        x: { max: 10, ticks: { font: { family: 'Poppins', size: 11 } }, grid: { color: '#ffedf5' } },
-        y: { ticks: { font: { family: 'Poppins', size: 11 } }, grid: { display: false } }
-      },
-      plugins: { legend: { display: false } }
-    }
-  });
-}
-
-function renderChartAttempts() {
-  destroyChart('attempts');
-  const parseAtt = a => parseInt(String(a).replace(/[^0-9]/g,'')) || 0;
-  const levs = allLevels.filter(l => l.attempts && parseAtt(l.attempts) > 0);
-  if (!levs.length) return;
-  const sorted = [...levs].sort((a,b) => parseAtt(b.attempts) - parseAtt(a.attempts)).slice(0, 10);
-  chartInstances['attempts'] = new Chart(document.getElementById('chartAttempts'), {
-    type: 'bar',
-    data: {
-      labels: sorted.map(l => l.name.length > 14 ? l.name.slice(0,14)+'…' : l.name),
-      datasets: [{
-        label: 'Attempts',
-        data: sorted.map(l => parseAtt(l.attempts)),
-        backgroundColor: '#ff6b6b',
-        borderRadius: 8, borderSkipped: false
-      }]
-    },
-    options: {
-      responsive: true, indexAxis: 'y',
-      scales: {
-        x: { ticks: { font: { family: 'Poppins', size: 11 }, callback: v => v.toLocaleString('fr-FR') }, grid: { color: '#ffedf5' } },
-        y: { ticks: { font: { family: 'Poppins', size: 11 } }, grid: { display: false } }
-      },
-      plugins: { legend: { display: false } }
-    }
-  });
-}
-
-/* ── Enjoyment Stats ── */
-function renderEnjoymentStats() {
-  const container = document.getElementById('enjoymentStats');
-  const levs = allLevels.filter(l => l.enjoyment != null && l.enjoyment !== '');
-
-  if (!levs.length) {
-    container.innerHTML = '<p class="aredl-placeholder">Pas encore d\'enjoyment renseigné sur tes niveaux.</p>';
-    return;
-  }
-
-  const vals = levs.map(l => parseFloat(l.enjoyment)).filter(v => !isNaN(v));
-  const avg  = vals.reduce((a,b) => a+b, 0) / vals.length;
-  const maxL = levs.reduce((a,b) => parseFloat(b.enjoyment) > parseFloat(a.enjoyment) ? b : a);
-  const minL = levs.reduce((a,b) => parseFloat(b.enjoyment) < parseFloat(a.enjoyment) ? b : a);
-  const sorted = [...levs].sort((a,b) => parseFloat(b.enjoyment) - parseFloat(a.enjoyment));
-
-  const rankClass = i => i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : 'rank-badge';
-
-  container.innerHTML = `
+      container.innerHTML = `
     <div class="big-stat">
       <span class="big-stat-label">📊 Moyenne</span>
       <span class="big-stat-value">${avg.toFixed(1)}/10</span>
@@ -1590,39 +1947,39 @@ function renderEnjoymentStats() {
       <tbody>
         ${sorted.map((l, i) => `
           <tr>
-            <td><span class="rank-badge ${rankClass(i)}">${i+1}</span></td>
+            <td><span class="rank-badge ${rankClass(i)}">${i + 1}</span></td>
             <td>${escHtml(l.name)}</td>
             <td>
               <span style="font-weight:800">${l.enjoyment}/10</span>
-              <div class="enjoy-bar"><div class="enjoy-fill" style="width:${parseFloat(l.enjoyment)*10}%"></div></div>
+              <div class="enjoy-bar"><div class="enjoy-fill" style="width:${parseFloat(l.enjoyment) * 10}%"></div></div>
             </td>
           </tr>`).join('')}
       </tbody>
     </table>`;
-}
+    }
 
-/* ── Attempts Stats ── */
-function renderAttemptsStats() {
-  const container = document.getElementById('attemptsStats');
-  const parseAtt  = a => parseInt(String(a).replace(/[^0-9]/g, '')) || 0;
-  const levs = allLevels.filter(l => l.attempts && parseAtt(l.attempts) > 0);
+    /* ── Attempts Stats ── */
+    function renderAttemptsStats() {
+      const container = document.getElementById('attemptsStats');
+      const parseAtt = a => parseInt(String(a).replace(/[^0-9]/g, '')) || 0;
+      const levs = allLevels.filter(l => l.attempts && parseAtt(l.attempts) > 0);
 
-  if (!levs.length) {
-    container.innerHTML = '<p class="aredl-placeholder">Pas encore d\'attempts renseignés.</p>';
-    return;
-  }
+      if (!levs.length) {
+        container.innerHTML = '<p class="aredl-placeholder">Pas encore d\'attempts renseignés.</p>';
+        return;
+      }
 
-  const vals   = levs.map(l => parseAtt(l.attempts));
-  const avg    = Math.round(vals.reduce((a,b) => a+b, 0) / vals.length);
-  const total  = vals.reduce((a,b) => a+b, 0);
-  const maxL   = levs.reduce((a,b) => parseAtt(b.attempts) > parseAtt(a.attempts) ? b : a);
-  const minL   = levs.reduce((a,b) => parseAtt(b.attempts) < parseAtt(a.attempts) ? b : a);
-  const sorted = [...levs].sort((a,b) => parseAtt(b.attempts) - parseAtt(a.attempts));
-  const maxVal = parseAtt(maxL.attempts);
+      const vals = levs.map(l => parseAtt(l.attempts));
+      const avg = Math.round(vals.reduce((a, b) => a + b, 0) / vals.length);
+      const total = vals.reduce((a, b) => a + b, 0);
+      const maxL = levs.reduce((a, b) => parseAtt(b.attempts) > parseAtt(a.attempts) ? b : a);
+      const minL = levs.reduce((a, b) => parseAtt(b.attempts) < parseAtt(a.attempts) ? b : a);
+      const sorted = [...levs].sort((a, b) => parseAtt(b.attempts) - parseAtt(a.attempts));
+      const maxVal = parseAtt(maxL.attempts);
 
-  const rankClass = i => i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : 'rank-badge';
+      const rankClass = i => i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : 'rank-badge';
 
-  container.innerHTML = `
+      container.innerHTML = `
     <div class="big-stat">
       <span class="big-stat-label">📊 Moyenne</span>
       <span class="big-stat-value">${avg.toLocaleString('fr-FR')}</span>
@@ -1643,39 +2000,39 @@ function renderAttemptsStats() {
       <thead><tr><th>#</th><th>Niveau</th><th>Attempts</th></tr></thead>
       <tbody>
         ${sorted.map((l, i) => {
-          const pct = Math.round((parseAtt(l.attempts) / maxVal) * 100);
-          return `
+        const pct = Math.round((parseAtt(l.attempts) / maxVal) * 100);
+        return `
           <tr>
-            <td><span class="rank-badge ${rankClass(i)}">${i+1}</span></td>
+            <td><span class="rank-badge ${rankClass(i)}">${i + 1}</span></td>
             <td>${escHtml(l.name)}</td>
             <td>
               <span style="font-weight:800">${parseAtt(l.attempts).toLocaleString('fr-FR')}</span>
               <div class="enjoy-bar"><div class="enjoy-fill" style="width:${pct}%;background:linear-gradient(90deg,#ff6b6b,#ee0979)"></div></div>
             </td>
           </tr>`;
-        }).join('')}
+      }).join('')}
       </tbody>
     </table>`;
-}
+    }
 
-/* ── Worst Fails Stats ── */
-function renderWorstFailsStats() {
-  const container = document.getElementById('worstFailsStats');
-  const parsePct  = p => parseInt(String(p).replace(/[^0-9]/g, '')) || 0;
-  const levs = allLevels.filter(l => l.worst_fail && String(l.worst_fail).trim() !== '');
+    /* ── Worst Fails Stats ── */
+    function renderWorstFailsStats() {
+      const container = document.getElementById('worstFailsStats');
+      const parsePct = p => parseInt(String(p).replace(/[^0-9]/g, '')) || 0;
+      const levs = allLevels.filter(l => l.worst_fail && String(l.worst_fail).trim() !== '');
 
-  if (!levs.length) {
-    container.innerHTML = '<p class="aredl-placeholder">Pas encore de worst fails renseignés sur tes niveaux.</p>';
-    return;
-  }
+      if (!levs.length) {
+        container.innerHTML = '<p class="aredl-placeholder">Pas encore de worst fails renseignés sur tes niveaux.</p>';
+        return;
+      }
 
-  const sorted = [...levs].sort((a,b) => parsePct(b.worst_fail) - parsePct(a.worst_fail));
-  const worst  = sorted[0];
-  const avg    = Math.round(sorted.reduce((acc,l) => acc + parsePct(l.worst_fail), 0) / sorted.length);
+      const sorted = [...levs].sort((a, b) => parsePct(b.worst_fail) - parsePct(a.worst_fail));
+      const worst = sorted[0];
+      const avg = Math.round(sorted.reduce((acc, l) => acc + parsePct(l.worst_fail), 0) / sorted.length);
 
-  const rankClass = i => i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : 'rank-badge';
+      const rankClass = i => i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : 'rank-badge';
 
-  container.innerHTML = `
+      container.innerHTML = `
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-bottom:18px;">
       <div class="big-stat" style="margin:0">
         <span class="big-stat-label">💀 Pire fail absolu</span>
@@ -1703,81 +2060,81 @@ function renderWorstFailsStats() {
       <tbody>
         ${sorted.map((l, i) => `
           <tr>
-            <td><span class="rank-badge ${rankClass(i)}">${i+1}</span></td>
+            <td><span class="rank-badge ${rankClass(i)}">${i + 1}</span></td>
             <td style="font-weight:700">${escHtml(l.name)}</td>
             <td><span class="fail-badge">💀 ${escHtml(l.worst_fail)}</span></td>
-            <td><span class="status-mini ${l.status||'pas_commence'}" style="display:inline-block;">${STATUS_LABEL[l.status]||'Pas commencé'}</span></td>
-            <td style="color:#ff4da6;font-size:13px;font-weight:600">${escHtml(l.difficulty||'–')}</td>
+            <td><span class="status-mini ${l.status || 'pas_commence'}" style="display:inline-block;">${STATUS_LABEL[l.status] || 'Pas commencé'}</span></td>
+            <td style="color:#ff4da6;font-size:13px;font-weight:600">${escHtml(l.difficulty || '–')}</td>
           </tr>`).join('')}
       </tbody>
     </table>`;
-}
+    }
 
-/* =========================================================
-   Auth
-========================================================= */
-async function checkAuth() {
-  const { data:{ session } } = await sb.auth.getSession();
-  isAdmin = !!session;
-  updateAdminUI();
-}
+    /* =========================================================
+       Auth
+    ========================================================= */
+    async function checkAuth() {
+      const { data: { session } } = await sb.auth.getSession();
+      isAdmin = !!session;
+      updateAdminUI();
+    }
 
-function updateAdminUI() {
-  document.getElementById('adminFab').textContent = isAdmin ? '⚙️' : '🔐';
-}
+    function updateAdminUI() {
+      document.getElementById('adminFab').textContent = isAdmin ? '⚙️' : '🔐';
+    }
 
-/* =========================================================
-   Admin panel — level list
-========================================================= */
-async function loadAdminLevelList() {
-  const { data, error } = await sb.from('levels').select('*').order('id');
-  if (error) return;
-  const c = document.getElementById('adminLevelList');
-  if (!data || !data.length) {
-    c.innerHTML = '<p style="color:#999;margin-top:15px;">Aucun niveau pour l\'instant.</p>';
-    return;
-  }
-  c.innerHTML = data.map(buildAdminItem).join('');
-}
+    /* =========================================================
+       Admin panel — level list
+    ========================================================= */
+    async function loadAdminLevelList() {
+      const { data, error } = await sb.from('levels').select('*').order('id');
+      if (error) return;
+      const c = document.getElementById('adminLevelList');
+      if (!data || !data.length) {
+        c.innerHTML = '<p style="color:#999;margin-top:15px;">Aucun niveau pour l\'instant.</p>';
+        return;
+      }
+      c.innerHTML = data.map(buildAdminItem).join('');
+    }
 
-function buildAdminItem(level) {
-  const diffOpts = ['Easy','Normal','Hard','Harder','Insane','Easy Demon','Medium Demon','Hard Demon','Insane Demon']
-    .map(d => `<option${level.difficulty===d?' selected':''}>${d}</option>`).join('');
+    function buildAdminItem(level) {
+      const diffOpts = ['Easy', 'Normal', 'Hard', 'Harder', 'Insane', 'Easy Demon', 'Medium Demon', 'Hard Demon', 'Insane Demon']
+        .map(d => `<option${level.difficulty === d ? ' selected' : ''}>${d}</option>`).join('');
 
-  return `
+      return `
   <div class="admin-level-item" id="admin-item-${level.id}">
     <div class="admin-level-info">
       <span class="admin-level-name">${escHtml(level.name)}</span>
-      <span class="status-mini ${level.status||'pas_commence'}">${STATUS_LABEL[level.status]||'Pas commencé'}</span>
-      <span class="diff-mini">${escHtml(level.difficulty||'–')}</span>
+      <span class="status-mini ${level.status || 'pas_commence'}">${STATUS_LABEL[level.status] || 'Pas commencé'}</span>
+      <span class="diff-mini">${escHtml(level.difficulty || '–')}</span>
       ${level.enjoyment != null && level.enjoyment !== '' ? `<span class="diff-mini" style="background:#f0fff8;color:#00c49f;border-color:#b2f0d8;">❤️ ${level.enjoyment}/10</span>` : ''}
       ${level.worst_fail ? `<span class="fail-badge" style="font-size:11px;">💀 ${escHtml(level.worst_fail)}</span>` : ''}
     </div>
     <div class="admin-level-actions">
       <select class="status-select" onchange="quickStatus(${level.id}, this.value)">
-        <option value="pas_commence"${level.status==='pas_commence'?' selected':''}>💤 Pas commencé</option>
-        <option value="en_cours"${level.status==='en_cours'?' selected':''}>⚡ En cours</option>
-        <option value="termine"${level.status==='termine'?' selected':''}>✅ Terminé</option>
+        <option value="pas_commence"${level.status === 'pas_commence' ? ' selected' : ''}>💤 Pas commencé</option>
+        <option value="en_cours"${level.status === 'en_cours' ? ' selected' : ''}>⚡ En cours</option>
+        <option value="termine"${level.status === 'termine' ? ' selected' : ''}>✅ Terminé</option>
       </select>
       <button class="btn-edit"   onclick="toggleEdit(${level.id})">✏️ Modifier</button>
       <button class="btn-delete" onclick="deleteLevel(${level.id}, '${escHtml(level.name)}')">🗑️ Supprimer</button>
     </div>
     <div class="edit-form" id="ef-${level.id}" style="display:none;">
       <div class="form-grid">
-        <input  class="form-input" id="e${level.id}n"  value="${escHtml(level.name||'')}"         placeholder="Nom *">
-        <input  class="form-input" id="e${level.id}t"  value="${escHtml(level.top_rank||'')}"     placeholder="Top rank">
-        <input  class="form-input" id="e${level.id}d"  value="${escHtml(level.description||'')}"  placeholder="Description">
-        <input  class="form-input" id="e${level.id}b"  value="${escHtml(level.best_run||'')}"     placeholder="Meilleur run">
-        <input  class="form-input" type="number" id="e${level.id}p" value="${level.progress||0}"  placeholder="Progression %">
-        <input  class="form-input" id="e${level.id}r"  value="${escHtml(level.runs_from_0||'')}"  placeholder="Runs from 0">
-        <input  class="form-input" id="e${level.id}a"  value="${escHtml(level.attempts||'')}"     placeholder="Attempts">
-        <input  class="form-input" id="e${level.id}wf" value="${escHtml(level.worst_fail||'')}"   placeholder="Worst Fail (ex: 94%)">
-        <input  class="form-input" type="number" min="0" max="10" step="0.5" id="e${level.id}ej" value="${level.enjoyment!=null?level.enjoyment:''}" placeholder="Enjoyment /10">
-        <input  class="form-input" id="e${level.id}i"  value="${escHtml(level.image_url||'')}"    placeholder="URL image">
+        <input  class="form-input" id="e${level.id}n"  value="${escHtml(level.name || '')}"         placeholder="Nom *">
+        <input  class="form-input" id="e${level.id}t"  value="${escHtml(level.top_rank || '')}"     placeholder="Top rank">
+        <input  class="form-input" id="e${level.id}d"  value="${escHtml(level.description || '')}"  placeholder="Description">
+        <input  class="form-input" id="e${level.id}b"  value="${escHtml(level.best_run || '')}"     placeholder="Meilleur run">
+        <input  class="form-input" type="number" id="e${level.id}p" value="${level.progress || 0}"  placeholder="Progression %">
+        <input  class="form-input" id="e${level.id}r"  value="${escHtml(level.runs_from_0 || '')}"  placeholder="Runs from 0">
+        <input  class="form-input" id="e${level.id}a"  value="${escHtml(level.attempts || '')}"     placeholder="Attempts">
+        <input  class="form-input" id="e${level.id}wf" value="${escHtml(level.worst_fail || '')}"   placeholder="Worst Fail (ex: 94%)">
+        <input  class="form-input" type="number" min="0" max="10" step="0.5" id="e${level.id}ej" value="${level.enjoyment != null ? level.enjoyment : ''}" placeholder="Enjoyment /10">
+        <input  class="form-input" id="e${level.id}i"  value="${escHtml(level.image_url || '')}"    placeholder="URL image">
         <select class="form-input" id="e${level.id}s">
-          <option value="pas_commence"${level.status==='pas_commence'?' selected':''}>💤 Pas commencé</option>
-          <option value="en_cours"${level.status==='en_cours'?' selected':''}>⚡ En cours</option>
-          <option value="termine"${level.status==='termine'?' selected':''}>✅ Terminé</option>
+          <option value="pas_commence"${level.status === 'pas_commence' ? ' selected' : ''}>💤 Pas commencé</option>
+          <option value="en_cours"${level.status === 'en_cours' ? ' selected' : ''}>⚡ En cours</option>
+          <option value="termine"${level.status === 'termine' ? ' selected' : ''}>✅ Terminé</option>
         </select>
         <select class="form-input" id="e${level.id}f">${diffOpts}</select>
       </div>
@@ -1788,215 +2145,216 @@ function buildAdminItem(level) {
       <div id="emsg-${level.id}" class="success-msg"></div>
     </div>
   </div>`;
-}
-
-function toggleEdit(id) {
-  const f = document.getElementById(`ef-${id}`);
-  if (f) f.style.display = f.style.display === 'none' ? 'block' : 'none';
-}
-
-async function quickStatus(id, newStatus) {
-  const { error } = await sb.from('levels').update({ status: newStatus }).eq('id', id);
-  if (error) alert('Erreur lors de la mise à jour du statut 😢');
-}
-
-async function saveEdit(id) {
-  const enjoRaw = document.getElementById(`e${id}ej`).value;
-  const updates = {
-    name:        document.getElementById(`e${id}n`).value.trim(),
-    top_rank:    document.getElementById(`e${id}t`).value   || null,
-    description: document.getElementById(`e${id}d`).value   || null,
-    best_run:    document.getElementById(`e${id}b`).value   || '0%',
-    progress:    parseInt(document.getElementById(`e${id}p`).value) || 0,
-    runs_from_0: document.getElementById(`e${id}r`).value   || null,
-    attempts:    document.getElementById(`e${id}a`).value   || null,
-    worst_fail:  document.getElementById(`e${id}wf`).value  || null,
-    enjoyment:   enjoRaw !== '' ? parseFloat(enjoRaw) : null,
-    image_url:   document.getElementById(`e${id}i`).value   || null,
-    status:      document.getElementById(`e${id}s`).value,
-    difficulty:  document.getElementById(`e${id}f`).value,
-  };
-  if (!updates.name) { alert('Le nom est requis.'); return; }
-
-  const { error } = await sb.from('levels').update(updates).eq('id', id);
-  const msg = document.getElementById(`emsg-${id}`);
-  if (error) {
-    msg.textContent = '😢 Erreur lors de la sauvegarde';
-    msg.style.color = '#ff4da6';
-  } else {
-    msg.textContent = '✨ Sauvegardé !';
-    msg.style.color = '#00c49f';
-    setTimeout(() => { toggleEdit(id); loadAdminLevelList(); }, 800);
-  }
-}
-
-async function deleteLevel(id, name) {
-  if (!confirm(`Supprimer "${name}" ?\nCette action est irréversible.`)) return;
-  const { error } = await sb.from('levels').delete().eq('id', id);
-  if (error) alert('Erreur lors de la suppression 😢');
-  else loadAdminLevelList();
-}
-
-async function addLevel() {
-  const name = document.getElementById('fName').value.trim();
-  if (!name) { alert('Le nom du niveau est requis ✨'); return; }
-
-  const enjoRaw = document.getElementById('fEnjoyment').value;
-  const level = {
-    name,
-    top_rank:    document.getElementById('fTop').value        || null,
-    description: document.getElementById('fDesc').value       || null,
-    best_run:    document.getElementById('fBestRun').value    || '0%',
-    progress:    parseInt(document.getElementById('fProgress').value) || 0,
-    runs_from_0: document.getElementById('fRuns').value       || '0 → 100%',
-    attempts:    document.getElementById('fAttempts').value   || '0',
-    worst_fail:  document.getElementById('fWorstFail').value  || null,
-    enjoyment:   enjoRaw !== '' ? parseFloat(enjoRaw) : null,
-    image_url:   document.getElementById('fImage').value      || null,
-    status:      document.getElementById('fStatus').value,
-    difficulty:  document.getElementById('fDifficulty').value,
-  };
-
-  const { error } = await sb.from('levels').insert(level);
-  const msg = document.getElementById('addMsg');
-  if (error) {
-    msg.textContent = '😢 Erreur lors de l\'ajout';
-    msg.style.color = '#ff4da6';
-  } else {
-    msg.textContent = '✨ Niveau ajouté avec succès !';
-    msg.style.color = '#00c49f';
-    ['fName','fTop','fDesc','fBestRun','fProgress','fRuns','fAttempts','fWorstFail','fEnjoyment','fImage'].forEach(id => {
-      document.getElementById(id).value = '';
-    });
-    document.getElementById('fStatus').value = 'pas_commence';
-    setTimeout(() => { msg.textContent = ''; }, 3000);
-  }
-}
-
-/* =========================================================
-   Event Listeners
-========================================================= */
-document.addEventListener('DOMContentLoaded', async () => {
-  await checkAuth();
-  await loadLevels();
-
-  // Navigation principale
-  document.querySelectorAll('.nav-btn').forEach(btn => {
-    btn.addEventListener('click', () => switchView(btn.dataset.view));
-  });
-
-  // Search
-  document.getElementById('searchInput').addEventListener('input', e => {
-    searchQuery = e.target.value.toLowerCase().trim();
-    renderLevels();
-  });
-
-  // Filter buttons
-  document.querySelectorAll('.filter-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      currentFilter = btn.dataset.filter;
-      renderLevels();
-    });
-  });
-
-  // Sort buttons
-  document.querySelectorAll('.sort-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      currentSort = btn.dataset.sort;
-      renderLevels();
-    });
-  });
-
-  // Admin FAB
-  document.getElementById('adminFab').addEventListener('click', () => {
-    if (isAdmin) {
-      document.getElementById('adminPanel').classList.add('open');
-      loadAdminLevelList();
-    } else {
-      document.getElementById('loginModal').classList.add('open');
-      document.getElementById('loginError').textContent = '';
     }
-  });
 
-  // Close login
-  document.getElementById('closeLogin').addEventListener('click', () => {
-    document.getElementById('loginModal').classList.remove('open');
-  });
-
-  // Close admin
-  document.getElementById('closeAdmin').addEventListener('click', () => {
-    document.getElementById('adminPanel').classList.remove('open');
-  });
-
-  // Close on overlay click
-  document.getElementById('loginModal').addEventListener('click', e => {
-    if (e.target === e.currentTarget) e.currentTarget.classList.remove('open');
-  });
-  document.getElementById('adminPanel').addEventListener('click', e => {
-    if (e.target === e.currentTarget) e.currentTarget.classList.remove('open');
-  });
-
-  // Login submit (Enter key)
-  document.getElementById('adminPassword').addEventListener('keydown', e => {
-    if (e.key === 'Enter') document.getElementById('loginBtn').click();
-  });
-
-  // Login
-  document.getElementById('loginBtn').addEventListener('click', async () => {
-    const email    = document.getElementById('adminEmail').value.trim();
-    const password = document.getElementById('adminPassword').value;
-    if (!email || !password) {
-      document.getElementById('loginError').textContent = 'Remplis les deux champs.';
-      return;
+    function toggleEdit(id) {
+      const f = document.getElementById(`ef-${id}`);
+      if (f) f.style.display = f.style.display === 'none' ? 'block' : 'none';
     }
-    const { error } = await sb.auth.signInWithPassword({ email, password });
-    if (error) {
-      document.getElementById('loginError').textContent = 'Email ou mot de passe incorrect.';
-    } else {
-      isAdmin = true;
-      updateAdminUI();
-      document.getElementById('loginModal').classList.remove('open');
-      document.getElementById('adminEmail').value = '';
-      document.getElementById('adminPassword').value = '';
-      document.getElementById('adminPanel').classList.add('open');
-      loadAdminLevelList();
+
+    async function quickStatus(id, newStatus) {
+      const { error } = await sb.from('levels').update({ status: newStatus }).eq('id', id);
+      if (error) alert('Erreur lors de la mise à jour du statut 😢');
     }
-  });
 
-  // Logout
-  document.getElementById('logoutBtn').addEventListener('click', async () => {
-    await sb.auth.signOut();
-    isAdmin = false;
-    updateAdminUI();
-    document.getElementById('adminPanel').classList.remove('open');
-  });
+    async function saveEdit(id) {
+      const enjoRaw = document.getElementById(`e${id}ej`).value;
+      const updates = {
+        name: document.getElementById(`e${id}n`).value.trim(),
+        top_rank: document.getElementById(`e${id}t`).value || null,
+        description: document.getElementById(`e${id}d`).value || null,
+        best_run: document.getElementById(`e${id}b`).value || '0%',
+        progress: parseInt(document.getElementById(`e${id}p`).value) || 0,
+        runs_from_0: document.getElementById(`e${id}r`).value || null,
+        attempts: document.getElementById(`e${id}a`).value || null,
+        worst_fail: document.getElementById(`e${id}wf`).value || null,
+        enjoyment: enjoRaw !== '' ? parseFloat(enjoRaw) : null,
+        image_url: document.getElementById(`e${id}i`).value || null,
+        status: document.getElementById(`e${id}s`).value,
+        difficulty: document.getElementById(`e${id}f`).value,
+      };
+      if (!updates.name) { alert('Le nom est requis.'); return; }
 
-  // Add level
-  document.getElementById('addLevelBtn').addEventListener('click', addLevel);
+      const { error } = await sb.from('levels').update(updates).eq('id', id);
+      const msg = document.getElementById(`emsg-${id}`);
+      if (error) {
+        msg.textContent = '😢 Erreur lors de la sauvegarde';
+        msg.style.color = '#ff4da6';
+      } else {
+        msg.textContent = '✨ Sauvegardé !';
+        msg.style.color = '#00c49f';
+        setTimeout(() => { toggleEdit(id); loadAdminLevelList(); }, 800);
+      }
+    }
 
-  // Tabs admin
-  document.querySelectorAll('.tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-      tab.classList.add('active');
-      document.getElementById(`tab-${tab.dataset.tab}`).classList.add('active');
-      if (tab.dataset.tab === 'manage') loadAdminLevelList();
-    });
-  });
+    async function deleteLevel(id, name) {
+      if (!confirm(`Supprimer "${name}" ?\nCette action est irréversible.`)) return;
+      const { error } = await sb.from('levels').delete().eq('id', id);
+      if (error) alert('Erreur lors de la suppression 😢');
+      else loadAdminLevelList();
+    }
 
-  // Realtime — refresh cards automatically
-  sb.channel('levels-realtime')
-    .on('postgres_changes', { event: '*', schema: 'public', table: 'levels' }, async () => {
+    async function addLevel() {
+      const name = document.getElementById('fName').value.trim();
+      if (!name) { alert('Le nom du niveau est requis ✨'); return; }
+
+      const enjoRaw = document.getElementById('fEnjoyment').value;
+      const level = {
+        name,
+        top_rank: document.getElementById('fTop').value || null,
+        description: document.getElementById('fDesc').value || null,
+        best_run: document.getElementById('fBestRun').value || '0%',
+        progress: parseInt(document.getElementById('fProgress').value) || 0,
+        runs_from_0: document.getElementById('fRuns').value || '0 → 100%',
+        attempts: document.getElementById('fAttempts').value || '0',
+        worst_fail: document.getElementById('fWorstFail').value || null,
+        enjoyment: enjoRaw !== '' ? parseFloat(enjoRaw) : null,
+        image_url: document.getElementById('fImage').value || null,
+        status: document.getElementById('fStatus').value,
+        difficulty: document.getElementById('fDifficulty').value,
+      };
+
+      const { error } = await sb.from('levels').insert(level);
+      const msg = document.getElementById('addMsg');
+      if (error) {
+        msg.textContent = '😢 Erreur lors de l\'ajout';
+        msg.style.color = '#ff4da6';
+      } else {
+        msg.textContent = '✨ Niveau ajouté avec succès !';
+        msg.style.color = '#00c49f';
+        ['fName', 'fTop', 'fDesc', 'fBestRun', 'fProgress', 'fRuns', 'fAttempts', 'fWorstFail', 'fEnjoyment', 'fImage'].forEach(id => {
+          document.getElementById(id).value = '';
+        });
+        document.getElementById('fStatus').value = 'pas_commence';
+        setTimeout(() => { msg.textContent = ''; }, 3000);
+      }
+    }
+
+    /* =========================================================
+       Event Listeners
+    ========================================================= */
+    document.addEventListener('DOMContentLoaded', async () => {
+      await checkAuth();
       await loadLevels();
-    })
-    .subscribe();
-});
-</script>
+
+      // Navigation principale
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.addEventListener('click', () => switchView(btn.dataset.view));
+      });
+
+      // Search
+      document.getElementById('searchInput').addEventListener('input', e => {
+        searchQuery = e.target.value.toLowerCase().trim();
+        renderLevels();
+      });
+
+      // Filter buttons
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentFilter = btn.dataset.filter;
+          renderLevels();
+        });
+      });
+
+      // Sort buttons
+      document.querySelectorAll('.sort-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentSort = btn.dataset.sort;
+          renderLevels();
+        });
+      });
+
+      // Admin FAB
+      document.getElementById('adminFab').addEventListener('click', () => {
+        if (isAdmin) {
+          document.getElementById('adminPanel').classList.add('open');
+          loadAdminLevelList();
+        } else {
+          document.getElementById('loginModal').classList.add('open');
+          document.getElementById('loginError').textContent = '';
+        }
+      });
+
+      // Close login
+      document.getElementById('closeLogin').addEventListener('click', () => {
+        document.getElementById('loginModal').classList.remove('open');
+      });
+
+      // Close admin
+      document.getElementById('closeAdmin').addEventListener('click', () => {
+        document.getElementById('adminPanel').classList.remove('open');
+      });
+
+      // Close on overlay click
+      document.getElementById('loginModal').addEventListener('click', e => {
+        if (e.target === e.currentTarget) e.currentTarget.classList.remove('open');
+      });
+      document.getElementById('adminPanel').addEventListener('click', e => {
+        if (e.target === e.currentTarget) e.currentTarget.classList.remove('open');
+      });
+
+      // Login submit (Enter key)
+      document.getElementById('adminPassword').addEventListener('keydown', e => {
+        if (e.key === 'Enter') document.getElementById('loginBtn').click();
+      });
+
+      // Login
+      document.getElementById('loginBtn').addEventListener('click', async () => {
+        const email = document.getElementById('adminEmail').value.trim();
+        const password = document.getElementById('adminPassword').value;
+        if (!email || !password) {
+          document.getElementById('loginError').textContent = 'Remplis les deux champs.';
+          return;
+        }
+        const { error } = await sb.auth.signInWithPassword({ email, password });
+        if (error) {
+          document.getElementById('loginError').textContent = 'Email ou mot de passe incorrect.';
+        } else {
+          isAdmin = true;
+          updateAdminUI();
+          document.getElementById('loginModal').classList.remove('open');
+          document.getElementById('adminEmail').value = '';
+          document.getElementById('adminPassword').value = '';
+          document.getElementById('adminPanel').classList.add('open');
+          loadAdminLevelList();
+        }
+      });
+
+      // Logout
+      document.getElementById('logoutBtn').addEventListener('click', async () => {
+        await sb.auth.signOut();
+        isAdmin = false;
+        updateAdminUI();
+        document.getElementById('adminPanel').classList.remove('open');
+      });
+
+      // Add level
+      document.getElementById('addLevelBtn').addEventListener('click', addLevel);
+
+      // Tabs admin
+      document.querySelectorAll('.tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+          document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+          tab.classList.add('active');
+          document.getElementById(`tab-${tab.dataset.tab}`).classList.add('active');
+          if (tab.dataset.tab === 'manage') loadAdminLevelList();
+        });
+      });
+
+      // Realtime — refresh cards automatically
+      sb.channel('levels-realtime')
+        .on('postgres_changes', { event: '*', schema: 'public', table: 'levels' }, async () => {
+          await loadLevels();
+        })
+        .subscribe();
+    });
+  </script>
 
 </body>
+
 </html>
