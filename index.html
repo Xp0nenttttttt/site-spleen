@@ -251,7 +251,7 @@
 
     .level-image {
       width: 100%;
-      height: 100%;
+      aspect-ratio: 16 / 9;
       object-fit: cover;
     }
 
@@ -1220,6 +1220,7 @@
           <button class="sort-btn active" data-sort="default">Par défaut</button>
           <button class="sort-btn" data-sort="difficulty">Difficulté ↑</button>
           <button class="sort-btn" data-sort="status">Statut</button>
+          <button class="sort-btn" data-sort="date">Date complétée ↓</button>
         </div>
       </div>
 
@@ -1279,6 +1280,17 @@
             Répartition des statuts
           </div>
           <div style="max-width:280px;margin:0 auto;"><canvas id="chartStatus"></canvas></div>
+        </div>
+      </div>
+
+      <!-- Row 2b: Completions chart -->
+      <div class="info-grid-layout">
+        <div class="info-card info-card-full">
+          <div class="info-card-title">
+            <div class="info-card-icon">📅</div>
+            Niveaux complétés par mois
+          </div>
+          <div style="max-width:100%;margin:0 auto;"><canvas id="chartCompletions"></canvas></div>
         </div>
       </div>
 
@@ -1409,6 +1421,7 @@
           <input id="fWorstFail" class="form-input" placeholder="Worst Fail  (ex: 94%)">
           <input id="fEnjoyment" class="form-input" type="number" min="0" max="10" step="0.5"
             placeholder="Enjoyment /10  (ex: 8.5)">
+          <input id="fCompletionDate" class="form-input" type="date" placeholder="Date de complétion">
           <input id="fImage" class="form-input" placeholder="URL image">
           <select id="fStatus" class="form-input">
             <option value="pas_commence">💤 Pas commencé</option>
@@ -1464,13 +1477,14 @@
   image_url   text,
   status      text default 'pas_commence',
   difficulty  text default 'Extreme Demon',
-  difficulty  text,
-  created_at  timestamptz default now()
+  created_at  timestamptz default now(),
+  completion_date date
 );
 
 -- Si la table existe déjà, ajoute les nouvelles colonnes :
 -- alter table levels add column worst_fail text;
 -- alter table levels add column enjoyment numeric(3,1);
+-- alter table levels add column completion_date date;
 
 -- Active le temps réel
 alter publication supabase_realtime add table levels;</code>
@@ -1554,6 +1568,12 @@ alter publication supabase_realtime add table levels;</code>
         });
       } else if (currentSort === 'status') {
         levels.sort((a, b) => (STATUS_ORDER[a.status] || 99) - (STATUS_ORDER[b.status] || 99));
+      } else if (currentSort === 'date') {
+        levels.sort((a, b) => {
+          const dateA = a.completion_date ? new Date(a.completion_date) : new Date(0);
+          const dateB = b.completion_date ? new Date(b.completion_date) : new Date(0);
+          return dateB - dateA;
+        });
       }
       return levels;
     }
@@ -1608,7 +1628,7 @@ alter publication supabase_realtime add table levels;</code>
           <div>
             ${level.top_rank ? `<div class="badge">🏆 Top ${escHtml(level.top_rank)}</div>` : ''}
             <div class="level-name">${escHtml(level.name)}</div>
-            <div class="level-description">${escHtml(level.description || '')}</div>
+            <div class="level-description">${level.completion_date ? new Date(level.completion_date).toLocaleDateString('fr-FR') : 'Non complété'}</div>
           </div>
           <div class="status ${sClass}">${sLabel}</div>
         </div>
@@ -1721,6 +1741,7 @@ alter publication supabase_realtime add table levels;</code>
     function renderCharts() {
       renderChartDifficulty();
       renderChartStatus();
+      renderChartCompletions();
       renderChartProgress();
       renderChartEnjoyment();
       renderChartAttempts();
@@ -1823,34 +1844,93 @@ alter publication supabase_realtime add table levels;</code>
       });
     }
 
-    function renderChartProgress() {
-      destroyChart('progress');
-      const levs = allLevels.filter(l => l.status === 'en_cours' && (l.progress || 0) > 0);
-      if (!levs.length) return;
-      const sorted = [...levs].sort((a, b) => (b.progress || 0) - (a.progress || 0)).slice(0, 10);
-      chartInstances['progress'] = new Chart(document.getElementById('chartProgress'), {
-        type: 'bar',
+    function renderChartCompletions() {
+      destroyChart('completions');
+      // Group completions by month
+      const monthlyData = {};
+      const now = new Date();
+      const last12Months = [];
+      for (let i = 11; i >= 0; i--) {
+        const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+        const key = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0');
+        last12Months.push(key);
+        monthlyData[key] = 0;
+      }
+
+      allLevels.forEach(l => {
+        if (l.completion_date && l.status === 'termine') {
+          const d = new Date(l.completion_date);
+          const key = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0');
+          if (monthlyData.hasOwnProperty(key)) monthlyData[key]++;
+        }
+      });
+
+      const labels = last12Months.map(k => {
+        const [year, month] = k.split('-');
+        const date = new Date(year, parseInt(month) - 1);
+        return date.toLocaleDateString('fr-FR', { month: 'short', year: '2-digit' });
+      });
+
+      const data = last12Months.map(k => monthlyData[k]);
+
+      chartInstances['completions'] = new Chart(document.getElementById('chartCompletions'), {
+        type: 'line',
         data: {
-          labels: sorted.map(l => l.name.length > 14 ? l.name.slice(0, 14) + '…' : l.name),
+          labels: labels,
           datasets: [{
-            label: 'Progression %',
-            data: sorted.map(l => l.progress || 0),
-            backgroundColor: sorted.map(l => {
-              const p = l.progress || 0;
-              return p >= 80 ? '#00c49f' : p >= 50 ? '#ff4da6' : '#c44dff';
-            }),
-            borderRadius: 8, borderSkipped: false
+            label: 'Niveaux complétés',
+            data: data,
+            borderColor: '#ff4da6',
+            backgroundColor: 'rgba(255, 77, 166, 0.1)',
+            borderWidth: 3,
+            fill: true,
+            tension: 0.4,
+            pointRadius: 5,
+            pointBackgroundColor: '#ff4da6',
+            pointBorderColor: '#fff',
+            pointBorderWidth: 2,
+            pointHoverRadius: 7
           }]
         },
         options: {
-          responsive: true, indexAxis: 'y',
-          scales: {
-            x: { max: 100, ticks: { font: { family: 'Poppins', size: 11 }, callback: v => v + '%' }, grid: { color: '#ffedf5' } },
-            y: { ticks: { font: { family: 'Poppins', size: 11 } }, grid: { display: false } }
+          responsive: true,
+          plugins: {
+            legend: { position: 'bottom', labels: { font: { family: 'Poppins', size: 11 }, padding: 12, color: '#444' } }
           },
-          plugins: { legend: { display: false } }
+          scales: {
+            y: { beginAtZero: true, ticks: { font: { family: 'Poppins', size: 11 }, stepSize: 1 }, grid: { color: '#ffedf5' } },
+            x: { ticks: { font: { family: 'Poppins', size: 11 } }, grid: { color: '#ffedf5' } }
+          }
         }
       });
+    }
+    destroyChart('progress');
+    const levs = allLevels.filter(l => l.status === 'en_cours' && (l.progress || 0) > 0);
+    if (!levs.length) return;
+    const sorted = [...levs].sort((a, b) => (b.progress || 0) - (a.progress || 0)).slice(0, 10);
+    chartInstances['progress'] = new Chart(document.getElementById('chartProgress'), {
+      type: 'bar',
+      data: {
+        labels: sorted.map(l => l.name.length > 14 ? l.name.slice(0, 14) + '…' : l.name),
+        datasets: [{
+          label: 'Progression %',
+          data: sorted.map(l => l.progress || 0),
+          backgroundColor: sorted.map(l => {
+            const p = l.progress || 0;
+            return p >= 80 ? '#00c49f' : p >= 50 ? '#ff4da6' : '#c44dff';
+          }),
+          borderRadius: 8, borderSkipped: false
+        }]
+      },
+      options: {
+        responsive: true, indexAxis: 'y',
+        scales: {
+          x: { max: 100, ticks: { font: { family: 'Poppins', size: 11 }, callback: v => v + '%' }, grid: { color: '#ffedf5' } },
+          y: { ticks: { font: { family: 'Poppins', size: 11 } }, grid: { display: false } }
+        },
+        plugins: { legend: { display: false } }
+      }
+    });
     }
 
     function renderChartEnjoyment() {
@@ -2130,6 +2210,7 @@ alter publication supabase_realtime add table levels;</code>
         <input  class="form-input" id="e${level.id}a"  value="${escHtml(level.attempts || '')}"     placeholder="Attempts">
         <input  class="form-input" id="e${level.id}wf" value="${escHtml(level.worst_fail || '')}"   placeholder="Worst Fail (ex: 94%)">
         <input  class="form-input" type="number" min="0" max="10" step="0.5" id="e${level.id}ej" value="${level.enjoyment != null ? level.enjoyment : ''}" placeholder="Enjoyment /10">
+        <input  class="form-input" type="date" id="e${level.id}cd" value="${level.completion_date || ''}" placeholder="Date de complétion">
         <input  class="form-input" id="e${level.id}i"  value="${escHtml(level.image_url || '')}"    placeholder="URL image">
         <select class="form-input" id="e${level.id}s">
           <option value="pas_commence"${level.status === 'pas_commence' ? ' selected' : ''}>💤 Pas commencé</option>
@@ -2159,6 +2240,7 @@ alter publication supabase_realtime add table levels;</code>
 
     async function saveEdit(id) {
       const enjoRaw = document.getElementById(`e${id}ej`).value;
+      const completionDateRaw = document.getElementById(`e${id}cd`).value;
       const updates = {
         name: document.getElementById(`e${id}n`).value.trim(),
         top_rank: document.getElementById(`e${id}t`).value || null,
@@ -2172,6 +2254,7 @@ alter publication supabase_realtime add table levels;</code>
         image_url: document.getElementById(`e${id}i`).value || null,
         status: document.getElementById(`e${id}s`).value,
         difficulty: document.getElementById(`e${id}f`).value,
+        completion_date: completionDateRaw || null,
       };
       if (!updates.name) { alert('Le nom est requis.'); return; }
 
@@ -2199,6 +2282,7 @@ alter publication supabase_realtime add table levels;</code>
       if (!name) { alert('Le nom du niveau est requis ✨'); return; }
 
       const enjoRaw = document.getElementById('fEnjoyment').value;
+      const completionDateRaw = document.getElementById('fCompletionDate').value;
       const level = {
         name,
         top_rank: document.getElementById('fTop').value || null,
@@ -2212,22 +2296,22 @@ alter publication supabase_realtime add table levels;</code>
         image_url: document.getElementById('fImage').value || null,
         status: document.getElementById('fStatus').value,
         difficulty: document.getElementById('fDifficulty').value,
-      };
+        completion_date: completionDateRaw || null,
 
-      const { error } = await sb.from('levels').insert(level);
-      const msg = document.getElementById('addMsg');
-      if (error) {
-        msg.textContent = '😢 Erreur lors de l\'ajout';
-        msg.style.color = '#ff4da6';
-      } else {
-        msg.textContent = '✨ Niveau ajouté avec succès !';
-        msg.style.color = '#00c49f';
-        ['fName', 'fTop', 'fDesc', 'fBestRun', 'fProgress', 'fRuns', 'fAttempts', 'fWorstFail', 'fEnjoyment', 'fImage'].forEach(id => {
-          document.getElementById(id).value = '';
-        });
-        document.getElementById('fStatus').value = 'pas_commence';
-        setTimeout(() => { msg.textContent = ''; }, 3000);
-      }
+        const { error } = await sb.from('levels').insert(level);
+        const msg = document.getElementById('addMsg');
+        if(error) {
+          msg.textContent = '😢 Erreur lors de l\'ajout';
+          msg.style.color = '#ff4da6';
+        } else {
+          msg.textContent = '✨ Niveau ajouté avec succès !';
+          msg.style.color = '#00c49f';
+          ['fName', 'fTop', 'fDesc', 'fBestRun', 'fProgress', 'fRuns', 'fAttempts', 'fWorstFail', 'fEnjoyment', 'fCompletionDate', 'fImage'].forEach(id => {
+            document.getElementById(id).value = '';
+          });
+          document.getElementById('fStatus').value = 'pas_commence';
+          setTimeout(() => { msg.textContent = ''; }, 3000);
+    }
     }
 
     /* =========================================================
