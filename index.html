@@ -1904,34 +1904,36 @@ alter publication supabase_realtime add table levels;</code>
         }
       });
     }
-    destroyChart('progress');
-    const levs = allLevels.filter(l => l.status === 'en_cours' && (l.progress || 0) > 0);
-    if (!levs.length) return;
-    const sorted = [...levs].sort((a, b) => (b.progress || 0) - (a.progress || 0)).slice(0, 10);
-    chartInstances['progress'] = new Chart(document.getElementById('chartProgress'), {
-      type: 'bar',
-      data: {
-        labels: sorted.map(l => l.name.length > 14 ? l.name.slice(0, 14) + '…' : l.name),
-        datasets: [{
-          label: 'Progression %',
-          data: sorted.map(l => l.progress || 0),
-          backgroundColor: sorted.map(l => {
-            const p = l.progress || 0;
-            return p >= 80 ? '#00c49f' : p >= 50 ? '#ff4da6' : '#c44dff';
-          }),
-          borderRadius: 8, borderSkipped: false
-        }]
-      },
-      options: {
-        responsive: true, indexAxis: 'y',
-        scales: {
-          x: { max: 100, ticks: { font: { family: 'Poppins', size: 11 }, callback: v => v + '%' }, grid: { color: '#ffedf5' } },
-          y: { ticks: { font: { family: 'Poppins', size: 11 } }, grid: { display: false } }
-        },
-        plugins: { legend: { display: false } }
-      }
-    });
 
+    function renderChartProgress() {
+      destroyChart('progress');
+      const levs = allLevels.filter(l => l.status === 'en_cours' && (l.progress || 0) > 0);
+      if (!levs.length) return;
+      const sorted = [...levs].sort((a, b) => (b.progress || 0) - (a.progress || 0)).slice(0, 10);
+      chartInstances['progress'] = new Chart(document.getElementById('chartProgress'), {
+        type: 'bar',
+        data: {
+          labels: sorted.map(l => l.name.length > 14 ? l.name.slice(0, 14) + '…' : l.name),
+          datasets: [{
+            label: 'Progression %',
+            data: sorted.map(l => l.progress || 0),
+            backgroundColor: sorted.map(l => {
+              const p = l.progress || 0;
+              return p >= 80 ? '#00c49f' : p >= 50 ? '#ff4da6' : '#c44dff';
+            }),
+            borderRadius: 8, borderSkipped: false
+          }]
+        },
+        options: {
+          responsive: true, indexAxis: 'y',
+          scales: {
+            x: { max: 100, ticks: { font: { family: 'Poppins', size: 11 }, callback: v => v + '%' }, grid: { color: '#ffedf5' } },
+            y: { ticks: { font: { family: 'Poppins', size: 11 } }, grid: { display: false } }
+          },
+          plugins: { legend: { display: false } }
+        }
+      });
+    }
 
     function renderChartEnjoyment() {
       destroyChart('enjoyment');
