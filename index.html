@@ -940,12 +940,12 @@
 
     <!-- Row 3: Progression en cours + Top Ranks -->
     <div class="info-grid-layout">
-      <div class="info-card">
+      <div class="info-card" id="hardestCard">
         <div class="info-card-title">
-          <div class="info-card-icon">⚡</div>
-          Progression — Niveaux en cours
+          <div class="info-card-icon">💀</div>
+          Hardest — Niveau terminé
         </div>
-        <canvas id="chartProgress"></canvas>
+        <div id="hardestStats"><p class="aredl-placeholder">Chargement...</p></div>
       </div>
       <div class="info-card">
         <div class="info-card-title">
@@ -1292,7 +1292,26 @@ function renderInfoSection() {
   renderEnjoymentStats();
   renderAttemptsStats();
   renderWorstFailsStats();
+  renderHardestStats();
   renderCharts();
+// Affiche le niveau terminé avec le plus haut top
+function renderHardestStats() {
+  const container = document.getElementById('hardestStats');
+  const finished = allLevels.filter(l => l.status === 'termine' && l.top_rank && l.top_rank.trim() !== '');
+  if (!finished.length) {
+    container.innerHTML = '<p class="aredl-placeholder">Aucun niveau terminé avec top renseigné.</p>';
+    return;
+  }
+  // Plus petit top = hardest
+  const parseRank = r => parseInt(String(r).replace(/[^0-9]/g, '')) || 9999;
+  const hardest = finished.reduce((best, l) => parseRank(l.top_rank) < parseRank(best.top_rank) ? l : best, finished[0]);
+  container.innerHTML = `
+    <div style="font-weight:700;font-size:1.1em;margin-bottom:6px;">${escHtml(hardest.name)}</div>
+    <div><span style="font-weight:800;color:#e6194b">Top ${escHtml(hardest.top_rank)}</span></div>
+    <div style="margin-top:6px;">${escHtml(hardest.description||'')}</div>
+    <div style="margin-top:6px;">${hardest.image_url ? `<img src="${escHtml(hardest.image_url)}" alt="${escHtml(hardest.name)}" style="max-width:120px;border-radius:8px;">` : ''}</div>
+  `;
+}
 }
 
 /* ── Stats rapides ── */
@@ -1393,7 +1412,29 @@ function renderChartDifficulty() {
   Object.keys(counts).forEach(k => { if (counts[k] === 0) delete counts[k]; });
   if (!Object.keys(counts).length) return;
 
-  const colors = ['#ff4da6','#c44dff','#ff8cc8','#a855f7','#ec4899','#9333ea','#f472b6','#7c3aed','#fb7185','#6d28d9','#fbbf24','#f87171','#34d399'];
+  // Palette de couleurs très distinctes
+  const colors = [
+    '#e6194b', // rouge
+    '#3cb44b', // vert
+    '#ffe119', // jaune
+    '#4363d8', // bleu
+    '#f58231', // orange
+    '#911eb4', // violet
+    '#46f0f0', // cyan
+    '#f032e6', // rose
+    '#bcf60c', // vert clair
+    '#fabebe', // rose pâle
+    '#008080', // teal
+    '#e6beff', // lavande
+    '#9a6324', // marron
+    '#fffac8', // jaune pâle
+    '#800000', // bordeaux
+    '#aaffc3', // vert menthe
+    '#808000', // olive
+    '#ffd8b1', // pêche
+    '#000075', // bleu foncé
+    '#808080'  // gris
+  ];
   chartInstances['difficulty'] = new Chart(document.getElementById('chartDifficulty'), {
     type: 'doughnut',
     data: {
