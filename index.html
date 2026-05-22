@@ -1931,7 +1931,7 @@ alter publication supabase_realtime add table levels;</code>
         plugins: { legend: { display: false } }
       }
     });
-    }
+
 
     function renderChartEnjoyment() {
       destroyChart('enjoyment');
@@ -2297,21 +2297,21 @@ alter publication supabase_realtime add table levels;</code>
         status: document.getElementById('fStatus').value,
         difficulty: document.getElementById('fDifficulty').value,
         completion_date: completionDateRaw || null,
-
-        const { error } = await sb.from('levels').insert(level);
-        const msg = document.getElementById('addMsg');
-        if(error) {
-          msg.textContent = '😢 Erreur lors de l\'ajout';
-          msg.style.color = '#ff4da6';
-        } else {
-          msg.textContent = '✨ Niveau ajouté avec succès !';
-          msg.style.color = '#00c49f';
-          ['fName', 'fTop', 'fDesc', 'fBestRun', 'fProgress', 'fRuns', 'fAttempts', 'fWorstFail', 'fEnjoyment', 'fCompletionDate', 'fImage'].forEach(id => {
-            document.getElementById(id).value = '';
-          });
-          document.getElementById('fStatus').value = 'pas_commence';
-          setTimeout(() => { msg.textContent = ''; }, 3000);
-    }
+      };
+      const { error } = await sb.from('levels').insert(level);
+      const msg = document.getElementById('addMsg');
+      if (error) {
+        msg.textContent = '😢 Erreur lors de l\'ajout';
+        msg.style.color = '#ff4da6';
+      } else {
+        msg.textContent = '✨ Niveau ajouté avec succès !';
+        msg.style.color = '#00c49f';
+        ['fName', 'fTop', 'fDesc', 'fBestRun', 'fProgress', 'fRuns', 'fAttempts', 'fWorstFail', 'fEnjoyment', 'fCompletionDate', 'fImage'].forEach(id => {
+          document.getElementById(id).value = '';
+        });
+        document.getElementById('fStatus').value = 'pas_commence';
+        setTimeout(() => { msg.textContent = ''; }, 3000);
+      }
     }
 
     /* =========================================================
