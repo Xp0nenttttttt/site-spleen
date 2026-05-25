@@ -2167,7 +2167,7 @@
           <input id="fDesc" class="form-input" placeholder="Description courte">
           <input id="fBestRun" class="form-input" placeholder="Meilleur run  (ex: 67%)">
           <input id="fProgress" class="form-input" type="number" min="0" max="100" placeholder="Progression % (0-100)">
-          <input id="fRuns" class="form-input" placeholder="Runs from 0  (ex: 0 → 67%)">
+
           <input id="fAttempts" class="form-input" placeholder="Attempts  (ex: 1566)">
           <input id="fWorstFail" class="form-input" placeholder="Worst Fail  (ex: 94%)">
           <input id="fEnjoyment" class="form-input" type="number" min="0" max="10" step="0.5"
@@ -2400,7 +2400,7 @@ create policy "write_settings" on settings for all using (auth.role() = 'authent
           <div class="status ${sClass}">${sLabel}</div>
         </div>
         <div class="info-grid">
-          <div class="info-box"><div class="info-label">Runs from 0</div><div class="info-value">${escHtml(level.runs_from_0 || '–')}</div></div>
+          
           <div class="info-box"><div class="info-label">Meilleur Run</div><div class="info-value">${escHtml(level.best_run || '–')}</div></div>
           <div class="info-box"><div class="info-label">Attempts</div><div class="info-value">${escHtml(level.attempts || '–')}</div></div>
           <div class="info-box"><div class="info-label">Enjoyment</div><div class="info-value">${enjoyHTML}</div></div>
@@ -3154,7 +3154,6 @@ create policy "write_settings" on settings for all using (auth.role() = 'authent
         <input  class="form-input" id="e${level.id}d"  value="${escHtml(level.description || '')}"  placeholder="Description">
         <input  class="form-input" id="e${level.id}b"  value="${escHtml(level.best_run || '')}"     placeholder="Meilleur run">
         <input  class="form-input" type="number" id="e${level.id}p" value="${level.progress || 0}"  placeholder="Progression %">
-        <input  class="form-input" id="e${level.id}r"  value="${escHtml(level.runs_from_0 || '')}"  placeholder="Runs from 0">
         <input  class="form-input" id="e${level.id}a"  value="${escHtml(level.attempts || '')}"     placeholder="Attempts">
         <input  class="form-input" id="e${level.id}wf" value="${escHtml(level.worst_fail || '')}"   placeholder="Worst Fail (ex: 94%)">
         <input  class="form-input" type="number" min="0" max="10" step="0.5" id="e${level.id}ej" value="${level.enjoyment != null ? level.enjoyment : ''}" placeholder="Enjoyment /10">
@@ -3195,7 +3194,6 @@ create policy "write_settings" on settings for all using (auth.role() = 'authent
         description: document.getElementById(`e${id}d`).value || null,
         best_run: document.getElementById(`e${id}b`).value || '0%',
         progress: parseInt(document.getElementById(`e${id}p`).value) || 0,
-        runs_from_0: document.getElementById(`e${id}r`).value || null,
         attempts: document.getElementById(`e${id}a`).value || null,
         worst_fail: document.getElementById(`e${id}wf`).value || null,
         enjoyment: enjoRaw !== '' ? parseFloat(enjoRaw) : null,
