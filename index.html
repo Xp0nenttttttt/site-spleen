@@ -2456,8 +2456,6 @@ create policy "write_settings" on settings for all using (auth.role() = 'authent
       document.getElementById('pInfoCours').textContent = cours;
       document.getElementById('pInfoAttempts').textContent = totalAttempts.toLocaleString('fr-FR');
       const withRank = allLevels.filter(l => l.top_rank && l.top_rank.trim() !== '');
-      document.getElementById('pInfoAredl').textContent = withRank.length ? `${withRank.length} niveaux classés` : '–';
-      // Show radar edit button for admins
       document.getElementById('radarEditBtn').style.display = isAdmin ? 'inline-flex' : 'none';
       loadRadarStats();
     }
