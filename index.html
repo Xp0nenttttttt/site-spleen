@@ -3237,7 +3237,6 @@ create policy "write_settings" on settings for all using (auth.role() = 'authent
         description: document.getElementById('fDesc').value || null,
         best_run: document.getElementById('fBestRun').value || '0%',
         progress: parseInt(document.getElementById('fProgress').value) || 0,
-        runs_from_0: document.getElementById('fRuns').value || '0 → 100%',
         attempts: document.getElementById('fAttempts').value || '0',
         worst_fail: document.getElementById('fWorstFail').value || null,
         enjoyment: enjoRaw !== '' ? parseFloat(enjoRaw) : null,
