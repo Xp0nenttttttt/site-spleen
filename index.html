@@ -300,6 +300,10 @@
       background: linear-gradient(135deg, #00c49f, #00b87d);
     }
 
+    .give-up {
+      background: linear-gradient(135deg, #ff6b6b, #ff3b3b);
+    }
+
     .info-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
@@ -442,6 +446,27 @@
       display: flex;
       align-items: center;
       gap: 12px;
+    }
+
+    .info-card-scroll {
+      max-height: 320px;
+      overflow-y: auto;
+      padding-right: 10px;
+      overscroll-behavior: contain;
+    }
+
+    .info-card-scroll::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .info-card-scroll::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 999px;
+    }
+
+    .info-card-scroll::-webkit-scrollbar-thumb {
+      background: rgba(255, 77, 166, 0.45);
+      border-radius: 999px;
     }
 
     .info-card-icon {
@@ -1015,6 +1040,10 @@
 
     .status-mini.termine {
       background: linear-gradient(135deg, #00c49f, #00b87d);
+    }
+
+    .status-mini.give_up {
+      background: linear-gradient(135deg, #ff6b6b, #ff3b3b);
     }
 
     .diff-mini {
@@ -1933,7 +1962,7 @@
               <div class="info-card-icon">💀</div>
               Hardest — Niveau terminé
             </div>
-            <div id="hardestStats">
+            <div id="hardestStats" class="info-card-scroll">
               <p class="aredl-placeholder">Chargement...</p>
             </div>
           </div>
@@ -1942,7 +1971,7 @@
               <div class="info-card-icon">🏆</div>
               Top Ranks AREDL
             </div>
-            <div id="topRanksStats">
+            <div id="topRanksStats" class="info-card-scroll">
               <p class="aredl-placeholder">Chargement...</p>
             </div>
           </div>
@@ -1955,7 +1984,7 @@
               <div class="info-card-icon">❤️</div>
               Enjoyment — Stats
             </div>
-            <div id="enjoymentStats">
+            <div id="enjoymentStats" class="info-card-scroll">
               <p class="aredl-placeholder">Chargement...</p>
             </div>
           </div>
@@ -1975,7 +2004,7 @@
               <div class="info-card-icon">🎯</div>
               Attempts — Stats
             </div>
-            <div id="attemptsStats">
+            <div id="attemptsStats" class="info-card-scroll">
               <p class="aredl-placeholder">Chargement...</p>
             </div>
           </div>
@@ -1995,7 +2024,7 @@
               <div class="info-card-icon">💀</div>
               Worst Fails
             </div>
-            <div id="worstFailsStats">
+            <div id="worstFailsStats" class="info-card-scroll">
               <p class="aredl-placeholder">Chargement...</p>
             </div>
           </div>
