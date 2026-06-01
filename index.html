@@ -1845,6 +1845,7 @@
             <button class="filter-btn" data-filter="en_cours">⚡ En cours</button>
             <button class="filter-btn" data-filter="termine">✅ Terminé</button>
             <button class="filter-btn" data-filter="pas_commence">💤 Pas commencé</button>
+            <button class="filter-btn" data-filter="give_up">❌ Give up</button>
           </div>
           <div class="sort-group">
             <span class="filter-label">Trier :</span>
@@ -2162,6 +2163,7 @@
             <option value="pas_commence">💤 Pas commencé</option>
             <option value="en_cours">⚡ En cours</option>
             <option value="termine">✅ Terminé</option>
+            <option value="give_up">❌ Give up</option>
           </select>
         </div>
         <button id="addLevelBtn" class="btn-primary" style="margin-top:20px;">✨ Ajouter le niveau</button>
@@ -2270,9 +2272,9 @@ create policy "write_settings" on settings for all using (auth.role() = 'authent
       'Easy': 1, 'Normal': 2, 'Hard': 3, 'Harder': 4, 'Insane': 5,
       'Easy Demon': 6, 'Medium Demon': 7, 'Hard Demon': 8, 'Insane Demon': 9, 'Extreme Demon': 10
     };
-    const STATUS_ORDER = { 'en_cours': 1, 'termine': 2, 'pas_commence': 3 };
-    const STATUS_LABEL = { 'pas_commence': 'Pas commencé', 'en_cours': 'En cours', 'termine': 'Terminé ✅' };
-    const STATUS_CLASS = { 'pas_commence': 'paused', 'en_cours': 'playing', 'termine': 'done' };
+    const STATUS_ORDER = { 'en_cours': 1, 'termine': 2, 'pas_commence': 3, 'give_up': 4 };
+    const STATUS_LABEL = { 'pas_commence': 'Pas commencé', 'en_cours': 'En cours', 'termine': 'Terminé ✅', 'give_up': 'Give up' };
+    const STATUS_CLASS = { 'pas_commence': 'paused', 'en_cours': 'playing', 'termine': 'done', 'give_up': 'give-up' };
 
     /* =========================================================
        Navigation entre vues
@@ -2744,11 +2746,12 @@ create policy "write_settings" on settings for all using (auth.role() = 'authent
       const cours = allLevels.filter(l => l.status === 'en_cours').length;
       const done = allLevels.filter(l => l.status === 'termine').length;
       const paused = allLevels.filter(l => l.status === 'pas_commence').length;
+      const give_up = allLevels.filter(l => l.status === 'give_up').length;
       chartInstances['status'] = new Chart(document.getElementById('chartStatus'), {
         type: 'doughnut',
         data: {
-          labels: ['⚡ En cours', '✅ Terminés', '💤 Pas commencé'],
-          datasets: [{ data: [cours, done, paused], backgroundColor: ['#ff4da6', '#00c49f', '#b5b5b5'], borderWidth: 0, hoverOffset: 8 }]
+          labels: ['⚡ En cours', '✅ Terminés', '💤 Pas commencé', '❌ Give up'],
+          datasets: [{ data: [cours, done, paused, give_up], backgroundColor: ['#ff4da6', '#00c49f', '#b5b5b5', '#ff6b6b'], borderWidth: 0, hoverOffset: 8 }]
         },
         options: {
           responsive: true,
@@ -3114,6 +3117,7 @@ create policy "write_settings" on settings for all using (auth.role() = 'authent
         <option value="pas_commence"${level.status === 'pas_commence' ? ' selected' : ''}>💤 Pas commencé</option>
         <option value="en_cours"${level.status === 'en_cours' ? ' selected' : ''}>⚡ En cours</option>
         <option value="termine"${level.status === 'termine' ? ' selected' : ''}>✅ Terminé</option>
+        <option value="give_up"${level.status === 'give_up' ? ' selected' : ''}>give up</option>
       </select>
       <button class="btn-edit"   onclick="toggleEdit(${level.id})">✏️ Modifier</button>
       <button class="btn-delete" onclick="deleteLevel(${level.id}, '${escHtml(level.name)}')">🗑️ Supprimer</button>
@@ -3134,6 +3138,7 @@ create policy "write_settings" on settings for all using (auth.role() = 'authent
           <option value="pas_commence"${level.status === 'pas_commence' ? ' selected' : ''}>💤 Pas commencé</option>
           <option value="en_cours"${level.status === 'en_cours' ? ' selected' : ''}>⚡ En cours</option>
           <option value="termine"${level.status === 'termine' ? ' selected' : ''}>✅ Terminé</option>
+          <option value="give_up"${level.status === 'give_up' ? ' selected' : ''}>give up</option>
         </select>
         <select class="form-input" id="e${level.id}f">${diffOpts}</select>
       </div>
