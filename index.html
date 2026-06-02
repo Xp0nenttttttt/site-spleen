@@ -2347,6 +2347,17 @@ create policy "write_settings" on settings for all using (auth.role() = 'authent
       const { data, error } = await sb.from('levels').select('*').order('id');
       if (error) { console.error(error); return; }
       allLevels = data || [];
+      console.log("Levels Supabase:", allLevels);
+
+try {
+  const res = await fetch("https://api.aredl.net/api/aredl/levels");
+  console.log("Status API:", res.status);
+
+  const levels = await res.json();
+  console.log("AREDL:", levels.slice(0, 5));
+} catch (e) {
+  console.error("Erreur API AREDL:", e);
+}
       await updateAredlRanks();
       renderLevels();
       updateStats();
