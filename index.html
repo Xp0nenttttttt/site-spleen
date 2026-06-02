@@ -2323,26 +2323,25 @@ create policy "write_settings" on settings for all using (auth.role() = 'authent
     async function updateAredlRanks() {
       try {
         const res = await fetch("./aredl-ranks.json");
-        const aredlLevels = await res.json();
+        if (!res.ok) throw new Error(`AREDL ranks fetch failed (${res.status})`);
+
+        const rawData = await res.text();
+        let aredlLevels = JSON.parse(rawData);
+        if (!Array.isArray(aredlLevels)) aredlLevels = aredlLevels?.data || [];
+        if (!Array.isArray(aredlLevels)) throw new Error('AREDL ranks file is not an array');
 
         const rankMap = new Map();
-
         for (const level of aredlLevels) {
-          if (level.name && level.position) {
+          if (level?.name && level?.position != null) {
             rankMap.set(level.name.toLowerCase(), level.position);
           }
         }
 
         allLevels = allLevels.map(level => {
-          const key = level.name.toLowerCase();
-          const rank = rankMap.get(key);
-
-          return {
-            ...level,
-            top_rank: rank ? `#${rank}` : "Unranked"
-          };
+          const key = level.name?.toLowerCase();
+          const rank = key ? rankMap.get(key) : null;
+          return rank != null ? { ...level, top_rank: `#${rank}` } : level;
         });
-
       } catch (err) {
         console.error("AREDL update failed:", err);
       }

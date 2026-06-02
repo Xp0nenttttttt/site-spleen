@@ -18,7 +18,7 @@ jobs:
 
       - name: Fetch AREDL
         run: |
-          curl -o aredl-ranks.json https://api.aredl.net/api/aredl/levels
+          curl -L -o aredl-ranks.json https://api.aredl.net/v2/api/aredl/levels
 
       - name: Commit changes
         run: |
