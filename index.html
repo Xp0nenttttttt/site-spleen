@@ -2321,22 +2321,31 @@ create policy "write_settings" on settings for all using (auth.role() = 'authent
        Levels — Load, Filter, Sort, Render
     ========================================================= */
     async function updateAredlRanks() {
-      const res = await fetch("./aredl-ranks.json");
-      const aredlLevels = await res.json();
+      try {
+        const res = await fetch("./aredl-ranks.json");
+        const aredlLevels = await res.json();
 
-      const rankMap = {};
+        const rankMap = new Map();
 
-      aredlLevels.forEach(level => {
-      rankMap[level.name.toLowerCase()] = level.position;
-      });
+        for (const level of aredlLevels) {
+          if (level.name && level.position) {
+            rankMap.set(level.name.toLowerCase(), level.position);
+          }
+        }
 
-      allLevels.forEach(level => {
-        const rank = rankMap[level.name.toLowerCase()];
+        allLevels = allLevels.map(level => {
+          const key = level.name.toLowerCase();
+          const rank = rankMap.get(key);
 
-        if (rank) {
-        level.top_rank = rank;
+          return {
+            ...level,
+            top_rank: rank ? `#${rank}` : "Unranked"
+          };
+        });
+
+      } catch (err) {
+        console.error("AREDL update failed:", err);
       }
-    });
     }
   
     async function loadLevels() {
