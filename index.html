@@ -2188,6 +2188,17 @@
             placeholder="Enjoyment /10  (ex: 8.5)">
           <input id="fCompletionDate" class="form-input" type="date" placeholder="Date de complétion">
           <input id="fImage" class="form-input" placeholder="URL image">
+          <select id="fDifficulty" class="form-input">
+            <option value="Easy">Easy</option>
+            <option value="Normal">Normal</option>
+            <option value="Hard">Hard</option>
+            <option value="Harder">Harder</option>
+            <option value="Insane">Insane</option>
+            <option value="Easy Demon">Easy Demon</option>
+            <option value="Medium Demon">Medium Demon</option>
+            <option value="Hard Demon">Hard Demon</option>
+            <option value="Insane Demon">Insane Demon</option>
+          </select>
           <select id="fStatus" class="form-input">
             <option value="pas_commence">💤 Pas commencé</option>
             <option value="en_cours">⚡ En cours</option>
@@ -3286,23 +3297,24 @@ create policy "write_settings" on settings for all using (auth.role() = 'authent
     }
 
     async function addLevel() {
-      const name = document.getElementById('fName').value.trim();
+      const getValue = id => document.getElementById(id)?.value ?? '';
+      const name = getValue('fName').trim();
       if (!name) { alert('Le nom du niveau est requis ✨'); return; }
 
-      const enjoRaw = document.getElementById('fEnjoyment').value;
-      const completionDateRaw = document.getElementById('fCompletionDate').value;
+      const enjoRaw = getValue('fEnjoyment');
+      const completionDateRaw = getValue('fCompletionDate');
       const level = {
         name,
-        top_rank: document.getElementById('fTop').value || null,
-        description: document.getElementById('fDesc').value || null,
-        best_run: document.getElementById('fBestRun').value || '0%',
-        progress: parseInt(document.getElementById('fProgress').value) || 0,
-        attempts: document.getElementById('fAttempts').value || '0',
-        worst_fail: document.getElementById('fWorstFail').value || null,
+        top_rank: getValue('fTop') || null,
+        description: getValue('fDesc') || null,
+        best_run: getValue('fBestRun') || '0%',
+        progress: parseInt(getValue('fProgress')) || 0,
+        attempts: getValue('fAttempts') || '0',
+        worst_fail: getValue('fWorstFail') || null,
         enjoyment: enjoRaw !== '' ? parseFloat(enjoRaw) : null,
-        image_url: document.getElementById('fImage').value || null,
-        status: document.getElementById('fStatus').value,
-        difficulty: document.getElementById('fDifficulty').value,
+        image_url: getValue('fImage') || null,
+        status: getValue('fStatus') || 'pas_commence',
+        difficulty: getValue('fDifficulty') || 'Easy',
         completion_date: completionDateRaw || null,
       };
       const { error } = await sb.from('levels').insert(level);
@@ -3313,10 +3325,12 @@ create policy "write_settings" on settings for all using (auth.role() = 'authent
       } else {
         msg.textContent = '✨ Niveau ajouté avec succès !';
         msg.style.color = '#00c49f';
-        ['fName', 'fTop', 'fDesc', 'fBestRun', 'fProgress', 'fRuns', 'fAttempts', 'fWorstFail', 'fEnjoyment', 'fCompletionDate', 'fImage'].forEach(id => {
-          document.getElementById(id).value = '';
+        ['fName', 'fTop', 'fDesc', 'fBestRun', 'fProgress', 'fAttempts', 'fWorstFail', 'fEnjoyment', 'fCompletionDate', 'fImage', 'fDifficulty'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.value = '';
         });
         document.getElementById('fStatus').value = 'pas_commence';
+        document.getElementById('fDifficulty').value = 'Easy';
         setTimeout(() => { msg.textContent = ''; }, 3000);
       }
     }
