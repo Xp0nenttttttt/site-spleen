@@ -2320,10 +2320,34 @@ create policy "write_settings" on settings for all using (auth.role() = 'authent
     /* =========================================================
        Levels — Load, Filter, Sort, Render
     ========================================================= */
+    async function updateAredlRanks() {
+    try {
+      const res = await fetch("https://api.aredl.net/api/aredl/levels");
+      const aredlLevels = await res.json();
+
+      const rankMap = {};
+
+      aredlLevels.forEach(level => {
+        rankMap[level.name.toLowerCase()] = level.position;
+      });
+
+      allLevels.forEach(level => {
+        const rank = rankMap[level.name.toLowerCase()];
+
+        if (rank) {
+          level.top_rank = String(rank);
+        }
+      });
+
+    } catch (err) {
+      console.error("Erreur AREDL :", err);
+    }
+  }
     async function loadLevels() {
       const { data, error } = await sb.from('levels').select('*').order('id');
       if (error) { console.error(error); return; }
       allLevels = data || [];
+      await updateAredlRanks();
       renderLevels();
       updateStats();
     }
