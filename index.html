@@ -2321,30 +2321,58 @@ create policy "write_settings" on settings for all using (auth.role() = 'authent
        Levels — Load, Filter, Sort, Render
     ========================================================= */
     async function updateAredlRanks() {
-      try {
-        const res = await fetch("./aredl-ranks.json");
-        if (!res.ok) throw new Error(`AREDL ranks fetch failed (${res.status})`);
+      const urls = ["./aredl-ranks.json", "/aredl-ranks.json"];
+      let lastError = null;
 
-        const rawData = await res.text();
-        let aredlLevels = JSON.parse(rawData);
-        if (!Array.isArray(aredlLevels)) aredlLevels = aredlLevels?.data || [];
-        if (!Array.isArray(aredlLevels)) throw new Error('AREDL ranks file is not an array');
-
-        const rankMap = new Map();
-        for (const level of aredlLevels) {
-          if (level?.name && level?.position != null) {
-            rankMap.set(level.name.toLowerCase(), level.position);
-          }
+      for (const url of urls) {
+        let res;
+        try {
+          res = await fetch(url, { cache: "no-store" });
+        } catch (err) {
+          lastError = err;
+          console.warn(`AREDL fetch failed for ${url}:`, err);
+          continue;
         }
 
-        allLevels = allLevels.map(level => {
-          const key = level.name?.toLowerCase();
-          const rank = key ? rankMap.get(key) : null;
-          return rank != null ? { ...level, top_rank: `#${rank}` } : level;
-        });
-      } catch (err) {
-        console.error("AREDL update failed:", err);
+        if (!res.ok) {
+          lastError = new Error(`AREDL ranks fetch failed (${res.status})`);
+          console.warn(lastError.message, url);
+          continue;
+        }
+
+        const contentType = (res.headers.get("content-type") || "").toLowerCase();
+        const rawData = await res.text();
+        if (contentType.includes("text/html") || rawData.trim().startsWith("<")) {
+          lastError = new Error(`AREDL ranks fetch returned HTML from ${url}`);
+          console.warn(lastError.message, rawData.slice(0, 200));
+          continue;
+        }
+
+        try {
+          let aredlLevels = JSON.parse(rawData);
+          if (!Array.isArray(aredlLevels)) aredlLevels = aredlLevels?.data || [];
+          if (!Array.isArray(aredlLevels)) throw new Error('AREDL ranks file is not an array');
+
+          const rankMap = new Map();
+          for (const level of aredlLevels) {
+            if (level?.name && level?.position != null) {
+              rankMap.set(level.name.toLowerCase(), level.position);
+            }
+          }
+
+          allLevels = allLevels.map(level => {
+            const key = level.name?.toLowerCase();
+            const rank = key ? rankMap.get(key) : null;
+            return rank != null ? { ...level, top_rank: `#${rank}` } : level;
+          });
+          return;
+        } catch (err) {
+          lastError = err;
+          console.warn(`Failed to parse AREDL ranks from ${url}:`, err, rawData.slice(0, 200));
+        }
       }
+
+      console.error("AREDL update failed:", lastError || new Error('No valid aredl-ranks.json response found'));
     }
   
     async function loadLevels() {
