@@ -300,10 +300,6 @@
       background: linear-gradient(135deg, #00c49f, #00b87d);
     }
 
-    .give-up {
-      background: linear-gradient(135deg, #ff6b6b, #ff3b3b);
-    }
-
     .info-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
@@ -446,27 +442,6 @@
       display: flex;
       align-items: center;
       gap: 12px;
-    }
-
-    .info-card-scroll {
-      max-height: 320px;
-      overflow-y: auto;
-      padding-right: 10px;
-      overscroll-behavior: contain;
-    }
-
-    .info-card-scroll::-webkit-scrollbar {
-      width: 8px;
-    }
-
-    .info-card-scroll::-webkit-scrollbar-track {
-      background: rgba(255, 255, 255, 0.6);
-      border-radius: 999px;
-    }
-
-    .info-card-scroll::-webkit-scrollbar-thumb {
-      background: rgba(255, 77, 166, 0.45);
-      border-radius: 999px;
     }
 
     .info-card-icon {
@@ -1040,10 +1015,6 @@
 
     .status-mini.termine {
       background: linear-gradient(135deg, #00c49f, #00b87d);
-    }
-
-    .status-mini.give_up {
-      background: linear-gradient(135deg, #ff6b6b, #ff3b3b);
     }
 
     .diff-mini {
@@ -1767,54 +1738,6 @@
       text-align: right;
     }
   </style>
-
-  <style id="journey-pack">
-    .journey-section {
-      margin: 40px 0;
-      padding: 40px;
-      border-radius: 30px;
-      background: rgba(255, 255, 255, .75);
-      backdrop-filter: blur(15px)
-    }
-
-    .journey-title {
-      font-size: 2.2rem;
-      font-weight: 800;
-      margin-bottom: 25px;
-      background: linear-gradient(90deg, #ff4da6, #c44dff, #4dc8ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent
-    }
-
-    .timeline-item {
-      padding: 18px;
-      margin: 14px 0;
-      border-left: 4px solid #ff4da6;
-      background: #fff7fc;
-      border-radius: 16px
-    }
-
-    .achievement-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 16px
-    }
-
-    .achievement {
-      padding: 20px;
-      border-radius: 20px;
-      background: linear-gradient(135deg, #ff4da615, #c44dff15)
-    }
-
-    .glass-hover {
-      transition: .3s
-    }
-
-    .glass-hover:hover {
-      transform: translateY(-8px) scale(1.03)
-    }
-  </style>
-
 </head>
 
 <body>
@@ -1922,7 +1845,6 @@
             <button class="filter-btn" data-filter="en_cours">⚡ En cours</button>
             <button class="filter-btn" data-filter="termine">✅ Terminé</button>
             <button class="filter-btn" data-filter="pas_commence">💤 Pas commencé</button>
-            <button class="filter-btn" data-filter="give_up">❌ Give up</button>
           </div>
           <div class="sort-group">
             <span class="filter-label">Trier :</span>
@@ -2010,7 +1932,7 @@
               <div class="info-card-icon">💀</div>
               Hardest — Niveau terminé
             </div>
-            <div id="hardestStats" class="info-card-scroll">
+            <div id="hardestStats">
               <p class="aredl-placeholder">Chargement...</p>
             </div>
           </div>
@@ -2019,7 +1941,7 @@
               <div class="info-card-icon">🏆</div>
               Top Ranks AREDL
             </div>
-            <div id="topRanksStats" class="info-card-scroll">
+            <div id="topRanksStats">
               <p class="aredl-placeholder">Chargement...</p>
             </div>
           </div>
@@ -2032,7 +1954,7 @@
               <div class="info-card-icon">❤️</div>
               Enjoyment — Stats
             </div>
-            <div id="enjoymentStats" class="info-card-scroll">
+            <div id="enjoymentStats">
               <p class="aredl-placeholder">Chargement...</p>
             </div>
           </div>
@@ -2052,7 +1974,7 @@
               <div class="info-card-icon">🎯</div>
               Attempts — Stats
             </div>
-            <div id="attemptsStats" class="info-card-scroll">
+            <div id="attemptsStats">
               <p class="aredl-placeholder">Chargement...</p>
             </div>
           </div>
@@ -2072,7 +1994,7 @@
               <div class="info-card-icon">💀</div>
               Worst Fails
             </div>
-            <div id="worstFailsStats" class="info-card-scroll">
+            <div id="worstFailsStats">
               <p class="aredl-placeholder">Chargement...</p>
             </div>
           </div>
@@ -2183,33 +2105,6 @@
 
       </div>
 
-
-      <section class="journey-section">
-        <h2 class="journey-title">🌟 Journey</h2>
-
-        <div class="timeline-item glass-hover"><b>2024</b> — Premiers gros demons</div>
-        <div class="timeline-item glass-hover"><b>2025</b> — Progression AREDL</div>
-        <div class="timeline-item glass-hover"><b>2026</b> — Objectif Top mondial</div>
-
-        <h2 class="journey-title" style="margin-top:40px">🏆 Achievements</h2>
-        <div class="achievement-grid">
-          <div class="achievement glass-hover">🥇 Premier Extreme</div>
-          <div class="achievement glass-hover">🔥 10 Extremes</div>
-          <div class="achievement glass-hover">💀 Top AREDL</div>
-          <div class="achievement glass-hover">❤️ Enjoyment Master</div>
-        </div>
-
-        <h2 class="journey-title" style="margin-top:40px">📈 Progression Records</h2>
-        <canvas id="journeyProgress" height="100"></canvas>
-
-        <h2 class="journey-title" style="margin-top:40px">🤖 Analyse IA du profil</h2>
-        <div class="achievement-grid">
-          <div class="achievement">🎯 Force : Timings</div>
-          <div class="achievement">🚀 Persévérance : 9.7/10</div>
-          <div class="achievement">🌊 Wave : Très fort</div>
-          <div class="achievement">✈️ Ship : À améliorer</div>
-        </div>
-      </section>
     </div><!-- /container -->
   </div><!-- /appWrapper -->
 
@@ -2263,22 +2158,10 @@
             placeholder="Enjoyment /10  (ex: 8.5)">
           <input id="fCompletionDate" class="form-input" type="date" placeholder="Date de complétion">
           <input id="fImage" class="form-input" placeholder="URL image">
-          <select id="fDifficulty" class="form-input">
-            <option value="Easy">Easy</option>
-            <option value="Normal">Normal</option>
-            <option value="Hard">Hard</option>
-            <option value="Harder">Harder</option>
-            <option value="Insane">Insane</option>
-            <option value="Easy Demon">Easy Demon</option>
-            <option value="Medium Demon">Medium Demon</option>
-            <option value="Hard Demon">Hard Demon</option>
-            <option value="Insane Demon">Insane Demon</option>
-          </select>
           <select id="fStatus" class="form-input">
             <option value="pas_commence">💤 Pas commencé</option>
             <option value="en_cours">⚡ En cours</option>
             <option value="termine">✅ Terminé</option>
-            <option value="give_up">❌ Give up</option>
           </select>
         </div>
         <button id="addLevelBtn" class="btn-primary" style="margin-top:20px;">✨ Ajouter le niveau</button>
@@ -2387,9 +2270,9 @@ create policy "write_settings" on settings for all using (auth.role() = 'authent
       'Easy': 1, 'Normal': 2, 'Hard': 3, 'Harder': 4, 'Insane': 5,
       'Easy Demon': 6, 'Medium Demon': 7, 'Hard Demon': 8, 'Insane Demon': 9, 'Extreme Demon': 10
     };
-    const STATUS_ORDER = { 'en_cours': 1, 'termine': 2, 'pas_commence': 3, 'give_up': 4 };
-    const STATUS_LABEL = { 'pas_commence': 'Pas commencé', 'en_cours': 'En cours', 'termine': 'Terminé ✅', 'give_up': 'Give up' };
-    const STATUS_CLASS = { 'pas_commence': 'paused', 'en_cours': 'playing', 'termine': 'done', 'give_up': 'give-up' };
+    const STATUS_ORDER = { 'en_cours': 1, 'termine': 2, 'pas_commence': 3 };
+    const STATUS_LABEL = { 'pas_commence': 'Pas commencé', 'en_cours': 'En cours', 'termine': 'Terminé ✅' };
+    const STATUS_CLASS = { 'pas_commence': 'paused', 'en_cours': 'playing', 'termine': 'done' };
 
     /* =========================================================
        Navigation entre vues
@@ -2406,67 +2289,10 @@ create policy "write_settings" on settings for all using (auth.role() = 'authent
     /* =========================================================
        Levels — Load, Filter, Sort, Render
     ========================================================= */
-    async function updateAredlRanks() {
-      const urls = ["./aredl-ranks.json", "/aredl-ranks.json"];
-      let lastError = null;
-
-      for (const url of urls) {
-        let res;
-        try {
-          res = await fetch(url, { cache: "no-store" });
-        } catch (err) {
-          lastError = err;
-          console.warn(`AREDL fetch failed for ${url}:`, err);
-          continue;
-        }
-
-        if (!res.ok) {
-          lastError = new Error(`AREDL ranks fetch failed (${res.status})`);
-          console.warn(lastError.message, url);
-          continue;
-        }
-
-        const contentType = (res.headers.get("content-type") || "").toLowerCase();
-        const rawData = await res.text();
-        if (contentType.includes("text/html") || rawData.trim().startsWith("<")) {
-          lastError = new Error(`AREDL ranks fetch returned HTML from ${url}`);
-          console.warn(lastError.message, rawData.slice(0, 200));
-          continue;
-        }
-
-        try {
-          let aredlLevels = JSON.parse(rawData);
-          if (!Array.isArray(aredlLevels)) aredlLevels = aredlLevels?.data || [];
-          if (!Array.isArray(aredlLevels)) throw new Error('AREDL ranks file is not an array');
-
-          const rankMap = new Map();
-          for (const level of aredlLevels) {
-            if (level?.name && level?.position != null) {
-              rankMap.set(level.name.toLowerCase(), level.position);
-            }
-          }
-
-          allLevels = allLevels.map(level => {
-            const key = level.name?.toLowerCase();
-            const rank = key ? rankMap.get(key) : null;
-            return rank != null ? { ...level, top_rank: `#${rank}` } : level;
-          });
-          return;
-        } catch (err) {
-          lastError = err;
-          console.warn(`Failed to parse AREDL ranks from ${url}:`, err, rawData.slice(0, 200));
-        }
-      }
-
-      console.error("AREDL update failed:", lastError || new Error('No valid aredl-ranks.json response found'));
-    }
-
     async function loadLevels() {
       const { data, error } = await sb.from('levels').select('*').order('id');
       if (error) { console.error(error); return; }
       allLevels = data || [];
-
-      await updateAredlRanks();
       renderLevels();
       updateStats();
     }
@@ -2918,12 +2744,11 @@ create policy "write_settings" on settings for all using (auth.role() = 'authent
       const cours = allLevels.filter(l => l.status === 'en_cours').length;
       const done = allLevels.filter(l => l.status === 'termine').length;
       const paused = allLevels.filter(l => l.status === 'pas_commence').length;
-      const give_up = allLevels.filter(l => l.status === 'give_up').length;
       chartInstances['status'] = new Chart(document.getElementById('chartStatus'), {
         type: 'doughnut',
         data: {
-          labels: ['⚡ En cours', '✅ Terminés', '💤 Pas commencé', '❌ Give up'],
-          datasets: [{ data: [cours, done, paused, give_up], backgroundColor: ['#ff4da6', '#00c49f', '#b5b5b5', '#ff6b6b'], borderWidth: 0, hoverOffset: 8 }]
+          labels: ['⚡ En cours', '✅ Terminés', '💤 Pas commencé'],
+          datasets: [{ data: [cours, done, paused], backgroundColor: ['#ff4da6', '#00c49f', '#b5b5b5'], borderWidth: 0, hoverOffset: 8 }]
         },
         options: {
           responsive: true,
@@ -3289,7 +3114,6 @@ create policy "write_settings" on settings for all using (auth.role() = 'authent
         <option value="pas_commence"${level.status === 'pas_commence' ? ' selected' : ''}>💤 Pas commencé</option>
         <option value="en_cours"${level.status === 'en_cours' ? ' selected' : ''}>⚡ En cours</option>
         <option value="termine"${level.status === 'termine' ? ' selected' : ''}>✅ Terminé</option>
-        <option value="give_up"${level.status === 'give_up' ? ' selected' : ''}>give up</option>
       </select>
       <button class="btn-edit"   onclick="toggleEdit(${level.id})">✏️ Modifier</button>
       <button class="btn-delete" onclick="deleteLevel(${level.id}, '${escHtml(level.name)}')">🗑️ Supprimer</button>
@@ -3310,7 +3134,6 @@ create policy "write_settings" on settings for all using (auth.role() = 'authent
           <option value="pas_commence"${level.status === 'pas_commence' ? ' selected' : ''}>💤 Pas commencé</option>
           <option value="en_cours"${level.status === 'en_cours' ? ' selected' : ''}>⚡ En cours</option>
           <option value="termine"${level.status === 'termine' ? ' selected' : ''}>✅ Terminé</option>
-          <option value="give_up"${level.status === 'give_up' ? ' selected' : ''}>give up</option>
         </select>
         <select class="form-input" id="e${level.id}f">${diffOpts}</select>
       </div>
@@ -3372,24 +3195,23 @@ create policy "write_settings" on settings for all using (auth.role() = 'authent
     }
 
     async function addLevel() {
-      const getValue = id => document.getElementById(id)?.value ?? '';
-      const name = getValue('fName').trim();
+      const name = document.getElementById('fName').value.trim();
       if (!name) { alert('Le nom du niveau est requis ✨'); return; }
 
-      const enjoRaw = getValue('fEnjoyment');
-      const completionDateRaw = getValue('fCompletionDate');
+      const enjoRaw = document.getElementById('fEnjoyment').value;
+      const completionDateRaw = document.getElementById('fCompletionDate').value;
       const level = {
         name,
-        top_rank: getValue('fTop') || null,
-        description: getValue('fDesc') || null,
-        best_run: getValue('fBestRun') || '0%',
-        progress: parseInt(getValue('fProgress')) || 0,
-        attempts: getValue('fAttempts') || '0',
-        worst_fail: getValue('fWorstFail') || null,
+        top_rank: document.getElementById('fTop').value || null,
+        description: document.getElementById('fDesc').value || null,
+        best_run: document.getElementById('fBestRun').value || '0%',
+        progress: parseInt(document.getElementById('fProgress').value) || 0,
+        attempts: document.getElementById('fAttempts').value || '0',
+        worst_fail: document.getElementById('fWorstFail').value || null,
         enjoyment: enjoRaw !== '' ? parseFloat(enjoRaw) : null,
-        image_url: getValue('fImage') || null,
-        status: getValue('fStatus') || 'pas_commence',
-        difficulty: getValue('fDifficulty') || 'Easy',
+        image_url: document.getElementById('fImage').value || null,
+        status: document.getElementById('fStatus').value,
+        difficulty: document.getElementById('fDifficulty').value,
         completion_date: completionDateRaw || null,
       };
       const { error } = await sb.from('levels').insert(level);
@@ -3400,12 +3222,10 @@ create policy "write_settings" on settings for all using (auth.role() = 'authent
       } else {
         msg.textContent = '✨ Niveau ajouté avec succès !';
         msg.style.color = '#00c49f';
-        ['fName', 'fTop', 'fDesc', 'fBestRun', 'fProgress', 'fAttempts', 'fWorstFail', 'fEnjoyment', 'fCompletionDate', 'fImage', 'fDifficulty'].forEach(id => {
-          const el = document.getElementById(id);
-          if (el) el.value = '';
+        ['fName', 'fTop', 'fDesc', 'fBestRun', 'fProgress', 'fRuns', 'fAttempts', 'fWorstFail', 'fEnjoyment', 'fCompletionDate', 'fImage'].forEach(id => {
+          document.getElementById(id).value = '';
         });
         document.getElementById('fStatus').value = 'pas_commence';
-        document.getElementById('fDifficulty').value = 'Easy';
         setTimeout(() => { msg.textContent = ''; }, 3000);
       }
     }
