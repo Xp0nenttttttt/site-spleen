@@ -1767,6 +1767,54 @@
       text-align: right;
     }
   </style>
+
+  <style id="journey-pack">
+    .journey-section {
+      margin: 40px 0;
+      padding: 40px;
+      border-radius: 30px;
+      background: rgba(255, 255, 255, .75);
+      backdrop-filter: blur(15px)
+    }
+
+    .journey-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin-bottom: 25px;
+      background: linear-gradient(90deg, #ff4da6, #c44dff, #4dc8ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent
+    }
+
+    .timeline-item {
+      padding: 18px;
+      margin: 14px 0;
+      border-left: 4px solid #ff4da6;
+      background: #fff7fc;
+      border-radius: 16px
+    }
+
+    .achievement-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px
+    }
+
+    .achievement {
+      padding: 20px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #ff4da615, #c44dff15)
+    }
+
+    .glass-hover {
+      transition: .3s
+    }
+
+    .glass-hover:hover {
+      transform: translateY(-8px) scale(1.03)
+    }
+  </style>
+
 </head>
 
 <body>
@@ -2135,6 +2183,33 @@
 
       </div>
 
+
+      <section class="journey-section">
+        <h2 class="journey-title">🌟 Journey</h2>
+
+        <div class="timeline-item glass-hover"><b>2024</b> — Premiers gros demons</div>
+        <div class="timeline-item glass-hover"><b>2025</b> — Progression AREDL</div>
+        <div class="timeline-item glass-hover"><b>2026</b> — Objectif Top mondial</div>
+
+        <h2 class="journey-title" style="margin-top:40px">🏆 Achievements</h2>
+        <div class="achievement-grid">
+          <div class="achievement glass-hover">🥇 Premier Extreme</div>
+          <div class="achievement glass-hover">🔥 10 Extremes</div>
+          <div class="achievement glass-hover">💀 Top AREDL</div>
+          <div class="achievement glass-hover">❤️ Enjoyment Master</div>
+        </div>
+
+        <h2 class="journey-title" style="margin-top:40px">📈 Progression Records</h2>
+        <canvas id="journeyProgress" height="100"></canvas>
+
+        <h2 class="journey-title" style="margin-top:40px">🤖 Analyse IA du profil</h2>
+        <div class="achievement-grid">
+          <div class="achievement">🎯 Force : Timings</div>
+          <div class="achievement">🚀 Persévérance : 9.7/10</div>
+          <div class="achievement">🌊 Wave : Très fort</div>
+          <div class="achievement">✈️ Ship : À améliorer</div>
+        </div>
+      </section>
     </div><!-- /container -->
   </div><!-- /appWrapper -->
 
@@ -2385,12 +2460,12 @@ create policy "write_settings" on settings for all using (auth.role() = 'authent
 
       console.error("AREDL update failed:", lastError || new Error('No valid aredl-ranks.json response found'));
     }
-  
+
     async function loadLevels() {
       const { data, error } = await sb.from('levels').select('*').order('id');
       if (error) { console.error(error); return; }
       allLevels = data || [];
-      
+
       await updateAredlRanks();
       renderLevels();
       updateStats();
