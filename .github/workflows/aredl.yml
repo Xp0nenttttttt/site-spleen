@@ -24,7 +24,7 @@ jobs:
           curl -L -o aredl-user.json https://api.aredl.net/v2/api/aredl/profile/1163166644546322533
       - name: Fetch AREDL Clan
         run: |
-          curl -L -o aredl-clan.json https://api.aredl.net/v2/api/aredl/leaderboard/clans/Iris
+          curl -L -o aredl-clan.json https://api.aredl.net/v2/api/aredl/clan/a35a4749-fce4-43e2-8985-d03691c4a07f
 
       - name: Commit changes
         run: |
