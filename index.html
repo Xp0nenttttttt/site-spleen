@@ -2608,7 +2608,7 @@ create policy "write_settings" on settings for all using (auth.role() = 'authent
     function renderPlayerInfos() {
       const done = allLevels.filter(l => l.status === 'termine').length;
       const cours = allLevels.filter(l => l.status === 'en_cours').length;
-      const totalAttempts = allLevels.reduce((sum, l) => {
+      const totalAttempts = allLevels.filter(l => l.status === 'termine').reduce((sum, l) => {
         const n = parseInt(String(l.attempts || '0').replace(/[^0-9]/g, '')) || 0;
         return sum + n;
       }, 0);
@@ -2786,7 +2786,7 @@ create policy "write_settings" on settings for all using (auth.role() = 'authent
       const total = allLevels.length;
       const cours = allLevels.filter(l => l.status === 'en_cours').length;
       const done = allLevels.filter(l => l.status === 'termine').length;
-      const totalAtt = allLevels.reduce((s, l) => s + parseAtt(l.attempts), 0);
+      const totalAtt = allLevels.filter(l => l.status === 'termine').reduce((s, l) => s + parseAtt(l.attempts), 0);
       const enjVals = allLevels.map(l => parseFloat(l.enjoyment)).filter(v => !isNaN(v) && v > 0);
       const avgEnj = enjVals.length ? (enjVals.reduce((a, b) => a + b, 0) / enjVals.length).toFixed(1) : '–';
 
@@ -2838,71 +2838,26 @@ create policy "write_settings" on settings for all using (auth.role() = 'authent
 
     function renderChartDifficulty() {
       destroyChart('difficulty');
-      // Fourchettes de top
-      const topRanges = [
-        { label: 'Top 1-75', min: 1, max: 75 },
-        { label: 'Top 76-150', min: 76, max: 150 },
-        { label: 'Top 151-300', min: 151, max: 300 },
-        { label: 'Top 301-500', min: 301, max: 500 },
-        { label: 'Top 501-700', min: 501, max: 700 },
-        { label: 'Top 701-900', min: 701, max: 900 },
-        { label: 'Top 1000-1200', min: 1000, max: 1200 },
-        { label: 'Top 1201+', min: 1201, max: Infinity }
-      ];
-      // Difficultés classiques
-      const classicDiffs = ['Easy', 'Normal', 'Hard', 'Harder', 'Insane', 'Easy Demon', 'Medium Demon', 'Hard Demon', 'Insane Demon'];
+      const levs = allLevels.filter(l => l.status === 'termine' && l.difficulty && String(l.difficulty).trim() !== '');
       const counts = {};
-      // Initialiser les catégories
-      classicDiffs.forEach(d => counts[d] = 0);
-      topRanges.forEach(r => counts[r.label] = 0);
-      // Répartition
-      allLevels.forEach(l => {
-        // Tous les niveaux sont des Extreme Demons, donc on utilise uniquement le top_rank pour la répartition
-        if (l.top_rank) {
-          const top = parseInt(String(l.top_rank).replace(/[^0-9]/g, ''));
-          let found = false;
-          for (const r of topRanges) {
-            if (top >= r.min && top <= r.max) {
-              counts[r.label]++;
-              found = true;
-              break;
-            }
-          }
-          if (!found) counts['Top 1201+']++;
-        }
+      levs.forEach(l => {
+        const diff = String(l.difficulty).trim();
+        counts[diff] = (counts[diff] || 0) + 1;
       });
-      // Nettoyer les catégories vides
-      Object.keys(counts).forEach(k => { if (counts[k] === 0) delete counts[k]; });
-      if (!Object.keys(counts).length) return;
+      const keys = Object.keys(counts).sort((a, b) => (DIFFICULTY_ORDER[a] || 999) - (DIFFICULTY_ORDER[b] || 999));
+      if (!keys.length) return;
 
-      // Palette de couleurs très distinctes
       const colors = [
-        '#e6194b', // rouge
-        '#3cb44b', // vert
-        '#ffe119', // jaune
-        '#4363d8', // bleu
-        '#f58231', // orange
-        '#911eb4', // violet
-        '#46f0f0', // cyan
-        '#f032e6', // rose
-        '#bcf60c', // vert clair
-        '#fabebe', // rose pâle
-        '#008080', // teal
-        '#e6beff', // lavande
-        '#9a6324', // marron
-        '#fffac8', // jaune pâle
-        '#800000', // bordeaux
-        '#aaffc3', // vert menthe
-        '#808000', // olive
-        '#ffd8b1', // pêche
-        '#000075', // bleu foncé
-        '#808080'  // gris
-      ];
+        '#e6194b', '#3cb44b', '#ffe119', '#4363d8', '#f58231', '#911eb4', '#46f0f0', '#f032e6',
+        '#bcf60c', '#fabebe', '#008080', '#e6beff', '#9a6324', '#fffac8', '#800000', '#aaffc3',
+        '#808000', '#ffd8b1', '#000075', '#808080'
+      ].slice(0, keys.length);
+
       chartInstances['difficulty'] = new Chart(document.getElementById('chartDifficulty'), {
         type: 'doughnut',
         data: {
-          labels: Object.keys(counts),
-          datasets: [{ data: Object.values(counts), backgroundColor: colors, borderWidth: 0, hoverOffset: 8 }]
+          labels: keys,
+          datasets: [{ data: keys.map(k => counts[k]), backgroundColor: colors, borderWidth: 0, hoverOffset: 8 }]
         },
         options: {
           responsive: true,
@@ -3058,7 +3013,7 @@ create policy "write_settings" on settings for all using (auth.role() = 'authent
     function renderChartAttempts() {
       destroyChart('attempts');
       const parseAtt = a => parseInt(String(a).replace(/[^0-9]/g, '')) || 0;
-      const levs = allLevels.filter(l => l.attempts && parseAtt(l.attempts) > 0);
+      const levs = allLevels.filter(l => l.status === 'termine' && l.attempts && parseAtt(l.attempts) > 0);
       if (!levs.length) return;
       const sorted = [...levs].sort((a, b) => parseAtt(b.attempts) - parseAtt(a.attempts)).slice(0, 10);
       chartInstances['attempts'] = new Chart(document.getElementById('chartAttempts'), {
@@ -3134,7 +3089,7 @@ create policy "write_settings" on settings for all using (auth.role() = 'authent
     function renderAttemptsStats() {
       const container = document.getElementById('attemptsStats');
       const parseAtt = a => parseInt(String(a).replace(/[^0-9]/g, '')) || 0;
-      const levs = allLevels.filter(l => l.attempts && parseAtt(l.attempts) > 0);
+      const levs = allLevels.filter(l => l.status === 'termine' && l.attempts && parseAtt(l.attempts) > 0);
 
       if (!levs.length) {
         container.innerHTML = '<p class="aredl-placeholder">Pas encore d\'attempts renseignés.</p>';
