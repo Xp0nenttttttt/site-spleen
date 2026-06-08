@@ -21,13 +21,13 @@ jobs:
 
       - name: Fetch AREDL User
         run: |
-          curl -L -o aredl-user.json https://api.aredl.net/v2/api/aredl/users/spleen
+          curl -L -o aredl-user.json https://api.aredl.net/v2/api/aredl/users/1163166644546322533
       - name: Test AREDL User
         run: |
           curl -L --max-time 30 \
             -o aredl-user.json \
             -w "HTTP:%{http_code}\n" \
-            https://api.aredl.net/v2/api/aredl/users
+            https://api.aredl.net/v2/api/aredl/users/1163166644546322533
 
           ls -lah
           cat aredl-user.json || true
