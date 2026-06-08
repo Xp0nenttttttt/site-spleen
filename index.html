@@ -2156,34 +2156,34 @@
             </div>
 
             <div id="aredlClanMembers"></div>
-            </div>
-            <div class="big-stat">
-              <span class="big-stat-label">Extreme Demons terminés</span>
-              <span class="big-stat-value green" id="pInfoDone">16</span>
-            </div>
-            <div class="big-stat">
-              <span class="big-stat-label">Niveaux en cours</span>
-              <span class="big-stat-value" id="pInfoCours">–</span>
-            </div>
-            <div class="big-stat">
-              <span class="big-stat-label">Total attempts</span>
-              <span class="big-stat-value" id="pInfoAttempts">–</span>
-            </div>
           </div>
-
-          
-
-
-            
-
+          <div class="big-stat">
+            <span class="big-stat-label">Extreme Demons terminés</span>
+            <span class="big-stat-value green" id="pInfoDone">16</span>
           </div>
-
+          <div class="big-stat">
+            <span class="big-stat-label">Niveaux en cours</span>
+            <span class="big-stat-value" id="pInfoCours">–</span>
+          </div>
+          <div class="big-stat">
+            <span class="big-stat-label">Total attempts</span>
+            <span class="big-stat-value" id="pInfoAttempts">–</span>
+          </div>
         </div>
+
+
+
+
+
 
       </div>
 
+    </div>
 
-      
+  </div>
+
+
+
   <!-- Admin FAB -->
   <button class="admin-fab" id="adminFab" title="Admin">🔐</button>
 
@@ -2441,8 +2441,13 @@ create policy "write_settings" on settings for all using (auth.role() = 'authent
         if (!userData) return;
 
         // Points AREDL
-        const points = userData.rank?.total_points || '-';
-        document.getElementById('aredlPoints').textContent = points.toLocaleString('fr-FR');
+        const points = (userData.rank?.total_points || 0) / 10;
+
+        document.getElementById('aredlPoints').textContent =
+          points.toLocaleString('fr-FR', {
+            minimumFractionDigits: 1,
+            maximumFractionDigits: 1
+          });
 
         // Classement monde
         const globalRank = userData.rank?.rank || '-';
@@ -2453,9 +2458,17 @@ create policy "write_settings" on settings for all using (auth.role() = 'authent
         document.getElementById('aredlCountryRank').textContent = countryRank !== '-' ? `#${countryRank}` : '-';
 
         // Clan
+        // Classement du clan
+        const clanRank =
+          userData.clan?.rank ||
+          userData.clan?.global_rank ||
+          '-';
+
+        document.getElementById('aredlClanRank').textContent =
+          clanRank !== '-' ? `#${clanRank}` : '-';
         if (userData.clan) {
           document.getElementById('aredlClan').textContent = userData.clan.global_name || '-';
-          
+
           // Charger les membres du clan
           try {
             const clanResponse = await fetch('./aredl-clan.json', { cache: 'no-store' });
@@ -2470,7 +2483,7 @@ create policy "write_settings" on settings for all using (auth.role() = 'authent
                     <span style="color:#ff4da6;font-weight:600;">${(m.points || 0).toLocaleString('fr-FR')}pts</span>
                   </div>`)
                   .join('');
-                
+
                 document.getElementById('aredlClanMembers').innerHTML = `
                   <div style="margin-top:16px;border:1px solid #ffedf5;border-radius:12px;overflow:hidden;">
                     <div style="padding:12px;background:#ffedf5;font-weight:700;color:#ff4da6;">👥 Membres du clan</div>
@@ -3258,21 +3271,21 @@ create policy "write_settings" on settings for all using (auth.role() = 'authent
       const btn = document.getElementById('radarEditBtn');
       if (btn) btn.style.display = isAdmin ? 'inline-flex' : 'none';
     }
-    
+
     /* =========================================================
        Admin panel — level list
     ========================================================= */
     async function loadAredlClan() {
-    const response = await fetch("./aredl-clan.json");
-    const clan = await response.json();
+      const response = await fetch("./aredl-clan.json");
+      const clan = await response.json();
 
-    console.log(clan);
+      console.log(clan);
     }
     async function loadAredlProfile() {
-    const response = await fetch("./aredl-user.json");
-    const user = await response.json();
+      const response = await fetch("./aredl-user.json");
+      const user = await response.json();
 
-    console.log(user);
+      console.log(user);
     }
     async function loadAdminLevelList() {
       const { data, error } = await sb.from('levels').select('*').order('id');
