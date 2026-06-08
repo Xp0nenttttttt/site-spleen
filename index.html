@@ -3235,6 +3235,12 @@ create policy "write_settings" on settings for all using (auth.role() = 'authent
     /* =========================================================
        Admin panel — level list
     ========================================================= */
+    async function loadAredlClan() {
+    const response = await fetch("./aredl-clan.json");
+    const clan = await response.json();
+
+    console.log(clan);
+    }
     async function loadAredlProfile() {
     const response = await fetch("./aredl-user.json");
     const user = await response.json();
