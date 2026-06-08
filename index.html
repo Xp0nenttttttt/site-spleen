@@ -2171,34 +2171,10 @@
             </div>
           </div>
 
-          <!-- Radar hexagonal -->
-          <div class="info-card" style="grid-column:1/-1;">
-            <div class="info-card-title">
-              <div class="info-card-icon">🎯</div>
-              Points Forts &amp; Faibles
-              <button id="radarEditBtn" class="btn-edit"
-                style="display:none;margin-left:auto;padding:8px 16px;font-size:13px;" onclick="toggleRadarEdit()">✏️
-                Modifier</button>
-            </div>
+          
 
-            <!-- SVG Chart -->
-            <div id="radarChartContainer"
-              style="display:flex;justify-content:center;align-items:center;padding:10px 0;">
-              <div style="color:#aaa;font-size:14px;">Chargement...</div>
-            </div>
 
-            <!-- Formulaire d'édition (admin seulement) -->
-            <div id="radarEditForm"
-              style="display:none;margin-top:20px;border-top:2px dashed #ffd0e7;padding-top:20px;">
-              <p style="font-size:13px;color:#888;margin-bottom:16px;">Modifie les 6 axes de ton graphique (note de 0 à
-                10) :</p>
-              <div id="radarEditRows" class="form-grid" style="grid-template-columns:1fr 1fr 1fr;gap:14px;"></div>
-              <div style="display:flex;gap:10px;margin-top:18px;flex-wrap:wrap;">
-                <button class="btn-primary" onclick="saveRadarStats()">💾 Sauvegarder</button>
-                <button class="btn-secondary" onclick="toggleRadarEdit()">Annuler</button>
-              </div>
-              <div id="radarSaveMsg" class="success-msg"></div>
-            </div>
+            
 
           </div>
 
@@ -2207,35 +2183,7 @@
       </div>
 
 
-      <section class="journey-section">
-        <h2 class="journey-title">🌟 Journey</h2>
-
-        <div class="timeline-item glass-hover"><b>2024</b> — Premiers gros demons</div>
-        <div class="timeline-item glass-hover"><b>2025</b> — Progression AREDL</div>
-        <div class="timeline-item glass-hover"><b>2026</b> — Objectif Top mondial</div>
-
-        <h2 class="journey-title" style="margin-top:40px">🏆 Achievements</h2>
-        <div class="achievement-grid">
-          <div class="achievement glass-hover">🥇 Premier Extreme</div>
-          <div class="achievement glass-hover">🔥 10 Extremes</div>
-          <div class="achievement glass-hover">💀 Top AREDL</div>
-          <div class="achievement glass-hover">❤️ Enjoyment Master</div>
-        </div>
-
-        <h2 class="journey-title" style="margin-top:40px">📈 Progression Records</h2>
-        <canvas id="journeyProgress" height="100"></canvas>
-
-        <h2 class="journey-title" style="margin-top:40px">🤖 Analyse IA du profil</h2>
-        <div class="achievement-grid">
-          <div class="achievement">🎯 Force : Timings</div>
-          <div class="achievement">🚀 Persévérance : 9.7/10</div>
-          <div class="achievement">🌊 Wave : Très fort</div>
-          <div class="achievement">✈️ Ship : À améliorer</div>
-        </div>
-      </section>
-    </div><!-- /container -->
-  </div><!-- /appWrapper -->
-
+      
   <!-- Admin FAB -->
   <button class="admin-fab" id="adminFab" title="Admin">🔐</button>
 
