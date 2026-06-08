@@ -2,7 +2,7 @@ name: Update AREDL Rankings
 
 on:
   schedule:
-    - cron: "0 */6 * * *" # toutes les 6 heures
+    - cron: "0 */6 * * *"
   workflow_dispatch:
 
 permissions:
@@ -13,20 +13,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Fetch AREDL
+      - name: Fetch AREDL Levels
         run: |
           curl -L -o aredl-ranks.json https://api.aredl.net/v2/api/aredl/levels
+
+      - name: Fetch AREDL User
+        run: |
+          curl -L -o aredl-user.json https://api.aredl.net/v2/api/aredl/users/spleen
 
       - name: Commit changes
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
 
-          git add aredl-ranks.json
+          git add aredl-ranks.json aredl-user.json
 
-          git diff --staged --quiet || git commit -m "Update AREDL rankings"
+          git diff --staged --quiet || git commit -m "Update AREDL data"
 
           git push
