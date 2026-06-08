@@ -2432,12 +2432,68 @@ create policy "write_settings" on settings for all using (auth.role() = 'authent
       console.error("AREDL update failed:", lastError || new Error('No valid aredl-ranks.json response found'));
     }
 
+    async function loadAredlUserData() {
+      try {
+        const response = await fetch('./aredl-user.json', { cache: 'no-store' });
+        if (!response.ok) throw new Error('Failed to load aredl-user.json');
+        const userData = await response.json();
+
+        if (!userData) return;
+
+        // Points AREDL
+        const points = userData.rank?.total_points || '-';
+        document.getElementById('aredlPoints').textContent = points.toLocaleString('fr-FR');
+
+        // Classement monde
+        const globalRank = userData.rank?.rank || '-';
+        document.getElementById('aredlGlobalRank').textContent = globalRank !== '-' ? `#${globalRank}` : '-';
+
+        // Classement pays (France)
+        const countryRank = userData.rank?.country_rank || '-';
+        document.getElementById('aredlCountryRank').textContent = countryRank !== '-' ? `#${countryRank}` : '-';
+
+        // Clan
+        if (userData.clan) {
+          document.getElementById('aredlClan').textContent = userData.clan.global_name || '-';
+          
+          // Charger les membres du clan
+          try {
+            const clanResponse = await fetch('./aredl-clan.json', { cache: 'no-store' });
+            if (clanResponse.ok) {
+              const clanData = await clanResponse.json();
+              if (clanData.members && Array.isArray(clanData.members)) {
+                const membersList = clanData.members
+                  .sort((a, b) => (b.points || 0) - (a.points || 0))
+                  .slice(0, 5)
+                  .map((m, i) => `<div style="padding:8px;border-bottom:1px solid #ffedf5;">
+                    <span style="font-weight:700;">${i + 1}.</span> ${m.username || '?'} 
+                    <span style="color:#ff4da6;font-weight:600;">${(m.points || 0).toLocaleString('fr-FR')}pts</span>
+                  </div>`)
+                  .join('');
+                
+                document.getElementById('aredlClanMembers').innerHTML = `
+                  <div style="margin-top:16px;border:1px solid #ffedf5;border-radius:12px;overflow:hidden;">
+                    <div style="padding:12px;background:#ffedf5;font-weight:700;color:#ff4da6;">👥 Membres du clan</div>
+                    ${membersList}
+                  </div>`;
+              }
+            }
+          } catch (err) {
+            console.warn('Failed to load clan members:', err);
+          }
+        }
+      } catch (err) {
+        console.warn('Failed to load AREDL user data:', err);
+      }
+    }
+
     async function loadLevels() {
       const { data, error } = await sb.from('levels').select('*').order('id');
       if (error) { console.error(error); return; }
       allLevels = data || [];
 
       await updateAredlRanks();
+      await loadAredlUserData();
       renderLevels();
       updateStats();
     }
