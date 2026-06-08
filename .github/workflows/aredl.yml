@@ -22,21 +22,16 @@ jobs:
       - name: Fetch AREDL User
         run: |
           curl -L -o aredl-user.json https://api.aredl.net/v2/api/aredl/profile/1163166644546322533
-      - name: Test AREDL User
+      - name: Fetch AREDL Clan
         run: |
-          curl -L --max-time 30 \
-            -o aredl-user.json \
-            -w "HTTP:%{http_code}\n" \
-            https://api.aredl.net/v2/api/aredl/profile/1163166644546322533
+          curl -L -o aredl-clan.json https://api.aredl.net/v2/api/aredl/leaderboard/clans/Iris
 
-          ls -lah
-          cat aredl-user.json || true
       - name: Commit changes
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
 
-          git add aredl-ranks.json aredl-user.json
+          git add aredl-ranks.json aredl-user.json aredl-clan.json
 
           git diff --staged --quiet || git commit -m "Update AREDL data"
 
