@@ -3231,7 +3231,12 @@ create policy "write_settings" on settings for all using (auth.role() = 'authent
       const btn = document.getElementById('radarEditBtn');
       if (btn) btn.style.display = isAdmin ? 'inline-flex' : 'none';
     }
+    async function loadAredlProfile() {
+    const response = await fetch("./aredl-user.json");
+    const user = await response.json();
 
+    console.log(user);
+}
     /* =========================================================
        Admin panel — level list
     ========================================================= */
