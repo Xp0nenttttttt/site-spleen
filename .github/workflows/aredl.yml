@@ -27,7 +27,7 @@ jobs:
           curl -L --max-time 30 \
             -o aredl-user.json \
             -w "HTTP:%{http_code}\n" \
-            https://api.aredl.net/v2/api/aredl/users/spleen
+            https://api.aredl.net/v2/api/aredl/users
 
           ls -lah
           cat aredl-user.json || true
