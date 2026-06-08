@@ -1813,6 +1813,25 @@
     .glass-hover:hover {
       transform: translateY(-8px) scale(1.03)
     }
+
+    .badges-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .badge {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      padding: 8px 12px;
+      font-size: 14px;
+      transition: 0.2s;
+    }
+
+    .badge:hover {
+      transform: translateY(-2px);
+    }
   </style>
 
 </head>
@@ -2165,21 +2184,15 @@
             <span class="big-stat-label">Classement Clan</span>
             <span class="big-stat-value" id="aredlClanRank">-</span>
           </div>
-
-
-
-
-
-
-
-
-
         </div>
 
       </div>
 
     </div>
-
+    <div class="profile-section">
+      <h3>🏆 Badges</h3>
+      <div id="aredlBadges" class="badges-container"></div>
+    </div>
 
 
     <!-- Admin FAB -->
@@ -2422,7 +2435,37 @@ create policy "write_settings" on settings for all using (auth.role() = 'authent
 
         console.error("AREDL update failed:", lastError || new Error('No valid aredl-ranks.json response found'));
       }
+      const badgeDefinitions = {
+        first_extreme: {
+          icon: "💀",
+          name: "Premier Extreme"
+        },
 
+        "10_extremes": {
+          icon: "🔥",
+          name: "10 Extremes terminés"
+        },
+
+        "25_extremes": {
+          icon: "⚔️",
+          name: "25 Extremes terminés"
+        },
+
+        top700: {
+          icon: "🟣",
+          name: "Top 700"
+        },
+
+        top500: {
+          icon: "🔴",
+          name: "Top 500"
+        },
+
+        top100: {
+          icon: "👑",
+          name: "Top 100"
+        }
+      };
       async function loadAredlUserData() {
         try {
           const response = await fetch('./aredl-user.json', { cache: 'no-store' });
@@ -2431,6 +2474,30 @@ create policy "write_settings" on settings for all using (auth.role() = 'authent
 
           if (!userData) return;
 
+          const badgesContainer = document.getElementById("aredlBadges");
+
+          if (userData.badges?.length) {
+
+            badgesContainer.innerHTML = userData.badges
+              .map(id => {
+                const badge = badgeDefinitions[id];
+
+                if (!badge) return "";
+
+                return `
+                <div class="badge" title="${badge.name}">
+                    ${badge.icon} ${badge.name}
+                </div>
+            `;
+              })
+              .join("");
+
+          } else {
+
+            badgesContainer.innerHTML =
+              '<div class="badge">Aucun badge</div>';
+
+          }
           // Points AREDL
           const points = (userData.rank?.total_points || 0) / 10;
 
