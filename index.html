@@ -2838,13 +2838,33 @@ create policy "write_settings" on settings for all using (auth.role() = 'authent
 
     function renderChartDifficulty() {
       destroyChart('difficulty');
-      const levs = allLevels.filter(l => l.status === 'termine' && l.difficulty && String(l.difficulty).trim() !== '');
+      const topRanges = [
+        { label: 'Top 1-75', min: 1, max: 75 },
+        { label: 'Top 76-150', min: 76, max: 150 },
+        { label: 'Top 151-300', min: 151, max: 300 },
+        { label: 'Top 301-500', min: 301, max: 500 },
+        { label: 'Top 501-700', min: 501, max: 700 },
+        { label: 'Top 701-900', min: 701, max: 900 },
+        { label: 'Top 1000-1200', min: 1000, max: 1200 },
+        { label: 'Top 1201+', min: 1201, max: Infinity }
+      ];
       const counts = {};
+      topRanges.forEach(r => counts[r.label] = 0);
+
+      const levs = allLevels.filter(l => l.status === 'termine' && l.top_rank && String(l.top_rank).trim() !== '');
       levs.forEach(l => {
-        const diff = String(l.difficulty).trim();
-        counts[diff] = (counts[diff] || 0) + 1;
+        const top = parseInt(String(l.top_rank).replace(/[^0-9]/g, ''));
+        if (!top) return;
+        for (const r of topRanges) {
+          if (top >= r.min && top <= r.max) {
+            counts[r.label]++;
+            return;
+          }
+        }
+        counts['Top 1201+']++;
       });
-      const keys = Object.keys(counts).sort((a, b) => (DIFFICULTY_ORDER[a] || 999) - (DIFFICULTY_ORDER[b] || 999));
+
+      const keys = Object.keys(counts).filter(k => counts[k] > 0);
       if (!keys.length) return;
 
       const colors = [
