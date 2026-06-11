@@ -2647,6 +2647,7 @@ create policy "write_settings" on settings for all using (auth.role() = 'authent
       const sClass = STATUS_CLASS[level.status] || 'paused';
       const sLabel = STATUS_LABEL[level.status] || 'Pas commencé';
       const fillClass = level.status === 'termine' ? 'done-fill' : '';
+      
       const prog = level.progress || 0;
       const img = level.image_url
         ? level.image_url
@@ -3468,6 +3469,7 @@ create policy "write_settings" on settings for all using (auth.role() = 'authent
           image_url: document.getElementById(`e${id}i`).value || null,
           status: document.getElementById(`e${id}s`).value,
           difficulty: document.getElementById(`e${id}f`).value,
+          category: document.getElementById(`e${id}c`).value || null,
           completion_date: completionDateRaw || null,
         };
         if (!updates.name) { alert('Le nom est requis.'); return; }
@@ -3510,6 +3512,7 @@ create policy "write_settings" on settings for all using (auth.role() = 'authent
           image_url: getValue('fImage') || null,
           status: getValue('fStatus') || 'pas_commence',
           difficulty: getValue('fDifficulty') || 'Easy',
+          category: getValue('fCategory') || null,
           completion_date: completionDateRaw || null,
         };
         const { error } = await sb.from('levels').insert(level);
