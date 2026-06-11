@@ -1813,6 +1813,25 @@
     .glass-hover:hover {
       transform: translateY(-8px) scale(1.03)
     }
+
+    .badges-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .badge {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      padding: 8px 12px;
+      font-size: 14px;
+      transition: 0.2s;
+    }
+
+    .badge:hover {
+      transform: translateY(-2px);
+    }
   </style>
 
 </head>
@@ -2122,111 +2141,102 @@
               <span class="big-stat-label">Heures de jeu</span>
               <span class="big-stat-value">2 600</span>
             </div>
-          </div>
 
-          <!-- AREDL & classements -->
-          <div class="info-card">
-            <div class="info-card-title">
-              <div class="info-card-icon">🏆</div>
-              Classements
-            </div>
-            <div class="big-stat">
-              <span class="big-stat-label">Points AREDL</span>
-              <span class="big-stat-value" id="aredlPoints">-</span>
-            </div>
-
-            <div class="big-stat">
-              <span class="big-stat-label">Classement Monde</span>
-              <span class="big-stat-value" id="aredlGlobalRank">-</span>
-            </div>
-
-            <div class="big-stat">
-              <span class="big-stat-label">Classement Pays</span>
-              <span class="big-stat-value" id="aredlCountryRank">-</span>
-            </div>
-
-            <div class="big-stat">
-              <span class="big-stat-label">Clan</span>
-              <span class="big-stat-value" id="aredlClan">-</span>
-            </div>
-
-            <div class="big-stat">
-              <span class="big-stat-label">Classement Clan</span>
-              <span class="big-stat-value" id="aredlClanRank">-</span>
-            </div>
-
-            <div id="aredlClanMembers"></div>
-            </div>
             <div class="big-stat">
               <span class="big-stat-label">Extreme Demons terminés</span>
               <span class="big-stat-value green" id="pInfoDone">16</span>
             </div>
-            <div class="big-stat">
-              <span class="big-stat-label">Niveaux en cours</span>
-              <span class="big-stat-value" id="pInfoCours">–</span>
-            </div>
-            <div class="big-stat">
-              <span class="big-stat-label">Total attempts</span>
-              <span class="big-stat-value" id="pInfoAttempts">–</span>
-            </div>
-          </div>
 
-          
-
-
-            
 
           </div>
+        </div>
+
+        <!-- AREDL & classements -->
+        <div class="info-card">
+          <div class="info-card-title">
+            <div class="info-card-icon">🏆</div>
+            Classements
+          </div>
+          <div class="big-stat">
+            <span class="big-stat-label">Points AREDL</span>
+            <span class="big-stat-value" id="aredlPoints">-</span>
+          </div>
+
+          <div class="big-stat">
+            <span class="big-stat-label">Classement Monde</span>
+            <span class="big-stat-value" id="aredlGlobalRank">-</span>
+          </div>
+
+          <div class="big-stat">
+            <span class="big-stat-label">Classement Pays</span>
+            <span class="big-stat-value" id="aredlCountryRank">-</span>
+          </div>
+
+          <div class="big-stat">
+            <span class="big-stat-label">Clan</span>
+            <span class="big-stat-value" id="aredlClan">-</span>
+          </div>
+
 
         </div>
 
       </div>
 
-
-      
-  <!-- Admin FAB -->
-  <button class="admin-fab" id="adminFab" title="Admin">🔐</button>
-
-  <!-- ── LOGIN MODAL ── -->
-  <div class="modal-overlay" id="loginModal">
-    <div class="modal-box">
-      <h2>🔐 Connexion Admin</h2>
-      <input type="email" id="adminEmail" class="modal-input" placeholder="Email admin">
-      <input type="password" id="adminPassword" class="modal-input" placeholder="Mot de passe">
-      <div id="loginError" class="error-msg"></div>
-      <button id="loginBtn" class="btn-primary" style="width:100%">Se connecter ✨</button>
-      <button class="btn-close" id="closeLogin">✕ Annuler</button>
     </div>
-  </div>
+    <div class="profile-section">
+      <h3>🏆 Badges</h3>
+      <div class="badge" title="Top 700">Top 700</div>
+      <div class="badge" title="Top 500">Top 500</div>
+      <div class="badge" title="10 Extreme Demons">10 Extreme Demons</div>
+      <div class="badge" title="First Extreme Demon">First Extreme Demon</div>
+      <div class="badge" title="Clan Founder">Clan Founder</div>
+    </div>
 
-  <!-- ── ADMIN PANEL MODAL ── -->
-  <div class="modal-overlay" id="adminPanel">
-    <div class="modal-box admin-box">
 
-      <div class="admin-header">
-        <h2>⚙️ Administration</h2>
-        <div class="admin-header-btns">
-          <button id="logoutBtn" class="btn-secondary">Déconnexion</button>
-          <button class="btn-close-x" id="closeAdmin">✕</button>
+    <!-- Admin FAB -->
+    <button class="admin-fab" id="adminFab" title="Admin">🔐</button>
+
+    <!-- ── LOGIN MODAL ── -->
+    <div class="modal-overlay" id="loginModal">
+      <div class="modal-box">
+        <h2>🔐 Connexion Admin</h2>
+        <input type="email" id="adminEmail" class="modal-input" placeholder="Email admin">
+        <input type="password" id="adminPassword" class="modal-input" placeholder="Mot de passe">
+        <div id="loginError" class="error-msg"></div>
+        <button id="loginBtn" class="btn-primary" style="width:100%">Se connecter ✨</button>
+        <button class="btn-close" id="closeLogin">✕ Annuler</button>
+      </div>
+    </div>
+
+    <!-- ── ADMIN PANEL MODAL ── -->
+    <div class="modal-overlay" id="adminPanel">
+      <div class="modal-box admin-box">
+
+        <div class="admin-header">
+          <h2>⚙️ Administration</h2>
+          <div class="admin-header-btns">
+            <button id="logoutBtn" class="btn-secondary">Déconnexion</button>
+            <button class="btn-close-x" id="closeAdmin">✕</button>
+          </div>
         </div>
-      </div>
 
-      <!-- Tabs -->
-      <div class="tabs">
-        <button class="tab active" data-tab="add">➕ Ajouter</button>
-        <button class="tab" data-tab="manage">📋 Gérer</button>
-        <button class="tab" data-tab="setup">🔧 Setup</button>
-      </div>
+        <!-- Tabs -->
+        <div class="tabs">
+          <button class="tab active" data-tab="add">➕ Ajouter</button>
+          <button class="tab" data-tab="manage">📋 Gérer</button>
+          <button class="tab" data-tab="setup">🔧 Setup</button>
+        </div>
 
-      <!-- TAB: ADD -->
-      <div class="tab-content active" id="tab-add">
-        <h3>Ajouter un niveau</h3>
-        <div class="form-grid">
-          <input id="fName" class="form-input" placeholder="Nom du niveau *">
-          <input id="fTop" class="form-input" placeholder="Top rank  (ex: #9)">
-          <input id="fDesc" class="form-input" placeholder="Description courte">
-          <input id="fBestRun" class="form-input" placeholder="Meilleur run  (ex: 67%)">
-          <input id="fProgress" class="form-input" type="number" min="0" max="100" placeholder="Progression % (0-100)">
+        <!-- TAB: ADD -->
+        <div class="tab-content active" id="tab-add">
+          <h3>Ajouter un niveau</h3>
+          <div class="form-grid">
+            <input id="fName" class="form-input" placeholder="Nom du niveau *">
+            <input id="fTop" class="form-input" placeholder="Top rank  (ex: #9)">
+            <input id="fDesc" class="form-input" placeholder="Description courte">
+            <input id="fBestRun" class="form-input" placeholder="Meilleur run  (ex: 67%)">
+            <input id="fProgress" class="form-input" type="number" min="0" max="100"
+              placeholder="Progression % (0-100)">
 
           <input id="fAttempts" class="form-input" placeholder="Attempts  (ex: 1566)">
           <input id="fWorstFail" class="form-input" placeholder="Worst Fail  (ex: 94%)">
@@ -2234,19 +2244,6 @@
             placeholder="Enjoyment /10  (ex: 8.5)">
           <input id="fCompletionDate" class="form-input" type="date" placeholder="Date de complétion">
           <input id="fImage" class="form-input" placeholder="URL image">
-          <select id="fCategory" class="form-input">
-  <option value="">Aucune</option>
-  <option value="Timings">Timings</option>
-  <option value="Wave">Wave</option>
-  <option value="Nine Circles">Nine Circles</option>
-  <option value="Memory">Memory</option>
-  <option value="Reta">Reta</option>
-  <option value="Flow">Flow</option>
-  <option value="Learny">Learny</option>
-  <option value="Tech">Tech</option>
-  <option value="Ship">Ship</option>
-   <option value="Balanced">Balanced</option>
-</select>
           <select id="fDifficulty" class="form-input">
             <option value="Easy">Easy</option>
             <option value="Normal">Normal</option>
@@ -2269,26 +2266,26 @@
         <div id="addMsg" class="success-msg"></div>
       </div>
 
-      <!-- TAB: MANAGE -->
-      <div class="tab-content" id="tab-manage">
-        <h3>Gérer les niveaux</h3>
-        <div id="adminLevelList">
-          <div class="loading-state" style="padding:30px 0;">Chargement... 💖</div>
+        <!-- TAB: MANAGE -->
+        <div class="tab-content" id="tab-manage">
+          <h3>Gérer les niveaux</h3>
+          <div id="adminLevelList">
+            <div class="loading-state" style="padding:30px 0;">Chargement... 💖</div>
+          </div>
         </div>
-      </div>
 
-      <!-- TAB: SETUP -->
-      <div class="tab-content" id="tab-setup">
-        <h3>Configuration Supabase</h3>
-        <div class="setup-block">
-          <h4>1. Crée le projet Supabase</h4>
-          <p>Va sur <strong>supabase.com</strong>, crée un projet, puis renseigne tes clés en haut du script
-            (<code>SUPABASE_URL</code> et <code>SUPABASE_ANON_KEY</code>).</p>
-        </div>
-        <div class="setup-block" style="margin-top:16px;">
-          <h4>2. Crée la table <code>levels</code></h4>
-          <p>Dans l'éditeur SQL de Supabase, exécute :</p>
-          <code>create table levels (
+        <!-- TAB: SETUP -->
+        <div class="tab-content" id="tab-setup">
+          <h3>Configuration Supabase</h3>
+          <div class="setup-block">
+            <h4>1. Crée le projet Supabase</h4>
+            <p>Va sur <strong>supabase.com</strong>, crée un projet, puis renseigne tes clés en haut du script
+              (<code>SUPABASE_URL</code> et <code>SUPABASE_ANON_KEY</code>).</p>
+          </div>
+          <div class="setup-block" style="margin-top:16px;">
+            <h4>2. Crée la table <code>levels</code></h4>
+            <p>Dans l'éditeur SQL de Supabase, exécute :</p>
+            <code>create table levels (
   id          bigint generated always as identity primary key,
   name        text not null,
   top_rank    text,
@@ -2313,22 +2310,25 @@
 
 -- Active le temps réel
 alter publication supabase_realtime add table levels;</code>
-        </div>
-        <div class="setup-block" style="margin-top:16px;">
-          <h4>3. Crée ton compte admin</h4>
-          <p>Dans Supabase → Authentication → Users → <strong>Invite user</strong>, crée ton compte email/mot de passe.
-            C'est celui que tu utiliseras pour te connecter ici.</p>
-        </div>
-        <div class="setup-block" style="margin-top:16px;">
-          <h4>4. Active le Realtime</h4>
-          <p>Supabase → Database → Replication → active la table <strong>levels</strong>. Les cartes se mettront à jour
-            automatiquement pour tous les viewers !</p>
-        </div>
-        <div class="setup-block" style="margin-top:16px;">
-          <h4>5. (Optionnel) Table <code>settings</code> pour le graphique radar</h4>
-          <p>Pour que les modifications du graphique hexagonal soient visibles par tous tes viewers, crée cette table :
-          </p>
-          <code>create table settings (
+          </div>
+          <div class="setup-block" style="margin-top:16px;">
+            <h4>3. Crée ton compte admin</h4>
+            <p>Dans Supabase → Authentication → Users → <strong>Invite user</strong>, crée ton compte email/mot de
+              passe.
+              C'est celui que tu utiliseras pour te connecter ici.</p>
+          </div>
+          <div class="setup-block" style="margin-top:16px;">
+            <h4>4. Active le Realtime</h4>
+            <p>Supabase → Database → Replication → active la table <strong>levels</strong>. Les cartes se mettront à
+              jour
+              automatiquement pour tous les viewers !</p>
+          </div>
+          <div class="setup-block" style="margin-top:16px;">
+            <h4>5. (Optionnel) Table <code>settings</code> pour le graphique radar</h4>
+            <p>Pour que les modifications du graphique hexagonal soient visibles par tous tes viewers, crée cette
+              table :
+            </p>
+            <code>create table settings (
   key  text primary key,
   value jsonb
 );
@@ -2337,20 +2337,19 @@ alter publication supabase_realtime add table levels;</code>
 alter table settings enable row level security;
 create policy "read_settings" on settings for select using (true);
 create policy "write_settings" on settings for all using (auth.role() = 'authenticated');</code>
-          <p style="margin-top:12px;">Sans cette table, les modifs sont sauvegardées localement dans ton navigateur
-            uniquement.</p>
+            <p style="margin-top:12px;">Sans cette table, les modifs sont sauvegardées localement dans ton navigateur
+              uniquement.</p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- ── SUPABASE ── -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <!-- ── CHART.JS ── -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <!-- ── SUPABASE ── -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- ── CHART.JS ── -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 
   <script>
-    
     /* =========================================================
        ⚙️  CONFIGURATION — Remplace ces deux valeurs !
     ========================================================= */
@@ -2361,217 +2360,264 @@ create policy "write_settings" on settings for all using (auth.role() = 'authent
        Init
     ========================================================= */
     const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    
+
     let allLevels = [];
     let currentFilter = 'all';
     let currentSort = 'default';
     let searchQuery = '';
     let isAdmin = false;
 
-    const DIFFICULTY_ORDER = {
-      'Easy': 1, 'Normal': 2, 'Hard': 3, 'Harder': 4, 'Insane': 5,
-      'Easy Demon': 6, 'Medium Demon': 7, 'Hard Demon': 8, 'Insane Demon': 9, 'Extreme Demon': 10
-    };
-    const STATUS_ORDER = { 'en_cours': 1, 'termine': 2, 'pas_commence': 3, 'give_up': 4 };
-    const STATUS_LABEL = { 'pas_commence': 'Pas commencé', 'en_cours': 'En cours', 'termine': 'Terminé ✅', 'give_up': 'Give up' };
-    const STATUS_CLASS = { 'pas_commence': 'paused', 'en_cours': 'playing', 'termine': 'done', 'give_up': 'give-up' };
+      const DIFFICULTY_ORDER = {
+        'Easy': 1, 'Normal': 2, 'Hard': 3, 'Harder': 4, 'Insane': 5,
+        'Easy Demon': 6, 'Medium Demon': 7, 'Hard Demon': 8, 'Insane Demon': 9, 'Extreme Demon': 10
+      };
+      const STATUS_ORDER = { 'en_cours': 1, 'termine': 2, 'pas_commence': 3, 'give_up': 4 };
+      const STATUS_LABEL = { 'pas_commence': 'Pas commencé', 'en_cours': 'En cours', 'termine': 'Terminé ✅', 'give_up': 'Give up' };
+      const STATUS_CLASS = { 'pas_commence': 'paused', 'en_cours': 'playing', 'termine': 'done', 'give_up': 'give-up' };
 
-    /* =========================================================
-       Navigation entre vues
-    ========================================================= */
-    function switchView(viewName) {
-      document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-      document.getElementById(`view-${viewName}`).classList.add('active');
-      document.querySelector(`.nav-btn[data-view="${viewName}"]`).classList.add('active');
-      if (viewName === 'infos') renderInfoSection();
-      if (viewName === 'playerinfos') renderPlayerInfos();
-    }
-
-    /* =========================================================
-       Levels — Load, Filter, Sort, Render
-    ========================================================= */
-    async function updateAredlRanks() {
-      const urls = ["./aredl-ranks.json", "/aredl-ranks.json"];
-      let lastError = null;
-
-      for (const url of urls) {
-        let res;
-        try {
-          res = await fetch(url, { cache: "no-store" });
-        } catch (err) {
-          lastError = err;
-          console.warn(`AREDL fetch failed for ${url}:`, err);
-          continue;
-        }
-
-        if (!res.ok) {
-          lastError = new Error(`AREDL ranks fetch failed (${res.status})`);
-          console.warn(lastError.message, url);
-          continue;
-        }
-
-        const contentType = (res.headers.get("content-type") || "").toLowerCase();
-        const rawData = await res.text();
-        if (contentType.includes("text/html") || rawData.trim().startsWith("<")) {
-          lastError = new Error(`AREDL ranks fetch returned HTML from ${url}`);
-          console.warn(lastError.message, rawData.slice(0, 200));
-          continue;
-        }
-
-        try {
-          let aredlLevels = JSON.parse(rawData);
-          if (!Array.isArray(aredlLevels)) aredlLevels = aredlLevels?.data || [];
-          if (!Array.isArray(aredlLevels)) throw new Error('AREDL ranks file is not an array');
-
-          const rankMap = new Map();
-          for (const level of aredlLevels) {
-            if (level?.name && level?.position != null) {
-              rankMap.set(level.name.toLowerCase(), level.position);
-            }
-          }
-
-          allLevels = allLevels.map(level => {
-            const key = level.name?.toLowerCase();
-            const rank = key ? rankMap.get(key) : null;
-            return rank != null ? { ...level, top_rank: `#${rank}` } : level;
-          });
-          return;
-        } catch (err) {
-          lastError = err;
-          console.warn(`Failed to parse AREDL ranks from ${url}:`, err, rawData.slice(0, 200));
-        }
+      /* =========================================================
+         Navigation entre vues
+      ========================================================= */
+      function switchView(viewName) {
+        document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById(`view-${viewName}`).classList.add('active');
+        document.querySelector(`.nav-btn[data-view="${viewName}"]`).classList.add('active');
+        if (viewName === 'infos') renderInfoSection();
+        if (viewName === 'playerinfos') renderPlayerInfos();
       }
 
-      console.error("AREDL update failed:", lastError || new Error('No valid aredl-ranks.json response found'));
-    }
+      /* =========================================================
+         Levels — Load, Filter, Sort, Render
+      ========================================================= */
+      async function updateAredlRanks() {
+        const urls = ["./aredl-ranks.json", "/aredl-ranks.json"];
+        let lastError = null;
 
-    async function loadAredlUserData() {
-      try {
-        const response = await fetch('./aredl-user.json', { cache: 'no-store' });
-        if (!response.ok) throw new Error('Failed to load aredl-user.json');
-        const userData = await response.json();
-
-        if (!userData) return;
-
-        // Points AREDL
-        const points = userData.rank?.total_points || '-';
-        document.getElementById('aredlPoints').textContent = points.toLocaleString('fr-FR');
-
-        // Classement monde
-        const globalRank = userData.rank?.rank || '-';
-        document.getElementById('aredlGlobalRank').textContent = globalRank !== '-' ? `#${globalRank}` : '-';
-
-        // Classement pays (France)
-        const countryRank = userData.rank?.country_rank || '-';
-        document.getElementById('aredlCountryRank').textContent = countryRank !== '-' ? `#${countryRank}` : '-';
-
-        // Clan
-        if (userData.clan) {
-          document.getElementById('aredlClan').textContent = userData.clan.global_name || '-';
-          
-          // Charger les membres du clan
+        for (const url of urls) {
+          let res;
           try {
-            const clanResponse = await fetch('./aredl-clan.json', { cache: 'no-store' });
-            if (clanResponse.ok) {
-              const clanData = await clanResponse.json();
-              if (clanData.members && Array.isArray(clanData.members)) {
-                const membersList = clanData.members
-                  .sort((a, b) => (b.points || 0) - (a.points || 0))
-                  .slice(0, 5)
-                  .map((m, i) => `<div style="padding:8px;border-bottom:1px solid #ffedf5;">
+            res = await fetch(url, { cache: "no-store" });
+          } catch (err) {
+            lastError = err;
+            console.warn(`AREDL fetch failed for ${url}:`, err);
+            continue;
+          }
+
+          if (!res.ok) {
+            lastError = new Error(`AREDL ranks fetch failed (${res.status})`);
+            console.warn(lastError.message, url);
+            continue;
+          }
+
+          const contentType = (res.headers.get("content-type") || "").toLowerCase();
+          const rawData = await res.text();
+          if (contentType.includes("text/html") || rawData.trim().startsWith("<")) {
+            lastError = new Error(`AREDL ranks fetch returned HTML from ${url}`);
+            console.warn(lastError.message, rawData.slice(0, 200));
+            continue;
+          }
+
+          try {
+            let aredlLevels = JSON.parse(rawData);
+            if (!Array.isArray(aredlLevels)) aredlLevels = aredlLevels?.data || [];
+            if (!Array.isArray(aredlLevels)) throw new Error('AREDL ranks file is not an array');
+
+            const rankMap = new Map();
+            for (const level of aredlLevels) {
+              if (level?.name && level?.position != null) {
+                rankMap.set(level.name.toLowerCase(), level.position);
+              }
+            }
+
+            allLevels = allLevels.map(level => {
+              const key = level.name?.toLowerCase();
+              const rank = key ? rankMap.get(key) : null;
+              return rank != null ? { ...level, top_rank: `#${rank}` } : level;
+            });
+            return;
+          } catch (err) {
+            lastError = err;
+            console.warn(`Failed to parse AREDL ranks from ${url}:`, err, rawData.slice(0, 200));
+          }
+        }
+
+        console.error("AREDL update failed:", lastError || new Error('No valid aredl-ranks.json response found'));
+      }
+      const badgeDefinitions = {
+        first_extreme: {
+          icon: "💀",
+          name: "Premier Extreme"
+        },
+
+        "10_extremes": {
+          icon: "🔥",
+          name: "10 Extremes terminés"
+        },
+
+        "25_extremes": {
+          icon: "⚔️",
+          name: "25 Extremes terminés"
+        },
+
+        top700: {
+          icon: "🟣",
+          name: "Top 700"
+        },
+
+        top500: {
+          icon: "🔴",
+          name: "Top 500"
+        },
+
+        top100: {
+          icon: "👑",
+          name: "Top 100"
+        }
+      };
+      async function loadAredlUserData() {
+        try {
+          const response = await fetch('./aredl-user.json', { cache: 'no-store' });
+          if (!response.ok) throw new Error('Failed to load aredl-user.json');
+          const userData = await response.json();
+
+          if (!userData) return;
+
+          const badgesContainer = document.getElementById("aredlBadges");
+
+          if (userData.badges?.length) {
+
+            badgesContainer.innerHTML = userData.badges
+              .map(id => {
+                const badge = badgeDefinitions[id];
+
+                if (!badge) return "";
+
+                return `
+                <div class="badge" title="${badge.name}">
+                    ${badge.icon} ${badge.name}
+                </div>
+            `;
+              })
+              .join("");
+
+          } else {
+
+            badgesContainer.innerHTML =
+              '<div class="badge">Aucun badge</div>';
+
+          }
+          // Points AREDL
+          const points = (userData.rank?.total_points || 0) / 10;
+
+          document.getElementById('aredlPoints').textContent =
+            points.toLocaleString('fr-FR', {
+              minimumFractionDigits: 1,
+              maximumFractionDigits: 1
+            });
+
+          // Classement monde
+          const globalRank = userData.rank?.rank || '-';
+          document.getElementById('aredlGlobalRank').textContent = globalRank !== '-' ? `#${globalRank}` : '-';
+
+          // Classement pays (France)
+          const countryRank = userData.rank?.country_rank || '-';
+          document.getElementById('aredlCountryRank').textContent = countryRank !== '-' ? `#${countryRank}` : '-';
+
+          // Clan
+          // Classement du clan
+          const clanRank =
+            userData.clan?.rank ||
+            userData.clan?.global_rank ||
+            '-';
+
+          document.getElementById('aredlClanRank').textContent =
+            clanRank !== '-' ? `#${clanRank}` : '-';
+          if (userData.clan) {
+            document.getElementById('aredlClan').textContent = userData.clan.global_name || '-';
+
+            // Charger les membres du clan
+            try {
+              const clanResponse = await fetch('./aredl-clan.json', { cache: 'no-store' });
+              if (clanResponse.ok) {
+                const clanData = await clanResponse.json();
+                if (clanData.members && Array.isArray(clanData.members)) {
+                  const membersList = clanData.members
+                    .sort((a, b) => (b.points || 0) - (a.points || 0))
+                    .slice(0, 5)
+                    .map((m, i) => `<div style="padding:8px;border-bottom:1px solid #ffedf5;">
                     <span style="font-weight:700;">${i + 1}.</span> ${m.username || '?'} 
                     <span style="color:#ff4da6;font-weight:600;">${(m.points || 0).toLocaleString('fr-FR')}pts</span>
                   </div>`)
-                  .join('');
-                
-                document.getElementById('aredlClanMembers').innerHTML = `
+                    .join('');
+
+                  document.getElementById('aredlClanMembers').innerHTML = `
                   <div style="margin-top:16px;border:1px solid #ffedf5;border-radius:12px;overflow:hidden;">
                     <div style="padding:12px;background:#ffedf5;font-weight:700;color:#ff4da6;">👥 Membres du clan</div>
                     ${membersList}
                   </div>`;
+                }
               }
+            } catch (err) {
+              console.warn('Failed to load clan members:', err);
             }
-          } catch (err) {
-            console.warn('Failed to load clan members:', err);
           }
+        } catch (err) {
+          console.warn('Failed to load AREDL user data:', err);
         }
-      } catch (err) {
-        console.warn('Failed to load AREDL user data:', err);
       }
-    }
 
-    async function loadLevels() {
-      const { data, error } = await sb.from('levels').select('*').order('id');
-      if (error) { console.error(error); return; }
-      allLevels = data || [];
+      async function loadLevels() {
+        const { data, error } = await sb.from('levels').select('*').order('id');
+        if (error) { console.error(error); return; }
+        allLevels = data || [];
 
-      await updateAredlRanks();
-      await loadAredlUserData();
-      renderLevels();
-      updateStats();
-    }
-
-    function getDisplayLevels() {
-      let levels = [...allLevels];
-      if (currentFilter !== 'all') levels = levels.filter(l => l.status === currentFilter);
-      if (searchQuery) levels = levels.filter(l => l.name.toLowerCase().includes(searchQuery));
-      if (currentSort === 'difficulty') {
-        levels.sort((a, b) => {
-          const getTop = t => parseInt((t || '').replace(/[^0-9]/g, '')) || 9999;
-          return getTop(a.top_rank) - getTop(b.top_rank);
-        });
-      } else if (currentSort === 'status') {
-        levels.sort((a, b) => (STATUS_ORDER[a.status] || 99) - (STATUS_ORDER[b.status] || 99));
-      } else if (currentSort === 'date') {
-        levels.sort((a, b) => {
-          const dateA = a.completion_date ? new Date(a.completion_date) : new Date(0);
-          const dateB = b.completion_date ? new Date(b.completion_date) : new Date(0);
-          return dateB - dateA;
-        });
+        await updateAredlRanks();
+        await loadAredlUserData();
+        renderLevels();
+        updateStats();
       }
-      return levels;
-    }
 
-    function renderLevels() {
-      const levels = getDisplayLevels();
-      const c = document.getElementById('levelsContainer');
-      if (!levels.length) {
-        c.innerHTML = '<div class="empty-state">Aucun niveau trouvé 💭</div>';
-        return;
+      function getDisplayLevels() {
+        let levels = [...allLevels];
+        if (currentFilter !== 'all') levels = levels.filter(l => l.status === currentFilter);
+        if (searchQuery) levels = levels.filter(l => l.name.toLowerCase().includes(searchQuery));
+        if (currentSort === 'difficulty') {
+          levels.sort((a, b) => {
+            const getTop = t => parseInt((t || '').replace(/[^0-9]/g, '')) || 9999;
+            return getTop(a.top_rank) - getTop(b.top_rank);
+          });
+        } else if (currentSort === 'status') {
+          levels.sort((a, b) => (STATUS_ORDER[a.status] || 99) - (STATUS_ORDER[b.status] || 99));
+        } else if (currentSort === 'date') {
+          levels.sort((a, b) => {
+            const dateA = a.completion_date ? new Date(a.completion_date) : new Date(0);
+            const dateB = b.completion_date ? new Date(b.completion_date) : new Date(0);
+            return dateB - dateA;
+          });
+        }
+        return levels;
       }
-      c.innerHTML = levels.map(createLevelCard).join('');
-    }
 
-    function updateStats() {
-      document.getElementById('statTotal').textContent = allLevels.length;
-      document.getElementById('statEnCours').textContent = allLevels.filter(l => l.status === 'en_cours').length;
-      document.getElementById('statTermine').textContent = allLevels.filter(l => l.status === 'termine').length;
-      const best = Math.max(...allLevels.map(l => l.progress || 0), 0);
-      document.getElementById('statBestPb').textContent = best + '%';
-    }
+      function renderLevels() {
+        const levels = getDisplayLevels();
+        const c = document.getElementById('levelsContainer');
+        if (!levels.length) {
+          c.innerHTML = '<div class="empty-state">Aucun niveau trouvé 💭</div>';
+          return;
+        }
+        c.innerHTML = levels.map(createLevelCard).join('');
+      }
+
+      function updateStats() {
+        document.getElementById('statTotal').textContent = allLevels.length;
+        document.getElementById('statEnCours').textContent = allLevels.filter(l => l.status === 'en_cours').length;
+        document.getElementById('statTermine').textContent = allLevels.filter(l => l.status === 'termine').length;
+        const best = Math.max(...allLevels.map(l => l.progress || 0), 0);
+        document.getElementById('statBestPb').textContent = best + '%';
+      }
 
     function createLevelCard(level) {
-      
-      const categories = [
-  "Easy Demon",
-  "Medium Demon",
-  "Hard Demon",
-  "Insane Demon",
-  "Extreme Demon"
-];
-
-categories.forEach(cat => {
-  const levelsCat = levels.filter(
-    l => l.status === "termine" && l.category === cat
-  );
-
-  const hardest = levelsCat.sort((a,b) => b.position - a.position)[0];
-
-  if(hardest){
-    // afficher le hardest de la catégorie
-  }
-});
       const sClass = STATUS_CLASS[level.status] || 'paused';
       const sLabel = STATUS_LABEL[level.status] || 'Pas commencé';
       const fillClass = level.status === 'termine' ? 'done-fill' : '';
@@ -2580,22 +2626,22 @@ categories.forEach(cat => {
         ? level.image_url
         : 'https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=800&q=60';
 
-      // Enjoyment display
-      const enjoVal = level.enjoyment != null && level.enjoyment !== '' ? parseFloat(level.enjoyment) : null;
-      const enjoyHTML = enjoVal !== null
-        ? `<div class="enjoy-display">
+        // Enjoyment display
+        const enjoVal = level.enjoyment != null && level.enjoyment !== '' ? parseFloat(level.enjoyment) : null;
+        const enjoyHTML = enjoVal !== null
+          ? `<div class="enjoy-display">
          <span class="enjoy-num">${enjoVal}/10</span>
          <span class="enjoy-heart">${enjoVal >= 8 ? '❤️' : enjoVal >= 5 ? '🧡' : '💔'}</span>
        </div>
        <div class="enjoy-mini-bar"><div class="enjoy-mini-fill" style="width:${enjoVal * 10}%"></div></div>`
-        : '<span style="color:#ccc">–</span>';
+          : '<span style="color:#ccc">–</span>';
 
-      // Worst fail display
-      const failHTML = level.worst_fail
-        ? `<span class="fail-badge">💀 ${escHtml(level.worst_fail)}</span>`
-        : '<span style="color:#ccc">–</span>';
+        // Worst fail display
+        const failHTML = level.worst_fail
+          ? `<span class="fail-badge">💀 ${escHtml(level.worst_fail)}</span>`
+          : '<span style="color:#ccc">–</span>';
 
-      return `
+        return `
     <div class="level-card" data-id="${level.id}" data-name="${escHtml(level.name)}">
       <img class="level-image" src="${escHtml(img)}" alt="${escHtml(level.name)}" loading="lazy">
       <div class="level-content">
@@ -2622,127 +2668,127 @@ categories.forEach(cat => {
         </div>
       </div>
     </div>`;
-    }
+      }
 
-    function escHtml(str) {
-      return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    }
+      function escHtml(str) {
+        return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      }
 
-    /* =========================================================
-       INFO SECTION
-    ========================================================= */
-    // Chart instances (kept to destroy before re-render)
-    let chartInstances = {};
+      /* =========================================================
+         INFO SECTION
+      ========================================================= */
+      // Chart instances (kept to destroy before re-render)
+      let chartInstances = {};
 
-    function destroyChart(id) {
-      if (chartInstances[id]) { chartInstances[id].destroy(); delete chartInstances[id]; }
-    }
+      function destroyChart(id) {
+        if (chartInstances[id]) { chartInstances[id].destroy(); delete chartInstances[id]; }
+      }
 
-    function renderInfoSection() {
-      renderInfoStats();
-      renderTopRanks();
-      renderEnjoymentStats();
-      renderAttemptsStats();
-      renderWorstFailsStats();
-      renderHardestStats();
-      renderCharts();
-      // Affiche le niveau terminé avec le plus haut top
-      function renderHardestStats() {
-        const container = document.getElementById('hardestStats');
-        const finished = allLevels.filter(l => l.status === 'termine' && l.top_rank && l.top_rank.trim() !== '');
-        if (!finished.length) {
-          container.innerHTML = '<p class="aredl-placeholder">Aucun niveau terminé avec top renseigné.</p>';
-          return;
-        }
-        // Plus petit top = hardest
-        const parseRank = r => parseInt(String(r).replace(/[^0-9]/g, '')) || 9999;
-        const hardest = finished.reduce((best, l) => parseRank(l.top_rank) < parseRank(best.top_rank) ? l : best, finished[0]);
-        container.innerHTML = `
+      function renderInfoSection() {
+        renderInfoStats();
+        renderTopRanks();
+        renderEnjoymentStats();
+        renderAttemptsStats();
+        renderWorstFailsStats();
+        renderHardestStats();
+        renderCharts();
+        // Affiche le niveau terminé avec le plus haut top
+        function renderHardestStats() {
+          const container = document.getElementById('hardestStats');
+          const finished = allLevels.filter(l => l.status === 'termine' && l.top_rank && l.top_rank.trim() !== '');
+          if (!finished.length) {
+            container.innerHTML = '<p class="aredl-placeholder">Aucun niveau terminé avec top renseigné.</p>';
+            return;
+          }
+          // Plus petit top = hardest
+          const parseRank = r => parseInt(String(r).replace(/[^0-9]/g, '')) || 9999;
+          const hardest = finished.reduce((best, l) => parseRank(l.top_rank) < parseRank(best.top_rank) ? l : best, finished[0]);
+          container.innerHTML = `
     <div style="font-weight:700;font-size:1.1em;margin-bottom:6px;">${escHtml(hardest.name)}</div>
     <div><span style="font-weight:800;color:#e6194b">Top ${escHtml(hardest.top_rank)}</span></div>
     <div style="margin-top:6px;">${escHtml(hardest.description || '')}</div>
     <div style="margin-top:6px;">${hardest.image_url ? `<img src="${escHtml(hardest.image_url)}" alt="${escHtml(hardest.name)}" style="max-width:120px;border-radius:8px;">` : ''}</div>
   `;
+        }
       }
-    }
 
-    function renderPlayerInfos() {
-      const done = allLevels.filter(l => l.status === 'termine').length;
-      const cours = allLevels.filter(l => l.status === 'en_cours').length;
-      const totalAttempts = allLevels.filter(l => l.status === 'termine').reduce((sum, l) => {
-        const n = parseInt(String(l.attempts || '0').replace(/[^0-9]/g, '')) || 0;
-        return sum + n;
-      }, 0);
-      document.getElementById('pInfoDone').textContent = done;
-      document.getElementById('pInfoCours').textContent = cours;
-      document.getElementById('pInfoAttempts').textContent = totalAttempts.toLocaleString('fr-FR');
-      const withRank = allLevels.filter(l => l.top_rank && l.top_rank.trim() !== '');
-      document.getElementById('radarEditBtn').style.display = isAdmin ? 'inline-flex' : 'none';
-      loadRadarStats();
-    }
+      function renderPlayerInfos() {
+        const done = allLevels.filter(l => l.status === 'termine').length;
+        const cours = allLevels.filter(l => l.status === 'en_cours').length;
+        const totalAttempts = allLevels.filter(l => l.status === 'termine').reduce((sum, l) => {
+          const n = parseInt(String(l.attempts || '0').replace(/[^0-9]/g, '')) || 0;
+          return sum + n;
+        }, 0);
+        document.getElementById('pInfoDone').textContent = done;
+        document.getElementById('pInfoCours').textContent = cours;
+        document.getElementById('pInfoAttempts').textContent = totalAttempts.toLocaleString('fr-FR');
+        const withRank = allLevels.filter(l => l.top_rank && l.top_rank.trim() !== '');
+        document.getElementById('radarEditBtn').style.display = isAdmin ? 'inline-flex' : 'none';
+        loadRadarStats();
+      }
 
-    /* =========================================================
-       Radar Hexagonal Chart
-    ========================================================= */
+      /* =========================================================
+         Radar Hexagonal Chart
+      ========================================================= */
 
-    const RADAR_DEFAULTS = {
-      labels: ['Ship', 'Wave', 'Ball', 'Cube', 'Robot', 'UFO'],
-      values: [7, 5, 6, 8, 4, 6]
-    };
+      const RADAR_DEFAULTS = {
+        labels: ['Ship', 'Wave', 'Ball', 'Cube', 'Robot', 'UFO'],
+        values: [7, 5, 6, 8, 4, 6]
+      };
 
-    let radarData = null; // { labels, values }
+      let radarData = null; // { labels, values }
 
-    async function loadRadarStats() {
-      // Try Supabase settings table first
-      try {
-        const { data, error } = await sb.from('settings').select('value').eq('key', 'radar').maybeSingle();
-        if (!error && data && data.value) {
-          radarData = data.value;
-        } else {
+      async function loadRadarStats() {
+        // Try Supabase settings table first
+        try {
+          const { data, error } = await sb.from('settings').select('value').eq('key', 'radar').maybeSingle();
+          if (!error && data && data.value) {
+            radarData = data.value;
+          } else {
+            radarData = JSON.parse(localStorage.getItem('radarStats') || 'null') || JSON.parse(JSON.stringify(RADAR_DEFAULTS));
+          }
+        } catch (e) {
           radarData = JSON.parse(localStorage.getItem('radarStats') || 'null') || JSON.parse(JSON.stringify(RADAR_DEFAULTS));
         }
-      } catch (e) {
-        radarData = JSON.parse(localStorage.getItem('radarStats') || 'null') || JSON.parse(JSON.stringify(RADAR_DEFAULTS));
+        drawRadarSVG(radarData.labels, radarData.values);
       }
-      drawRadarSVG(radarData.labels, radarData.values);
-    }
 
-    async function saveRadarStats() {
-      // Read from edit form
-      const labels = [], values = [];
-      radarData.labels.forEach((_, i) => {
-        labels.push(document.getElementById(`rl${i}`).value.trim() || `Axe ${i + 1}`);
-        values.push(parseFloat(document.getElementById(`rv${i}`).value) || 0);
-      });
-      radarData = { labels, values };
+      async function saveRadarStats() {
+        // Read from edit form
+        const labels = [], values = [];
+        radarData.labels.forEach((_, i) => {
+          labels.push(document.getElementById(`rl${i}`).value.trim() || `Axe ${i + 1}`);
+          values.push(parseFloat(document.getElementById(`rv${i}`).value) || 0);
+        });
+        radarData = { labels, values };
 
-      // Save to localStorage as fallback
-      localStorage.setItem('radarStats', JSON.stringify(radarData));
+        // Save to localStorage as fallback
+        localStorage.setItem('radarStats', JSON.stringify(radarData));
 
-      // Save to Supabase
-      let saved = false;
-      try {
-        const { error } = await sb.from('settings').upsert({ key: 'radar', value: radarData });
-        if (!error) saved = true;
-      } catch (e) { /* table may not exist yet */ }
+        // Save to Supabase
+        let saved = false;
+        try {
+          const { error } = await sb.from('settings').upsert({ key: 'radar', value: radarData });
+          if (!error) saved = true;
+        } catch (e) { /* table may not exist yet */ }
 
-      const msg = document.getElementById('radarSaveMsg');
-      msg.textContent = saved ? '✨ Sauvegardé !' : '✨ Sauvegardé localement (crée la table settings pour la sync)';
-      msg.style.color = '#00c49f';
-      drawRadarSVG(radarData.labels, radarData.values);
-      setTimeout(() => { msg.textContent = ''; toggleRadarEdit(); }, 1400);
-    }
-
-    function toggleRadarEdit() {
-      const form = document.getElementById('radarEditForm');
-      const isOpen = form.style.display !== 'none';
-      if (isOpen) {
-        form.style.display = 'none';
-        return;
+        const msg = document.getElementById('radarSaveMsg');
+        msg.textContent = saved ? '✨ Sauvegardé !' : '✨ Sauvegardé localement (crée la table settings pour la sync)';
+        msg.style.color = '#00c49f';
+        drawRadarSVG(radarData.labels, radarData.values);
+        setTimeout(() => { msg.textContent = ''; toggleRadarEdit(); }, 1400);
       }
-      // Build edit rows
-      const rows = document.getElementById('radarEditRows');
-      rows.innerHTML = radarData.labels.map((label, i) => `
+
+      function toggleRadarEdit() {
+        const form = document.getElementById('radarEditForm');
+        const isOpen = form.style.display !== 'none';
+        if (isOpen) {
+          form.style.display = 'none';
+          return;
+        }
+        // Build edit rows
+        const rows = document.getElementById('radarEditRows');
+        rows.innerHTML = radarData.labels.map((label, i) => `
         <div class="radar-edit-item">
           <input class="radar-edit-label-input" id="rl${i}" value="${escHtml(label)}" placeholder="Nom de l'axe">
           <div class="radar-edit-item-header">
@@ -2753,74 +2799,74 @@ categories.forEach(cat => {
           </div>
         </div>
       `).join('');
-      form.style.display = 'block';
-    }
-
-    function drawRadarSVG(labels, values) {
-      const N = labels.length;
-      const W = 440, H = 440;
-      const cx = W / 2, cy = H / 2;
-      const rMax = 155;         // outer radius
-      const labelR = rMax + 38; // label radius
-      const startAngle = -Math.PI / 2;
-      const step = (2 * Math.PI) / N;
-
-      function ptXY(i, frac) {
-        const a = startAngle + i * step;
-        return [
-          (cx + rMax * frac * Math.cos(a)).toFixed(2),
-          (cy + rMax * frac * Math.sin(a)).toFixed(2)
-        ];
+        form.style.display = 'block';
       }
 
-      function polyStr(frac) {
-        return Array.from({ length: N }, (_, i) => ptXY(i, frac).join(',')).join(' ');
-      }
+      function drawRadarSVG(labels, values) {
+        const N = labels.length;
+        const W = 440, H = 440;
+        const cx = W / 2, cy = H / 2;
+        const rMax = 155;         // outer radius
+        const labelR = rMax + 38; // label radius
+        const startAngle = -Math.PI / 2;
+        const step = (2 * Math.PI) / N;
 
-      // Grid levels
-      const gridLevels = [0.25, 0.5, 0.75, 1.0];
-      const gridSVG = gridLevels.map((f, gi) =>
-        `<polygon class="${gi === 3 ? 'radar-grid' : 'radar-grid-inner'}" points="${polyStr(f)}"/>`
-      ).join('');
+        function ptXY(i, frac) {
+          const a = startAngle + i * step;
+          return [
+            (cx + rMax * frac * Math.cos(a)).toFixed(2),
+            (cy + rMax * frac * Math.sin(a)).toFixed(2)
+          ];
+        }
 
-      // Tick labels on rightmost axis (axis 0)
-      const tickSVG = gridLevels.map(f => {
-        const [tx, ty] = ptXY(1, f);
-        return `<text x="${tx}" y="${parseFloat(ty) - 4}" text-anchor="middle" fill="rgba(255,77,166,0.5)" font-family="Poppins,sans-serif" font-size="9" font-weight="600">${Math.round(f * 10)}</text>`;
-      }).join('');
+        function polyStr(frac) {
+          return Array.from({ length: N }, (_, i) => ptXY(i, frac).join(',')).join(' ');
+        }
 
-      // Axis lines
-      const axesSVG = Array.from({ length: N }, (_, i) => {
-        const [ex, ey] = ptXY(i, 1);
-        return `<line x1="${cx}" y1="${cy}" x2="${ex}" y2="${ey}" class="radar-axis-line"/>`;
-      }).join('');
+        // Grid levels
+        const gridLevels = [0.25, 0.5, 0.75, 1.0];
+        const gridSVG = gridLevels.map((f, gi) =>
+          `<polygon class="${gi === 3 ? 'radar-grid' : 'radar-grid-inner'}" points="${polyStr(f)}"/>`
+        ).join('');
 
-      // Data polygon
-      const maxVal = 10;
-      const dataPolyStr = Array.from({ length: N }, (_, i) =>
-        ptXY(i, Math.min(values[i], maxVal) / maxVal).join(',')
-      ).join(' ');
+        // Tick labels on rightmost axis (axis 0)
+        const tickSVG = gridLevels.map(f => {
+          const [tx, ty] = ptXY(1, f);
+          return `<text x="${tx}" y="${parseFloat(ty) - 4}" text-anchor="middle" fill="rgba(255,77,166,0.5)" font-family="Poppins,sans-serif" font-size="9" font-weight="600">${Math.round(f * 10)}</text>`;
+        }).join('');
 
-      // Dots with staggered animation delay
-      const dotsSVG = Array.from({ length: N }, (_, i) => {
-        const [dx, dy] = ptXY(i, Math.min(values[i], maxVal) / maxVal);
-        return `<circle class="radar-dot" cx="${dx}" cy="${dy}" r="6" style="animation-delay:${0.2 + i * 0.08}s"/>`;
-      }).join('');
+        // Axis lines
+        const axesSVG = Array.from({ length: N }, (_, i) => {
+          const [ex, ey] = ptXY(i, 1);
+          return `<line x1="${cx}" y1="${cy}" x2="${ex}" y2="${ey}" class="radar-axis-line"/>`;
+        }).join('');
 
-      // Labels + values
-      const labelsSVG = labels.map((lbl, i) => {
-        const a = startAngle + i * step;
-        const lx = (cx + labelR * Math.cos(a)).toFixed(2);
-        const ly = (cy + labelR * Math.sin(a)).toFixed(2);
-        const anchor = Math.abs(Math.cos(a)) < 0.1 ? 'middle' : Math.cos(a) > 0 ? 'start' : 'end';
-        const dy1 = parseFloat(ly) - 8, dy2 = parseFloat(ly) + 9;
-        return `
+        // Data polygon
+        const maxVal = 10;
+        const dataPolyStr = Array.from({ length: N }, (_, i) =>
+          ptXY(i, Math.min(values[i], maxVal) / maxVal).join(',')
+        ).join(' ');
+
+        // Dots with staggered animation delay
+        const dotsSVG = Array.from({ length: N }, (_, i) => {
+          const [dx, dy] = ptXY(i, Math.min(values[i], maxVal) / maxVal);
+          return `<circle class="radar-dot" cx="${dx}" cy="${dy}" r="6" style="animation-delay:${0.2 + i * 0.08}s"/>`;
+        }).join('');
+
+        // Labels + values
+        const labelsSVG = labels.map((lbl, i) => {
+          const a = startAngle + i * step;
+          const lx = (cx + labelR * Math.cos(a)).toFixed(2);
+          const ly = (cy + labelR * Math.sin(a)).toFixed(2);
+          const anchor = Math.abs(Math.cos(a)) < 0.1 ? 'middle' : Math.cos(a) > 0 ? 'start' : 'end';
+          const dy1 = parseFloat(ly) - 8, dy2 = parseFloat(ly) + 9;
+          return `
           <text x="${lx}" y="${dy1}" text-anchor="${anchor}" class="radar-axis-label">${escHtml(lbl)}</text>
           <text x="${lx}" y="${dy2}" text-anchor="${anchor}" class="radar-val-label">${parseFloat(values[i]).toFixed(1)}/10</text>
         `;
-      }).join('');
+        }).join('');
 
-      const svg = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" class="radar-svg">
+        const svg = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" class="radar-svg">
         <defs>
           <linearGradient id="radarGradFill" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stop-color="#ff4da6" stop-opacity="0.45"/>
@@ -2838,41 +2884,41 @@ categories.forEach(cat => {
         ${labelsSVG}
       </svg>`;
 
-      document.getElementById('radarChartContainer').innerHTML = svg;
-    }
-
-    /* ── Stats rapides ── */
-    function renderInfoStats() {
-      const parseAtt = a => parseInt(String(a).replace(/[^0-9]/g, '')) || 0;
-      const total = allLevels.length;
-      const cours = allLevels.filter(l => l.status === 'en_cours').length;
-      const done = allLevels.filter(l => l.status === 'termine').length;
-      const totalAtt = allLevels.filter(l => l.status === 'termine').reduce((s, l) => s + parseAtt(l.attempts), 0);
-      const enjVals = allLevels.map(l => parseFloat(l.enjoyment)).filter(v => !isNaN(v) && v > 0);
-      const avgEnj = enjVals.length ? (enjVals.reduce((a, b) => a + b, 0) / enjVals.length).toFixed(1) : '–';
-
-      document.getElementById('iStatTotal').textContent = total;
-      document.getElementById('iStatCours').textContent = cours;
-      document.getElementById('iStatDone').textContent = done;
-      document.getElementById('iStatAtt').textContent = totalAtt > 0 ? totalAtt.toLocaleString('fr-FR') : '–';
-      document.getElementById('iStatEnj').textContent = avgEnj !== '–' ? avgEnj + '/10' : '–';
-    }
-
-    /* ── Top Ranks ── */
-    function renderTopRanks() {
-      const container = document.getElementById('topRanksStats');
-      const levs = allLevels.filter(l => l.status === 'termine' && l.top_rank && l.top_rank.trim() !== '');
-
-      if (!levs.length) {
-        container.innerHTML = '<p class="aredl-placeholder">Aucun niveau terminé avec un top rank renseigné.</p>';
-        return;
+        document.getElementById('radarChartContainer').innerHTML = svg;
       }
 
-      const parseRank = r => parseInt(String(r).replace(/[^0-9]/g, '')) || 9999;
-      const sorted = [...levs].sort((a, b) => parseRank(a.top_rank) - parseRank(b.top_rank));
-      const rankClass = i => i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : '';
+      /* ── Stats rapides ── */
+      function renderInfoStats() {
+        const parseAtt = a => parseInt(String(a).replace(/[^0-9]/g, '')) || 0;
+        const total = allLevels.length;
+        const cours = allLevels.filter(l => l.status === 'en_cours').length;
+        const done = allLevels.filter(l => l.status === 'termine').length;
+        const totalAtt = allLevels.filter(l => l.status === 'termine').reduce((s, l) => s + parseAtt(l.attempts), 0);
+        const enjVals = allLevels.map(l => parseFloat(l.enjoyment)).filter(v => !isNaN(v) && v > 0);
+        const avgEnj = enjVals.length ? (enjVals.reduce((a, b) => a + b, 0) / enjVals.length).toFixed(1) : '–';
 
-      container.innerHTML = `
+        document.getElementById('iStatTotal').textContent = total;
+        document.getElementById('iStatCours').textContent = cours;
+        document.getElementById('iStatDone').textContent = done;
+        document.getElementById('iStatAtt').textContent = totalAtt > 0 ? totalAtt.toLocaleString('fr-FR') : '–';
+        document.getElementById('iStatEnj').textContent = avgEnj !== '–' ? avgEnj + '/10' : '–';
+      }
+
+      /* ── Top Ranks ── */
+      function renderTopRanks() {
+        const container = document.getElementById('topRanksStats');
+        const levs = allLevels.filter(l => l.status === 'termine' && l.top_rank && l.top_rank.trim() !== '');
+
+        if (!levs.length) {
+          container.innerHTML = '<p class="aredl-placeholder">Aucun niveau terminé avec un top rank renseigné.</p>';
+          return;
+        }
+
+        const parseRank = r => parseInt(String(r).replace(/[^0-9]/g, '')) || 9999;
+        const sorted = [...levs].sort((a, b) => parseRank(a.top_rank) - parseRank(b.top_rank));
+        const rankClass = i => i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : '';
+
+        container.innerHTML = `
     <table class="stat-table">
       <thead><tr><th>#</th><th>Niveau</th><th>Rank AREDL</th><th>Date complétée</th></tr></thead>
       <tbody>
@@ -2885,259 +2931,259 @@ categories.forEach(cat => {
           </tr>`).join('')}
       </tbody>
     </table>`;
-    }
-
-    /* ── Charts ── */
-    function renderCharts() {
-      renderChartDifficulty();
-      renderChartStatus();
-      renderChartCompletions();
-      renderChartProgress();
-      renderChartEnjoyment();
-      renderChartAttempts();
-    }
-
-    function renderChartDifficulty() {
-      destroyChart('difficulty');
-      const topRanges = [
-        { label: 'Top 1-75', min: 1, max: 75 },
-        { label: 'Top 76-150', min: 76, max: 150 },
-        { label: 'Top 151-300', min: 151, max: 300 },
-        { label: 'Top 301-500', min: 301, max: 500 },
-        { label: 'Top 501-700', min: 501, max: 700 },
-        { label: 'Top 701-900', min: 701, max: 900 },
-        { label: 'Top 1000-1200', min: 1000, max: 1200 },
-        { label: 'Top 1201+', min: 1201, max: Infinity }
-      ];
-      const counts = {};
-      topRanges.forEach(r => counts[r.label] = 0);
-
-      const levs = allLevels.filter(l => l.status === 'termine' && l.top_rank && String(l.top_rank).trim() !== '');
-      levs.forEach(l => {
-        const top = parseInt(String(l.top_rank).replace(/[^0-9]/g, ''));
-        if (!top) return;
-        for (const r of topRanges) {
-          if (top >= r.min && top <= r.max) {
-            counts[r.label]++;
-            return;
-          }
-        }
-        counts['Top 1201+']++;
-      });
-
-      const keys = Object.keys(counts).filter(k => counts[k] > 0);
-      if (!keys.length) return;
-
-      const colors = [
-        '#e6194b', '#3cb44b', '#ffe119', '#4363d8', '#f58231', '#911eb4', '#46f0f0', '#f032e6',
-        '#bcf60c', '#fabebe', '#008080', '#e6beff', '#9a6324', '#fffac8', '#800000', '#aaffc3',
-        '#808000', '#ffd8b1', '#000075', '#808080'
-      ].slice(0, keys.length);
-
-      chartInstances['difficulty'] = new Chart(document.getElementById('chartDifficulty'), {
-        type: 'doughnut',
-        data: {
-          labels: keys,
-          datasets: [{ data: keys.map(k => counts[k]), backgroundColor: colors, borderWidth: 0, hoverOffset: 8 }]
-        },
-        options: {
-          responsive: true,
-          plugins: {
-            legend: { position: 'bottom', labels: { font: { family: 'Poppins', size: 11 }, padding: 12, color: '#444' } }
-          }
-        }
-      });
-    }
-
-    function renderChartStatus() {
-      destroyChart('status');
-      const cours = allLevels.filter(l => l.status === 'en_cours').length;
-      const done = allLevels.filter(l => l.status === 'termine').length;
-      const paused = allLevels.filter(l => l.status === 'pas_commence').length;
-      const give_up = allLevels.filter(l => l.status === 'give_up').length;
-      chartInstances['status'] = new Chart(document.getElementById('chartStatus'), {
-        type: 'doughnut',
-        data: {
-          labels: ['⚡ En cours', '✅ Terminés', '💤 Pas commencé', '❌ Give up'],
-          datasets: [{ data: [cours, done, paused, give_up], backgroundColor: ['#ff4da6', '#00c49f', '#b5b5b5', '#ff6b6b'], borderWidth: 0, hoverOffset: 8 }]
-        },
-        options: {
-          responsive: true,
-          plugins: {
-            legend: { position: 'bottom', labels: { font: { family: 'Poppins', size: 11 }, padding: 12, color: '#444' } }
-          }
-        }
-      });
-    }
-
-    function renderChartCompletions() {
-      destroyChart('completions');
-      // Group completions by month
-      const monthlyData = {};
-      const now = new Date();
-      const last12Months = [];
-      for (let i = 11; i >= 0; i--) {
-        const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
-        const key = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0');
-        last12Months.push(key);
-        monthlyData[key] = 0;
       }
 
-      allLevels.forEach(l => {
-        if (l.completion_date && l.status === 'termine') {
-          const d = new Date(l.completion_date);
+      /* ── Charts ── */
+      function renderCharts() {
+        renderChartDifficulty();
+        renderChartStatus();
+        renderChartCompletions();
+        renderChartProgress();
+        renderChartEnjoyment();
+        renderChartAttempts();
+      }
+
+      function renderChartDifficulty() {
+        destroyChart('difficulty');
+        const topRanges = [
+          { label: 'Top 1-75', min: 1, max: 75 },
+          { label: 'Top 76-150', min: 76, max: 150 },
+          { label: 'Top 151-300', min: 151, max: 300 },
+          { label: 'Top 301-500', min: 301, max: 500 },
+          { label: 'Top 501-700', min: 501, max: 700 },
+          { label: 'Top 701-900', min: 701, max: 900 },
+          { label: 'Top 1000-1200', min: 1000, max: 1200 },
+          { label: 'Top 1201+', min: 1201, max: Infinity }
+        ];
+        const counts = {};
+        topRanges.forEach(r => counts[r.label] = 0);
+
+        const levs = allLevels.filter(l => l.status === 'termine' && l.top_rank && String(l.top_rank).trim() !== '');
+        levs.forEach(l => {
+          const top = parseInt(String(l.top_rank).replace(/[^0-9]/g, ''));
+          if (!top) return;
+          for (const r of topRanges) {
+            if (top >= r.min && top <= r.max) {
+              counts[r.label]++;
+              return;
+            }
+          }
+          counts['Top 1201+']++;
+        });
+
+        const keys = Object.keys(counts).filter(k => counts[k] > 0);
+        if (!keys.length) return;
+
+        const colors = [
+          '#e6194b', '#3cb44b', '#ffe119', '#4363d8', '#f58231', '#911eb4', '#46f0f0', '#f032e6',
+          '#bcf60c', '#fabebe', '#008080', '#e6beff', '#9a6324', '#fffac8', '#800000', '#aaffc3',
+          '#808000', '#ffd8b1', '#000075', '#808080'
+        ].slice(0, keys.length);
+
+        chartInstances['difficulty'] = new Chart(document.getElementById('chartDifficulty'), {
+          type: 'doughnut',
+          data: {
+            labels: keys,
+            datasets: [{ data: keys.map(k => counts[k]), backgroundColor: colors, borderWidth: 0, hoverOffset: 8 }]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: { position: 'bottom', labels: { font: { family: 'Poppins', size: 11 }, padding: 12, color: '#444' } }
+            }
+          }
+        });
+      }
+
+      function renderChartStatus() {
+        destroyChart('status');
+        const cours = allLevels.filter(l => l.status === 'en_cours').length;
+        const done = allLevels.filter(l => l.status === 'termine').length;
+        const paused = allLevels.filter(l => l.status === 'pas_commence').length;
+        const give_up = allLevels.filter(l => l.status === 'give_up').length;
+        chartInstances['status'] = new Chart(document.getElementById('chartStatus'), {
+          type: 'doughnut',
+          data: {
+            labels: ['⚡ En cours', '✅ Terminés', '💤 Pas commencé', '❌ Give up'],
+            datasets: [{ data: [cours, done, paused, give_up], backgroundColor: ['#ff4da6', '#00c49f', '#b5b5b5', '#ff6b6b'], borderWidth: 0, hoverOffset: 8 }]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: { position: 'bottom', labels: { font: { family: 'Poppins', size: 11 }, padding: 12, color: '#444' } }
+            }
+          }
+        });
+      }
+
+      function renderChartCompletions() {
+        destroyChart('completions');
+        // Group completions by month
+        const monthlyData = {};
+        const now = new Date();
+        const last12Months = [];
+        for (let i = 11; i >= 0; i--) {
+          const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
           const key = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0');
-          if (monthlyData.hasOwnProperty(key)) monthlyData[key]++;
+          last12Months.push(key);
+          monthlyData[key] = 0;
         }
-      });
 
-      const labels = last12Months.map(k => {
-        const [year, month] = k.split('-');
-        const date = new Date(year, parseInt(month) - 1);
-        return date.toLocaleDateString('fr-FR', { month: 'short', year: '2-digit' });
-      });
-
-      const data = last12Months.map(k => monthlyData[k]);
-
-      chartInstances['completions'] = new Chart(document.getElementById('chartCompletions'), {
-        type: 'line',
-        data: {
-          labels: labels,
-          datasets: [{
-            label: 'Niveaux complétés',
-            data: data,
-            borderColor: '#ff4da6',
-            backgroundColor: 'rgba(255, 77, 166, 0.1)',
-            borderWidth: 3,
-            fill: true,
-            tension: 0.4,
-            pointRadius: 5,
-            pointBackgroundColor: '#ff4da6',
-            pointBorderColor: '#fff',
-            pointBorderWidth: 2,
-            pointHoverRadius: 7
-          }]
-        },
-        options: {
-          responsive: true,
-          plugins: {
-            legend: { position: 'bottom', labels: { font: { family: 'Poppins', size: 11 }, padding: 12, color: '#444' } }
-          },
-          scales: {
-            y: { beginAtZero: true, ticks: { font: { family: 'Poppins', size: 11 }, stepSize: 1 }, grid: { color: '#ffedf5' } },
-            x: { ticks: { font: { family: 'Poppins', size: 11 } }, grid: { color: '#ffedf5' } }
+        allLevels.forEach(l => {
+          if (l.completion_date && l.status === 'termine') {
+            const d = new Date(l.completion_date);
+            const key = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0');
+            if (monthlyData.hasOwnProperty(key)) monthlyData[key]++;
           }
-        }
-      });
-    }
+        });
 
-    function renderChartProgress() {
-      destroyChart('progress');
-      const levs = allLevels.filter(l => l.status === 'en_cours' && (l.progress || 0) > 0);
-      if (!levs.length) return;
-      const sorted = [...levs].sort((a, b) => (b.progress || 0) - (a.progress || 0)).slice(0, 10);
-      chartInstances['progress'] = new Chart(document.getElementById('chartProgress'), {
-        type: 'bar',
-        data: {
-          labels: sorted.map(l => l.name.length > 14 ? l.name.slice(0, 14) + '…' : l.name),
-          datasets: [{
-            label: 'Progression %',
-            data: sorted.map(l => l.progress || 0),
-            backgroundColor: sorted.map(l => {
-              const p = l.progress || 0;
-              return p >= 80 ? '#00c49f' : p >= 50 ? '#ff4da6' : '#c44dff';
-            }),
-            borderRadius: 8, borderSkipped: false
-          }]
-        },
-        options: {
-          responsive: true, indexAxis: 'y',
-          scales: {
-            x: { max: 100, ticks: { font: { family: 'Poppins', size: 11 }, callback: v => v + '%' }, grid: { color: '#ffedf5' } },
-            y: { ticks: { font: { family: 'Poppins', size: 11 } }, grid: { display: false } }
+        const labels = last12Months.map(k => {
+          const [year, month] = k.split('-');
+          const date = new Date(year, parseInt(month) - 1);
+          return date.toLocaleDateString('fr-FR', { month: 'short', year: '2-digit' });
+        });
+
+        const data = last12Months.map(k => monthlyData[k]);
+
+        chartInstances['completions'] = new Chart(document.getElementById('chartCompletions'), {
+          type: 'line',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Niveaux complétés',
+              data: data,
+              borderColor: '#ff4da6',
+              backgroundColor: 'rgba(255, 77, 166, 0.1)',
+              borderWidth: 3,
+              fill: true,
+              tension: 0.4,
+              pointRadius: 5,
+              pointBackgroundColor: '#ff4da6',
+              pointBorderColor: '#fff',
+              pointBorderWidth: 2,
+              pointHoverRadius: 7
+            }]
           },
-          plugins: { legend: { display: false } }
-        }
-      });
-    }
-
-    function renderChartEnjoyment() {
-      destroyChart('enjoyment');
-      const levs = allLevels.filter(l => l.enjoyment != null && l.enjoyment !== '');
-      if (!levs.length) return;
-      const sorted = [...levs].sort((a, b) => parseFloat(b.enjoyment) - parseFloat(a.enjoyment)).slice(0, 10);
-      chartInstances['enjoyment'] = new Chart(document.getElementById('chartEnjoyment'), {
-        type: 'bar',
-        data: {
-          labels: sorted.map(l => l.name.length > 14 ? l.name.slice(0, 14) + '…' : l.name),
-          datasets: [{
-            label: 'Enjoyment /10',
-            data: sorted.map(l => parseFloat(l.enjoyment)),
-            backgroundColor: sorted.map(l => {
-              const v = parseFloat(l.enjoyment);
-              return v >= 8 ? '#00c49f' : v >= 6 ? '#ff4da6' : '#c44dff';
-            }),
-            borderRadius: 8, borderSkipped: false
-          }]
-        },
-        options: {
-          responsive: true, indexAxis: 'y',
-          scales: {
-            x: { max: 10, ticks: { font: { family: 'Poppins', size: 11 } }, grid: { color: '#ffedf5' } },
-            y: { ticks: { font: { family: 'Poppins', size: 11 } }, grid: { display: false } }
-          },
-          plugins: { legend: { display: false } }
-        }
-      });
-    }
-
-    function renderChartAttempts() {
-      destroyChart('attempts');
-      const parseAtt = a => parseInt(String(a).replace(/[^0-9]/g, '')) || 0;
-      const levs = allLevels.filter(l => l.status === 'termine' && l.attempts && parseAtt(l.attempts) > 0);
-      if (!levs.length) return;
-      const sorted = [...levs].sort((a, b) => parseAtt(b.attempts) - parseAtt(a.attempts)).slice(0, 10);
-      chartInstances['attempts'] = new Chart(document.getElementById('chartAttempts'), {
-        type: 'bar',
-        data: {
-          labels: sorted.map(l => l.name.length > 14 ? l.name.slice(0, 14) + '…' : l.name),
-          datasets: [{
-            label: 'Attempts',
-            data: sorted.map(l => parseAtt(l.attempts)),
-            backgroundColor: '#ff6b6b',
-            borderRadius: 8, borderSkipped: false
-          }]
-        },
-        options: {
-          responsive: true, indexAxis: 'y',
-          scales: {
-            x: { ticks: { font: { family: 'Poppins', size: 11 }, callback: v => v.toLocaleString('fr-FR') }, grid: { color: '#ffedf5' } },
-            y: { ticks: { font: { family: 'Poppins', size: 11 } }, grid: { display: false } }
-          },
-          plugins: { legend: { display: false } }
-        }
-      });
-    }
-
-    /* ── Enjoyment Stats ── */
-    function renderEnjoymentStats() {
-      const container = document.getElementById('enjoymentStats');
-      const levs = allLevels.filter(l => l.enjoyment != null && l.enjoyment !== '');
-
-      if (!levs.length) {
-        container.innerHTML = '<p class="aredl-placeholder">Pas encore d\'enjoyment renseigné sur tes niveaux.</p>';
-        return;
+          options: {
+            responsive: true,
+            plugins: {
+              legend: { position: 'bottom', labels: { font: { family: 'Poppins', size: 11 }, padding: 12, color: '#444' } }
+            },
+            scales: {
+              y: { beginAtZero: true, ticks: { font: { family: 'Poppins', size: 11 }, stepSize: 1 }, grid: { color: '#ffedf5' } },
+              x: { ticks: { font: { family: 'Poppins', size: 11 } }, grid: { color: '#ffedf5' } }
+            }
+          }
+        });
       }
 
-      const vals = levs.map(l => parseFloat(l.enjoyment)).filter(v => !isNaN(v));
-      const avg = vals.reduce((a, b) => a + b, 0) / vals.length;
-      const maxL = levs.reduce((a, b) => parseFloat(b.enjoyment) > parseFloat(a.enjoyment) ? b : a);
-      const minL = levs.reduce((a, b) => parseFloat(b.enjoyment) < parseFloat(a.enjoyment) ? b : a);
-      const sorted = [...levs].sort((a, b) => parseFloat(b.enjoyment) - parseFloat(a.enjoyment));
+      function renderChartProgress() {
+        destroyChart('progress');
+        const levs = allLevels.filter(l => l.status === 'en_cours' && (l.progress || 0) > 0);
+        if (!levs.length) return;
+        const sorted = [...levs].sort((a, b) => (b.progress || 0) - (a.progress || 0)).slice(0, 10);
+        chartInstances['progress'] = new Chart(document.getElementById('chartProgress'), {
+          type: 'bar',
+          data: {
+            labels: sorted.map(l => l.name.length > 14 ? l.name.slice(0, 14) + '…' : l.name),
+            datasets: [{
+              label: 'Progression %',
+              data: sorted.map(l => l.progress || 0),
+              backgroundColor: sorted.map(l => {
+                const p = l.progress || 0;
+                return p >= 80 ? '#00c49f' : p >= 50 ? '#ff4da6' : '#c44dff';
+              }),
+              borderRadius: 8, borderSkipped: false
+            }]
+          },
+          options: {
+            responsive: true, indexAxis: 'y',
+            scales: {
+              x: { max: 100, ticks: { font: { family: 'Poppins', size: 11 }, callback: v => v + '%' }, grid: { color: '#ffedf5' } },
+              y: { ticks: { font: { family: 'Poppins', size: 11 } }, grid: { display: false } }
+            },
+            plugins: { legend: { display: false } }
+          }
+        });
+      }
 
-      const rankClass = i => i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : 'rank-badge';
+      function renderChartEnjoyment() {
+        destroyChart('enjoyment');
+        const levs = allLevels.filter(l => l.enjoyment != null && l.enjoyment !== '');
+        if (!levs.length) return;
+        const sorted = [...levs].sort((a, b) => parseFloat(b.enjoyment) - parseFloat(a.enjoyment)).slice(0, 10);
+        chartInstances['enjoyment'] = new Chart(document.getElementById('chartEnjoyment'), {
+          type: 'bar',
+          data: {
+            labels: sorted.map(l => l.name.length > 14 ? l.name.slice(0, 14) + '…' : l.name),
+            datasets: [{
+              label: 'Enjoyment /10',
+              data: sorted.map(l => parseFloat(l.enjoyment)),
+              backgroundColor: sorted.map(l => {
+                const v = parseFloat(l.enjoyment);
+                return v >= 8 ? '#00c49f' : v >= 6 ? '#ff4da6' : '#c44dff';
+              }),
+              borderRadius: 8, borderSkipped: false
+            }]
+          },
+          options: {
+            responsive: true, indexAxis: 'y',
+            scales: {
+              x: { max: 10, ticks: { font: { family: 'Poppins', size: 11 } }, grid: { color: '#ffedf5' } },
+              y: { ticks: { font: { family: 'Poppins', size: 11 } }, grid: { display: false } }
+            },
+            plugins: { legend: { display: false } }
+          }
+        });
+      }
 
-      container.innerHTML = `
+      function renderChartAttempts() {
+        destroyChart('attempts');
+        const parseAtt = a => parseInt(String(a).replace(/[^0-9]/g, '')) || 0;
+        const levs = allLevels.filter(l => l.status === 'termine' && l.attempts && parseAtt(l.attempts) > 0);
+        if (!levs.length) return;
+        const sorted = [...levs].sort((a, b) => parseAtt(b.attempts) - parseAtt(a.attempts)).slice(0, 10);
+        chartInstances['attempts'] = new Chart(document.getElementById('chartAttempts'), {
+          type: 'bar',
+          data: {
+            labels: sorted.map(l => l.name.length > 14 ? l.name.slice(0, 14) + '…' : l.name),
+            datasets: [{
+              label: 'Attempts',
+              data: sorted.map(l => parseAtt(l.attempts)),
+              backgroundColor: '#ff6b6b',
+              borderRadius: 8, borderSkipped: false
+            }]
+          },
+          options: {
+            responsive: true, indexAxis: 'y',
+            scales: {
+              x: { ticks: { font: { family: 'Poppins', size: 11 }, callback: v => v.toLocaleString('fr-FR') }, grid: { color: '#ffedf5' } },
+              y: { ticks: { font: { family: 'Poppins', size: 11 } }, grid: { display: false } }
+            },
+            plugins: { legend: { display: false } }
+          }
+        });
+      }
+
+      /* ── Enjoyment Stats ── */
+      function renderEnjoymentStats() {
+        const container = document.getElementById('enjoymentStats');
+        const levs = allLevels.filter(l => l.enjoyment != null && l.enjoyment !== '');
+
+        if (!levs.length) {
+          container.innerHTML = '<p class="aredl-placeholder">Pas encore d\'enjoyment renseigné sur tes niveaux.</p>';
+          return;
+        }
+
+        const vals = levs.map(l => parseFloat(l.enjoyment)).filter(v => !isNaN(v));
+        const avg = vals.reduce((a, b) => a + b, 0) / vals.length;
+        const maxL = levs.reduce((a, b) => parseFloat(b.enjoyment) > parseFloat(a.enjoyment) ? b : a);
+        const minL = levs.reduce((a, b) => parseFloat(b.enjoyment) < parseFloat(a.enjoyment) ? b : a);
+        const sorted = [...levs].sort((a, b) => parseFloat(b.enjoyment) - parseFloat(a.enjoyment));
+
+        const rankClass = i => i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : 'rank-badge';
+
+        container.innerHTML = `
     <div class="big-stat">
       <span class="big-stat-label">📊 Moyenne</span>
       <span class="big-stat-value">${avg.toFixed(1)}/10</span>
@@ -3164,30 +3210,30 @@ categories.forEach(cat => {
           </tr>`).join('')}
       </tbody>
     </table>`;
-    }
-
-    /* ── Attempts Stats ── */
-    function renderAttemptsStats() {
-      const container = document.getElementById('attemptsStats');
-      const parseAtt = a => parseInt(String(a).replace(/[^0-9]/g, '')) || 0;
-      const levs = allLevels.filter(l => l.status === 'termine' && l.attempts && parseAtt(l.attempts) > 0);
-
-      if (!levs.length) {
-        container.innerHTML = '<p class="aredl-placeholder">Pas encore d\'attempts renseignés.</p>';
-        return;
       }
 
-      const vals = levs.map(l => parseAtt(l.attempts));
-      const avg = Math.round(vals.reduce((a, b) => a + b, 0) / vals.length);
-      const total = vals.reduce((a, b) => a + b, 0);
-      const maxL = levs.reduce((a, b) => parseAtt(b.attempts) > parseAtt(a.attempts) ? b : a);
-      const minL = levs.reduce((a, b) => parseAtt(b.attempts) < parseAtt(a.attempts) ? b : a);
-      const sorted = [...levs].sort((a, b) => parseAtt(b.attempts) - parseAtt(a.attempts));
-      const maxVal = parseAtt(maxL.attempts);
+      /* ── Attempts Stats ── */
+      function renderAttemptsStats() {
+        const container = document.getElementById('attemptsStats');
+        const parseAtt = a => parseInt(String(a).replace(/[^0-9]/g, '')) || 0;
+        const levs = allLevels.filter(l => l.status === 'termine' && l.attempts && parseAtt(l.attempts) > 0);
 
-      const rankClass = i => i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : 'rank-badge';
+        if (!levs.length) {
+          container.innerHTML = '<p class="aredl-placeholder">Pas encore d\'attempts renseignés.</p>';
+          return;
+        }
 
-      container.innerHTML = `
+        const vals = levs.map(l => parseAtt(l.attempts));
+        const avg = Math.round(vals.reduce((a, b) => a + b, 0) / vals.length);
+        const total = vals.reduce((a, b) => a + b, 0);
+        const maxL = levs.reduce((a, b) => parseAtt(b.attempts) > parseAtt(a.attempts) ? b : a);
+        const minL = levs.reduce((a, b) => parseAtt(b.attempts) < parseAtt(a.attempts) ? b : a);
+        const sorted = [...levs].sort((a, b) => parseAtt(b.attempts) - parseAtt(a.attempts));
+        const maxVal = parseAtt(maxL.attempts);
+
+        const rankClass = i => i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : 'rank-badge';
+
+        container.innerHTML = `
     <div class="big-stat">
       <span class="big-stat-label">📊 Moyenne</span>
       <span class="big-stat-value">${avg.toLocaleString('fr-FR')}</span>
@@ -3208,8 +3254,8 @@ categories.forEach(cat => {
       <thead><tr><th>#</th><th>Niveau</th><th>Attempts</th></tr></thead>
       <tbody>
         ${sorted.map((l, i) => {
-        const pct = Math.round((parseAtt(l.attempts) / maxVal) * 100);
-        return `
+          const pct = Math.round((parseAtt(l.attempts) / maxVal) * 100);
+          return `
           <tr>
             <td><span class="rank-badge ${rankClass(i)}">${i + 1}</span></td>
             <td>${escHtml(l.name)}</td>
@@ -3218,29 +3264,29 @@ categories.forEach(cat => {
               <div class="enjoy-bar"><div class="enjoy-fill" style="width:${pct}%;background:linear-gradient(90deg,#ff6b6b,#ee0979)"></div></div>
             </td>
           </tr>`;
-      }).join('')}
+        }).join('')}
       </tbody>
     </table>`;
-    }
-
-    /* ── Worst Fails Stats ── */
-    function renderWorstFailsStats() {
-      const container = document.getElementById('worstFailsStats');
-      const parsePct = p => parseInt(String(p).replace(/[^0-9]/g, '')) || 0;
-      const levs = allLevels.filter(l => l.worst_fail && String(l.worst_fail).trim() !== '');
-
-      if (!levs.length) {
-        container.innerHTML = '<p class="aredl-placeholder">Pas encore de worst fails renseignés sur tes niveaux.</p>';
-        return;
       }
 
-      const sorted = [...levs].sort((a, b) => parsePct(b.worst_fail) - parsePct(a.worst_fail));
-      const worst = sorted[0];
-      const avg = Math.round(sorted.reduce((acc, l) => acc + parsePct(l.worst_fail), 0) / sorted.length);
+      /* ── Worst Fails Stats ── */
+      function renderWorstFailsStats() {
+        const container = document.getElementById('worstFailsStats');
+        const parsePct = p => parseInt(String(p).replace(/[^0-9]/g, '')) || 0;
+        const levs = allLevels.filter(l => l.worst_fail && String(l.worst_fail).trim() !== '');
 
-      const rankClass = i => i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : 'rank-badge';
+        if (!levs.length) {
+          container.innerHTML = '<p class="aredl-placeholder">Pas encore de worst fails renseignés sur tes niveaux.</p>';
+          return;
+        }
 
-      container.innerHTML = `
+        const sorted = [...levs].sort((a, b) => parsePct(b.worst_fail) - parsePct(a.worst_fail));
+        const worst = sorted[0];
+        const avg = Math.round(sorted.reduce((acc, l) => acc + parsePct(l.worst_fail), 0) / sorted.length);
+
+        const rankClass = i => i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : 'rank-badge';
+
+        container.innerHTML = `
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-bottom:18px;">
       <div class="big-stat" style="margin:0">
         <span class="big-stat-label">💀 Pire fail absolu</span>
@@ -3276,54 +3322,54 @@ categories.forEach(cat => {
           </tr>`).join('')}
       </tbody>
     </table>`;
-    }
-
-    /* =========================================================
-       Auth
-    ========================================================= */
-    async function checkAuth() {
-      const { data: { session } } = await sb.auth.getSession();
-      isAdmin = !!session;
-      updateAdminUI();
-    }
-
-    function updateAdminUI() {
-      document.getElementById('adminFab').textContent = isAdmin ? '⚙️' : '🔐';
-      const btn = document.getElementById('radarEditBtn');
-      if (btn) btn.style.display = isAdmin ? 'inline-flex' : 'none';
-    }
-    
-    /* =========================================================
-       Admin panel — level list
-    ========================================================= */
-    async function loadAredlClan() {
-    const response = await fetch("./aredl-clan.json");
-    const clan = await response.json();
-
-    console.log(clan);
-    }
-    async function loadAredlProfile() {
-    const response = await fetch("./aredl-user.json");
-    const user = await response.json();
-
-    console.log(user);
-    }
-    async function loadAdminLevelList() {
-      const { data, error } = await sb.from('levels').select('*').order('id');
-      if (error) return;
-      const c = document.getElementById('adminLevelList');
-      if (!data || !data.length) {
-        c.innerHTML = '<p style="color:#999;margin-top:15px;">Aucun niveau pour l\'instant.</p>';
-        return;
       }
-      c.innerHTML = data.map(buildAdminItem).join('');
-    }
 
-    function buildAdminItem(level) {
-      const diffOpts = ['Easy', 'Normal', 'Hard', 'Harder', 'Insane', 'Easy Demon', 'Medium Demon', 'Hard Demon', 'Insane Demon']
-        .map(d => `<option${level.difficulty === d ? ' selected' : ''}>${d}</option>`).join('');
+      /* =========================================================
+         Auth
+      ========================================================= */
+      async function checkAuth() {
+        const { data: { session } } = await sb.auth.getSession();
+        isAdmin = !!session;
+        updateAdminUI();
+      }
 
-      return `
+      function updateAdminUI() {
+        document.getElementById('adminFab').textContent = isAdmin ? '⚙️' : '🔐';
+        const btn = document.getElementById('radarEditBtn');
+        if (btn) btn.style.display = isAdmin ? 'inline-flex' : 'none';
+      }
+
+      /* =========================================================
+         Admin panel — level list
+      ========================================================= */
+      async function loadAredlClan() {
+        const response = await fetch("./aredl-clan.json");
+        const clan = await response.json();
+
+        console.log(clan);
+      }
+      async function loadAredlProfile() {
+        const response = await fetch("./aredl-user.json");
+        const user = await response.json();
+
+        console.log(user);
+      }
+      async function loadAdminLevelList() {
+        const { data, error } = await sb.from('levels').select('*').order('id');
+        if (error) return;
+        const c = document.getElementById('adminLevelList');
+        if (!data || !data.length) {
+          c.innerHTML = '<p style="color:#999;margin-top:15px;">Aucun niveau pour l\'instant.</p>';
+          return;
+        }
+        c.innerHTML = data.map(buildAdminItem).join('');
+      }
+
+      function buildAdminItem(level) {
+        const diffOpts = ['Easy', 'Normal', 'Hard', 'Harder', 'Insane', 'Easy Demon', 'Medium Demon', 'Hard Demon', 'Insane Demon']
+          .map(d => `<option${level.difficulty === d ? ' selected' : ''}>${d}</option>`).join('');
+
+        return `
   <div class="admin-level-item" id="admin-item-${level.id}">
     <div class="admin-level-info">
       <span class="admin-level-name">${escHtml(level.name)}</span>
@@ -3369,131 +3415,131 @@ categories.forEach(cat => {
       <div id="emsg-${level.id}" class="success-msg"></div>
     </div>
   </div>`;
-    }
-
-    function toggleEdit(id) {
-      const f = document.getElementById(`ef-${id}`);
-      if (f) f.style.display = f.style.display === 'none' ? 'block' : 'none';
-    }
-
-    async function quickStatus(id, newStatus) {
-      const { error } = await sb.from('levels').update({ status: newStatus }).eq('id', id);
-      if (error) alert('Erreur lors de la mise à jour du statut 😢');
-    }
-
-    async function saveEdit(id) {
-      const enjoRaw = document.getElementById(`e${id}ej`).value;
-      const completionDateRaw = document.getElementById(`e${id}cd`).value;
-      const updates = {
-        name: document.getElementById(`e${id}n`).value.trim(),
-        top_rank: document.getElementById(`e${id}t`).value || null,
-        description: document.getElementById(`e${id}d`).value || null,
-        best_run: document.getElementById(`e${id}b`).value || '0%',
-        progress: parseInt(document.getElementById(`e${id}p`).value) || 0,
-        attempts: document.getElementById(`e${id}a`).value || null,
-        worst_fail: document.getElementById(`e${id}wf`).value || null,
-        enjoyment: enjoRaw !== '' ? parseFloat(enjoRaw) : null,
-        image_url: document.getElementById(`e${id}i`).value || null,
-        status: document.getElementById(`e${id}s`).value,
-        difficulty: document.getElementById(`e${id}f`).value,
-        completion_date: completionDateRaw || null,
-      };
-      if (!updates.name) { alert('Le nom est requis.'); return; }
-
-      const { error } = await sb.from('levels').update(updates).eq('id', id);
-      const msg = document.getElementById(`emsg-${id}`);
-      if (error) {
-        msg.textContent = '😢 Erreur lors de la sauvegarde';
-        msg.style.color = '#ff4da6';
-      } else {
-        msg.textContent = '✨ Sauvegardé !';
-        msg.style.color = '#00c49f';
-        setTimeout(() => { toggleEdit(id); loadAdminLevelList(); }, 800);
       }
-    }
 
-    async function deleteLevel(id, name) {
-      if (!confirm(`Supprimer "${name}" ?\nCette action est irréversible.`)) return;
-      const { error } = await sb.from('levels').delete().eq('id', id);
-      if (error) alert('Erreur lors de la suppression 😢');
-      else loadAdminLevelList();
-    }
-
-    async function addLevel() {
-      const getValue = id => document.getElementById(id)?.value ?? '';
-      const name = getValue('fName').trim();
-      if (!name) { alert('Le nom du niveau est requis ✨'); return; }
-
-      const enjoRaw = getValue('fEnjoyment');
-      const completionDateRaw = getValue('fCompletionDate');
-      const level = {
-        name,
-        top_rank: getValue('fTop') || null,
-        description: getValue('fDesc') || null,
-        best_run: getValue('fBestRun') || '0%',
-        progress: parseInt(getValue('fProgress')) || 0,
-        attempts: getValue('fAttempts') || '0',
-        worst_fail: getValue('fWorstFail') || null,
-        enjoyment: enjoRaw !== '' ? parseFloat(enjoRaw) : null,
-        image_url: getValue('fImage') || null,
-        status: getValue('fStatus') || 'pas_commence',
-        difficulty: getValue('fDifficulty') || 'Easy',
-        completion_date: completionDateRaw || null,
-      };
-      const { error } = await sb.from('levels').insert(level);
-      const msg = document.getElementById('addMsg');
-      if (error) {
-        msg.textContent = '😢 Erreur lors de l\'ajout';
-        msg.style.color = '#ff4da6';
-      } else {
-        msg.textContent = '✨ Niveau ajouté avec succès !';
-        msg.style.color = '#00c49f';
-        ['fName', 'fTop', 'fDesc', 'fBestRun', 'fProgress', 'fAttempts', 'fWorstFail', 'fEnjoyment', 'fCompletionDate', 'fImage', 'fDifficulty'].forEach(id => {
-          const el = document.getElementById(id);
-          if (el) el.value = '';
-        });
-        document.getElementById('fStatus').value = 'pas_commence';
-        document.getElementById('fDifficulty').value = 'Easy';
-        setTimeout(() => { msg.textContent = ''; }, 3000);
+      function toggleEdit(id) {
+        const f = document.getElementById(`ef-${id}`);
+        if (f) f.style.display = f.style.display === 'none' ? 'block' : 'none';
       }
-    }
 
-    /* =========================================================
-       Landing Page
-    ========================================================= */
-    function launchApp(viewName) {
-      const landing = document.getElementById('landing');
-      const appWrapper = document.getElementById('appWrapper');
+      async function quickStatus(id, newStatus) {
+        const { error } = await sb.from('levels').update({ status: newStatus }).eq('id', id);
+        if (error) alert('Erreur lors de la mise à jour du statut 😢');
+      }
 
-      // Transition de sortie de la landing
-      landing.classList.add('lp-exit');
+      async function saveEdit(id) {
+        const enjoRaw = document.getElementById(`e${id}ej`).value;
+        const completionDateRaw = document.getElementById(`e${id}cd`).value;
+        const updates = {
+          name: document.getElementById(`e${id}n`).value.trim(),
+          top_rank: document.getElementById(`e${id}t`).value || null,
+          description: document.getElementById(`e${id}d`).value || null,
+          best_run: document.getElementById(`e${id}b`).value || '0%',
+          progress: parseInt(document.getElementById(`e${id}p`).value) || 0,
+          attempts: document.getElementById(`e${id}a`).value || null,
+          worst_fail: document.getElementById(`e${id}wf`).value || null,
+          enjoyment: enjoRaw !== '' ? parseFloat(enjoRaw) : null,
+          image_url: document.getElementById(`e${id}i`).value || null,
+          status: document.getElementById(`e${id}s`).value,
+          difficulty: document.getElementById(`e${id}f`).value,
+          completion_date: completionDateRaw || null,
+        };
+        if (!updates.name) { alert('Le nom est requis.'); return; }
 
-      setTimeout(() => {
-        landing.style.display = 'none';
-        appWrapper.style.display = 'block';
-        // Force reflow then fade in
-        requestAnimationFrame(() => {
-          appWrapper.style.transition = 'opacity 0.5s ease';
-          appWrapper.style.opacity = '1';
-        });
-        // Activer la bonne vue
-        switchView(viewName);
-      }, 680);
-    }
+        const { error } = await sb.from('levels').update(updates).eq('id', id);
+        const msg = document.getElementById(`emsg-${id}`);
+        if (error) {
+          msg.textContent = '😢 Erreur lors de la sauvegarde';
+          msg.style.color = '#ff4da6';
+        } else {
+          msg.textContent = '✨ Sauvegardé !';
+          msg.style.color = '#00c49f';
+          setTimeout(() => { toggleEdit(id); loadAdminLevelList(); }, 800);
+        }
+      }
 
-    /* ─── Génère les particules et étoiles au chargement ─── */
-    (function initLandingEffects() {
-      const particlesEl = document.getElementById('lpParticles');
-      const starsEl = document.getElementById('lpStars');
-      if (!particlesEl || !starsEl) return;
+      async function deleteLevel(id, name) {
+        if (!confirm(`Supprimer "${name}" ?\nCette action est irréversible.`)) return;
+        const { error } = await sb.from('levels').delete().eq('id', id);
+        if (error) alert('Erreur lors de la suppression 😢');
+        else loadAdminLevelList();
+      }
 
-      // Particules colorées flottantes
-      const colors = ['#ff4da6', '#c44dff', '#4dc8ff', '#fff', 'rgba(255,77,166,0.6)', 'rgba(196,77,255,0.5)'];
-      for (let i = 0; i < 45; i++) {
-        const p = document.createElement('div');
-        p.className = 'lp-particle';
-        const size = Math.random() * 8 + 3;
-        p.style.cssText = `
+      async function addLevel() {
+        const getValue = id => document.getElementById(id)?.value ?? '';
+        const name = getValue('fName').trim();
+        if (!name) { alert('Le nom du niveau est requis ✨'); return; }
+
+        const enjoRaw = getValue('fEnjoyment');
+        const completionDateRaw = getValue('fCompletionDate');
+        const level = {
+          name,
+          top_rank: getValue('fTop') || null,
+          description: getValue('fDesc') || null,
+          best_run: getValue('fBestRun') || '0%',
+          progress: parseInt(getValue('fProgress')) || 0,
+          attempts: getValue('fAttempts') || '0',
+          worst_fail: getValue('fWorstFail') || null,
+          enjoyment: enjoRaw !== '' ? parseFloat(enjoRaw) : null,
+          image_url: getValue('fImage') || null,
+          status: getValue('fStatus') || 'pas_commence',
+          difficulty: getValue('fDifficulty') || 'Easy',
+          completion_date: completionDateRaw || null,
+        };
+        const { error } = await sb.from('levels').insert(level);
+        const msg = document.getElementById('addMsg');
+        if (error) {
+          msg.textContent = '😢 Erreur lors de l\'ajout';
+          msg.style.color = '#ff4da6';
+        } else {
+          msg.textContent = '✨ Niveau ajouté avec succès !';
+          msg.style.color = '#00c49f';
+          ['fName', 'fTop', 'fDesc', 'fBestRun', 'fProgress', 'fAttempts', 'fWorstFail', 'fEnjoyment', 'fCompletionDate', 'fImage', 'fDifficulty'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.value = '';
+          });
+          document.getElementById('fStatus').value = 'pas_commence';
+          document.getElementById('fDifficulty').value = 'Easy';
+          setTimeout(() => { msg.textContent = ''; }, 3000);
+        }
+      }
+
+      /* =========================================================
+         Landing Page
+      ========================================================= */
+      function launchApp(viewName) {
+        const landing = document.getElementById('landing');
+        const appWrapper = document.getElementById('appWrapper');
+
+        // Transition de sortie de la landing
+        landing.classList.add('lp-exit');
+
+        setTimeout(() => {
+          landing.style.display = 'none';
+          appWrapper.style.display = 'block';
+          // Force reflow then fade in
+          requestAnimationFrame(() => {
+            appWrapper.style.transition = 'opacity 0.5s ease';
+            appWrapper.style.opacity = '1';
+          });
+          // Activer la bonne vue
+          switchView(viewName);
+        }, 680);
+      }
+
+      /* ─── Génère les particules et étoiles au chargement ─── */
+      (function initLandingEffects() {
+        const particlesEl = document.getElementById('lpParticles');
+        const starsEl = document.getElementById('lpStars');
+        if (!particlesEl || !starsEl) return;
+
+        // Particules colorées flottantes
+        const colors = ['#ff4da6', '#c44dff', '#4dc8ff', '#fff', 'rgba(255,77,166,0.6)', 'rgba(196,77,255,0.5)'];
+        for (let i = 0; i < 45; i++) {
+          const p = document.createElement('div');
+          p.className = 'lp-particle';
+          const size = Math.random() * 8 + 3;
+          p.style.cssText = `
           width:${size}px; height:${size}px;
           left:${Math.random() * 100}%;
           background:${colors[Math.floor(Math.random() * colors.length)]};
@@ -3502,149 +3548,149 @@ categories.forEach(cat => {
           animation-delay:${Math.random() * -15}s;
           filter:blur(${Math.random() > 0.5 ? 0 : 1}px);
         `;
-        particlesEl.appendChild(p);
-      }
+          particlesEl.appendChild(p);
+        }
 
-      // Étoiles scintillantes
-      for (let i = 0; i < 80; i++) {
-        const s = document.createElement('div');
-        s.className = 'lp-star';
-        const size = Math.random() * 3 + 1;
-        s.style.cssText = `
+        // Étoiles scintillantes
+        for (let i = 0; i < 80; i++) {
+          const s = document.createElement('div');
+          s.className = 'lp-star';
+          const size = Math.random() * 3 + 1;
+          s.style.cssText = `
           width:${size}px; height:${size}px;
           top:${Math.random() * 100}%;
           left:${Math.random() * 100}%;
           animation-duration:${Math.random() * 3 + 1.5}s;
           animation-delay:${Math.random() * -4}s;
         `;
-        starsEl.appendChild(s);
-      }
-    })();
+          starsEl.appendChild(s);
+        }
+      })();
 
-    /* =========================================================
-       Event Listeners
-    ========================================================= */
-    document.addEventListener('DOMContentLoaded', async () => {
-      await checkAuth();
-      await loadLevels();
+      /* =========================================================
+         Event Listeners
+      ========================================================= */
+      document.addEventListener('DOMContentLoaded', async () => {
+        await checkAuth();
+        await loadLevels();
 
-      // Navigation principale
-      document.querySelectorAll('.nav-btn').forEach(btn => {
-        btn.addEventListener('click', () => switchView(btn.dataset.view));
-      });
+        // Navigation principale
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+          btn.addEventListener('click', () => switchView(btn.dataset.view));
+        });
 
-      // Search
-      document.getElementById('searchInput').addEventListener('input', e => {
-        searchQuery = e.target.value.toLowerCase().trim();
-        renderLevels();
-      });
-
-      // Filter buttons
-      document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          currentFilter = btn.dataset.filter;
+        // Search
+        document.getElementById('searchInput').addEventListener('input', e => {
+          searchQuery = e.target.value.toLowerCase().trim();
           renderLevels();
         });
-      });
 
-      // Sort buttons
-      document.querySelectorAll('.sort-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          currentSort = btn.dataset.sort;
-          renderLevels();
+        // Filter buttons
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentFilter = btn.dataset.filter;
+            renderLevels();
+          });
         });
-      });
 
-      // Admin FAB
-      document.getElementById('adminFab').addEventListener('click', () => {
-        if (isAdmin) {
-          document.getElementById('adminPanel').classList.add('open');
-          loadAdminLevelList();
-        } else {
-          document.getElementById('loginModal').classList.add('open');
-          document.getElementById('loginError').textContent = '';
-        }
-      });
+        // Sort buttons
+        document.querySelectorAll('.sort-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentSort = btn.dataset.sort;
+            renderLevels();
+          });
+        });
 
-      // Close login
-      document.getElementById('closeLogin').addEventListener('click', () => {
-        document.getElementById('loginModal').classList.remove('open');
-      });
+        // Admin FAB
+        document.getElementById('adminFab').addEventListener('click', () => {
+          if (isAdmin) {
+            document.getElementById('adminPanel').classList.add('open');
+            loadAdminLevelList();
+          } else {
+            document.getElementById('loginModal').classList.add('open');
+            document.getElementById('loginError').textContent = '';
+          }
+        });
 
-      // Close admin
-      document.getElementById('closeAdmin').addEventListener('click', () => {
-        document.getElementById('adminPanel').classList.remove('open');
-      });
-
-      // Close on overlay click
-      document.getElementById('loginModal').addEventListener('click', e => {
-        if (e.target === e.currentTarget) e.currentTarget.classList.remove('open');
-      });
-      document.getElementById('adminPanel').addEventListener('click', e => {
-        if (e.target === e.currentTarget) e.currentTarget.classList.remove('open');
-      });
-
-      // Login submit (Enter key)
-      document.getElementById('adminPassword').addEventListener('keydown', e => {
-        if (e.key === 'Enter') document.getElementById('loginBtn').click();
-      });
-
-      // Login
-      document.getElementById('loginBtn').addEventListener('click', async () => {
-        const email = document.getElementById('adminEmail').value.trim();
-        const password = document.getElementById('adminPassword').value;
-        if (!email || !password) {
-          document.getElementById('loginError').textContent = 'Remplis les deux champs.';
-          return;
-        }
-        const { error } = await sb.auth.signInWithPassword({ email, password });
-        if (error) {
-          document.getElementById('loginError').textContent = 'Email ou mot de passe incorrect.';
-        } else {
-          isAdmin = true;
-          updateAdminUI();
+        // Close login
+        document.getElementById('closeLogin').addEventListener('click', () => {
           document.getElementById('loginModal').classList.remove('open');
-          document.getElementById('adminEmail').value = '';
-          document.getElementById('adminPassword').value = '';
-          document.getElementById('adminPanel').classList.add('open');
-          loadAdminLevelList();
-        }
-      });
-
-      // Logout
-      document.getElementById('logoutBtn').addEventListener('click', async () => {
-        await sb.auth.signOut();
-        isAdmin = false;
-        updateAdminUI();
-        document.getElementById('adminPanel').classList.remove('open');
-      });
-
-      // Add level
-      document.getElementById('addLevelBtn').addEventListener('click', addLevel);
-
-      // Tabs admin
-      document.querySelectorAll('.tab').forEach(tab => {
-        tab.addEventListener('click', () => {
-          document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-          document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-          tab.classList.add('active');
-          document.getElementById(`tab-${tab.dataset.tab}`).classList.add('active');
-          if (tab.dataset.tab === 'manage') loadAdminLevelList();
         });
-      });
 
-      // Realtime — refresh cards automatically
-      sb.channel('levels-realtime')
-        .on('postgres_changes', { event: '*', schema: 'public', table: 'levels' }, async () => {
-          await loadLevels();
-        })
-        .subscribe();
-    });
-  </script>
+        // Close admin
+        document.getElementById('closeAdmin').addEventListener('click', () => {
+          document.getElementById('adminPanel').classList.remove('open');
+        });
+
+        // Close on overlay click
+        document.getElementById('loginModal').addEventListener('click', e => {
+          if (e.target === e.currentTarget) e.currentTarget.classList.remove('open');
+        });
+        document.getElementById('adminPanel').addEventListener('click', e => {
+          if (e.target === e.currentTarget) e.currentTarget.classList.remove('open');
+        });
+
+        // Login submit (Enter key)
+        document.getElementById('adminPassword').addEventListener('keydown', e => {
+          if (e.key === 'Enter') document.getElementById('loginBtn').click();
+        });
+
+        // Login
+        document.getElementById('loginBtn').addEventListener('click', async () => {
+          const email = document.getElementById('adminEmail').value.trim();
+          const password = document.getElementById('adminPassword').value;
+          if (!email || !password) {
+            document.getElementById('loginError').textContent = 'Remplis les deux champs.';
+            return;
+          }
+          const { error } = await sb.auth.signInWithPassword({ email, password });
+          if (error) {
+            document.getElementById('loginError').textContent = 'Email ou mot de passe incorrect.';
+          } else {
+            isAdmin = true;
+            updateAdminUI();
+            document.getElementById('loginModal').classList.remove('open');
+            document.getElementById('adminEmail').value = '';
+            document.getElementById('adminPassword').value = '';
+            document.getElementById('adminPanel').classList.add('open');
+            loadAdminLevelList();
+          }
+        });
+
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', async () => {
+          await sb.auth.signOut();
+          isAdmin = false;
+          updateAdminUI();
+          document.getElementById('adminPanel').classList.remove('open');
+        });
+
+        // Add level
+        document.getElementById('addLevelBtn').addEventListener('click', addLevel);
+
+        // Tabs admin
+        document.querySelectorAll('.tab').forEach(tab => {
+          tab.addEventListener('click', () => {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            tab.classList.add('active');
+            document.getElementById(`tab-${tab.dataset.tab}`).classList.add('active');
+            if (tab.dataset.tab === 'manage') loadAdminLevelList();
+          });
+        });
+
+        // Realtime — refresh cards automatically
+        sb.channel('levels-realtime')
+          .on('postgres_changes', { event: '*', schema: 'public', table: 'levels' }, async () => {
+            await loadLevels();
+          })
+          .subscribe();
+      });
+    </script>
 
 </body>
 
