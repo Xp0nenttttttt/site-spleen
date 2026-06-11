@@ -2234,6 +2234,19 @@
             placeholder="Enjoyment /10  (ex: 8.5)">
           <input id="fCompletionDate" class="form-input" type="date" placeholder="Date de complétion">
           <input id="fImage" class="form-input" placeholder="URL image">
+          <select id="fCategory" class="form-input">
+  <option value="">Aucune</option>
+  <option value="Timings">Timings</option>
+  <option value="Wave">Wave</option>
+  <option value="Nine Circles">Nine Circles</option>
+  <option value="Memory">Memory</option>
+  <option value="Reta">Reta</option>
+  <option value="Flow">Flow</option>
+  <option value="Learny">Learny</option>
+  <option value="Tech">Tech</option>
+  <option value="Ship">Ship</option>
+   <option value="Balanced">Balanced</option>
+</select>
           <select id="fDifficulty" class="form-input">
             <option value="Easy">Easy</option>
             <option value="Normal">Normal</option>
@@ -2337,6 +2350,7 @@ create policy "write_settings" on settings for all using (auth.role() = 'authent
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 
   <script>
+    
     /* =========================================================
        ⚙️  CONFIGURATION — Remplace ces deux valeurs !
     ========================================================= */
@@ -2347,7 +2361,7 @@ create policy "write_settings" on settings for all using (auth.role() = 'authent
        Init
     ========================================================= */
     const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
+    
     let allLevels = [];
     let currentFilter = 'all';
     let currentSort = 'default';
@@ -2538,6 +2552,26 @@ create policy "write_settings" on settings for all using (auth.role() = 'authent
     }
 
     function createLevelCard(level) {
+      
+      const categories = [
+  "Easy Demon",
+  "Medium Demon",
+  "Hard Demon",
+  "Insane Demon",
+  "Extreme Demon"
+];
+
+categories.forEach(cat => {
+  const levelsCat = levels.filter(
+    l => l.status === "termine" && l.category === cat
+  );
+
+  const hardest = levelsCat.sort((a,b) => b.position - a.position)[0];
+
+  if(hardest){
+    // afficher le hardest de la catégorie
+  }
+});
       const sClass = STATUS_CLASS[level.status] || 'paused';
       const sLabel = STATUS_LABEL[level.status] || 'Pas commencé';
       const fillClass = level.status === 'termine' ? 'done-fill' : '';
