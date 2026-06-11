@@ -1928,6 +1928,7 @@
         <button class="nav-btn active" data-view="levels">🎮 Progression</button>
         <button class="nav-btn" data-view="playerinfos">ℹ️ Infos</button>
         <button class="nav-btn" data-view="infos">📊 Statistiques</button>
+        <button class="nav-btn" data-view="categories">🏆 Catégories</button>
       </div>
 
       <!-- ═══════════════════════════════════ VIEW: LEVELS ═══════════════════════════════════ -->
@@ -2191,7 +2192,19 @@
       <div class="badge" title="First Extreme Demon">First Extreme Demon</div>
       <div class="badge" title="Clan Founder">Clan Founder</div>
     </div>
+<div class="view" id="view-categories">
 
+  <div class="info-card">
+    <div class="info-card-title">
+      <div class="info-card-icon">🏆</div>
+      Hardests par catégorie
+    </div>
+
+    <div id="categoriesContainer"></div>
+
+  </div>
+
+</div>
 
     <!-- Admin FAB -->
     <button class="admin-fab" id="adminFab" title="Admin">🔐</button>
@@ -2255,6 +2268,19 @@
             <option value="Hard Demon">Hard Demon</option>
             <option value="Insane Demon">Insane Demon</option>
           </select>
+          <select id="fCategory" class="form-input">
+  <option value="">Aucune</option>
+  <option value="Timings">Timings</option>
+  <option value="Wave">Wave</option>
+  <option value="Nine Circles">Nine Circles</option>
+  <option value="Memory">Memory</option>
+  <option value="Reta">Reta</option>
+  <option value="Flow">Flow</option>
+  <option value="Learny">Learny</option>
+  <option value="Tech">Tech</option>
+  <option value="Ship">Ship</option>
+   <option value="Balanced">Balanced</option>
+</select>
           <select id="fStatus" class="form-input">
             <option value="pas_commence">💤 Pas commencé</option>
             <option value="en_cours">⚡ En cours</option>
